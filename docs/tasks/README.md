@@ -14,12 +14,12 @@
 
 ## 2. Tela Inicial — Galeria de Imagens
 
-- [ ] Criar página `GalleryPage` com grid responsivo de thumbnails
-- [ ] Criar componente `DrawingCard` (thumbnail do desenho)
-- [ ] Ícones grandes, sem texto — apenas imagens
-- [ ] Navegação para a tela de colorir ao tocar no card
-- [ ] Layout adaptado para **tablet/celular** (touch-first)
-- [ ] Feedback visual ao tocar (animação/destaque)
+- [x] Criar página `GalleryPage` com grid responsivo de thumbnails
+- [x] Criar componente `DrawingCard` (thumbnail do desenho)
+- [x] Ícones grandes, sem texto — apenas imagens
+- [x] Navegação para a tela de colorir ao tocar no card
+- [x] Layout adaptado para **tablet/celular** (touch-first)
+- [x] Feedback visual ao tocar (animação/destaque)
 
 **Critérios de aceite:**
 - Grid exibe 4–6 desenhos com thumbnails SVG
