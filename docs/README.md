@@ -65,42 +65,6 @@ Um site simples e interativo onde crianças pequenas podem colorir desenhos com 
 - 🌐 Mais desenhos (galeria expansível)
 - 👤 Perfis de criança (sem dados sensíveis)
 
-## Estrutura de Pastas (proposta)
-
-```
-leonardo-da-vinci-app/
-├── public/
-│   └── drawings/            # Arquivos SVG dos desenhos
-├── src/
-│   ├── components/
-│   │   ├── Gallery.tsx      # Tela inicial com grid de desenhos
-│   │   ├── ColoringPage.tsx # Tela de colorir
-│   │   ├── ColorPalette.tsx # Barra de cores
-│   │   └── SVGDrawing.tsx   # Componente que renderiza o SVG interativo
-│   ├── data/
-│   │   └── drawings.ts     # Metadados dos desenhos (nome, arquivo, thumbnail)
-│   ├── hooks/
-│   │   └── useColoringState.ts # Estado: cor selecionada, histórico, undo
-│   ├── App.tsx
-│   ├── main.tsx
-│   └── index.css
-├── docs/
-│   └── README.md            # Este documento
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-└── tailwind.config.js
-```
-
-## Como Rodar (após implementação)
-
-```bash
-npm install
-npm run dev
-```
-
-Acesse `http://localhost:5173` no navegador.
-
 ## Fluxo Principal
 
 ```
