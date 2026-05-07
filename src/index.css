@@ -115,3 +115,62 @@
     touch-action: manipulation;
   }
 }
+
+/* ─── Drawing Card Animations ─── */
+
+@keyframes card-entrance {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes card-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes card-border-pulse {
+  0%, 100% {
+    border-color: inherit;
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/*
+ * When the user has no motion preference, animate cards with:
+ * 1. Staggered entrance (fade + scale)
+ * 2. Gentle idle float (translateY oscillation)
+ * 3. Subtle border pulse (opacity oscillation)
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .drawing-card {
+    /* Start invisible — entrance animation reveals */
+    opacity: 0;
+    animation:
+      card-entrance 500ms cubic-bezier(0.34, 1.56, 0.64, 1) both,
+      card-float var(--float-duration, 3s) ease-in-out var(--float-delay, 0ms) infinite,
+      card-border-pulse 2s ease-in-out var(--pulse-delay, 0ms) infinite;
+    animation-delay: var(--entrance-delay, 0ms), var(--float-delay, 0ms), var(--pulse-delay, 0ms);
+  }
+}
+
+/* Reduced motion: instant visibility, no transform animations */
+@media (prefers-reduced-motion: reduce) {
+  .drawing-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

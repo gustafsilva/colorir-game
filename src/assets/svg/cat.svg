@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Cat (gato): Simple sitting cat — cute, round, chunky for toddlers -->
+
+  <!-- Tail: curvy tail coming from back-right of body -->
+  <path
+    id="cat-tail"
+    d="M 290 280 C 330 260, 360 220, 350 180 C 340 150, 310 150, 310 170 C 310 190, 330 200, 320 230 C 310 260, 290 270, 290 280 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Body: big round oval sitting body -->
+  <path
+    id="cat-body"
+    d="M 200 220 C 260 220, 300 260, 300 310 C 300 360, 260 380, 200 380 C 140 380, 100 360, 100 310 C 100 260, 140 220, 200 220 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Head: large round circle head -->
+  <path
+    id="cat-head"
+    d="M 200 100 C 255 100, 290 135, 290 185 C 290 235, 255 260, 200 260 C 145 260, 110 235, 110 185 C 110 135, 145 100, 200 100 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Left ear: triangular with soft curves -->
+  <path
+    id="cat-left-ear"
+    d="M 130 140 C 120 90, 130 50, 155 45 C 170 42, 175 70, 165 105 C 155 130, 140 145, 130 140 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Right ear: triangular with soft curves (mirrored) -->
+  <path
+    id="cat-right-ear"
+    d="M 270 140 C 280 90, 270 50, 245 45 C 230 42, 225 70, 235 105 C 245 130, 260 145, 270 140 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Nose: cute round triangle nose -->
+  <path
+    id="cat-nose"
+    d="M 200 190 C 210 185, 215 195, 210 205 C 205 212, 195 212, 190 205 C 185 195, 190 185, 200 190 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Decorative details (non-fillable): eyes and whiskers -->
+  <circle cx="170" cy="170" r="8" fill="#4a4a4a" />
+  <circle cx="230" cy="170" r="8" fill="#4a4a4a" />
+  <circle cx="173" cy="167" r="3" fill="#FFFFFF" />
+  <circle cx="233" cy="167" r="3" fill="#FFFFFF" />
+
+  <!-- Whiskers -->
+  <line x1="145" y1="195" x2="90" y2="185" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" />
+  <line x1="145" y1="200" x2="88" y2="205" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" />
+  <line x1="255" y1="195" x2="310" y2="185" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" />
+  <line x1="255" y1="200" x2="312" y2="205" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Mouth -->
+  <path d="M 192 212 C 196 220, 204 220, 208 212" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" />
+</svg>

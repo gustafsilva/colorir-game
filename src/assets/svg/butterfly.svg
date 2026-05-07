@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Butterfly (borboleta): Symmetrical butterfly — chunky, round, toddler-friendly -->
+
+  <!-- Top-left wing -->
+  <path
+    id="butterfly-wing-top-left"
+    d="M 195 160 C 170 100, 100 60, 60 80 C 20 100, 20 160, 60 180 C 90 195, 150 190, 195 175 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Top-right wing (mirrored) -->
+  <path
+    id="butterfly-wing-top-right"
+    d="M 205 160 C 230 100, 300 60, 340 80 C 380 100, 380 160, 340 180 C 310 195, 250 190, 205 175 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Bottom-left wing -->
+  <path
+    id="butterfly-wing-bottom-left"
+    d="M 195 200 C 160 215, 80 220, 55 260 C 30 300, 60 345, 100 340 C 140 335, 170 290, 195 240 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Bottom-right wing (mirrored) -->
+  <path
+    id="butterfly-wing-bottom-right"
+    d="M 205 200 C 240 215, 320 220, 345 260 C 370 300, 340 345, 300 340 C 260 335, 230 290, 205 240 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Body: elongated oval -->
+  <path
+    id="butterfly-body"
+    d="M 192 155 C 192 145, 208 145, 208 155 L 210 320 C 210 335, 190 335, 190 320 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Head: round circle -->
+  <path
+    id="butterfly-head"
+    d="M 200 110 C 220 110, 230 125, 230 140 C 230 155, 220 165, 200 165 C 180 165, 170 155, 170 140 C 170 125, 180 110, 200 110 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Decorative (non-fillable): antennae -->
+  <path d="M 190 115 C 175 80, 155 65, 150 55" fill="none" stroke="#4a4a4a" stroke-width="3" stroke-linecap="round" />
+  <circle cx="150" cy="55" r="6" fill="#4a4a4a" />
+  <path d="M 210 115 C 225 80, 245 65, 250 55" fill="none" stroke="#4a4a4a" stroke-width="3" stroke-linecap="round" />
+  <circle cx="250" cy="55" r="6" fill="#4a4a4a" />
+
+  <!-- Decorative: cute face -->
+  <circle cx="190" cy="135" r="5" fill="#4a4a4a" />
+  <circle cx="210" cy="135" r="5" fill="#4a4a4a" />
+  <circle cx="192" cy="133" r="2" fill="#FFFFFF" />
+  <circle cx="212" cy="133" r="2" fill="#FFFFFF" />
+  <path d="M 194 150 C 198 156, 202 156, 206 150" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" />
+</svg>

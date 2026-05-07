@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Star (estrela): Happy star with smiley face + 2 small stars — chunky toddler style -->
+
+  <!-- Main large 5-pointed star with rounded joins -->
+  <path
+    id="star-main"
+    d="M 200 50
+       L 230 145
+       L 330 145
+       L 250 205
+       L 280 305
+       L 200 245
+       L 120 305
+       L 150 205
+       L 70 145
+       L 170 145
+       Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Left eye: round circle -->
+  <path
+    id="star-left-eye"
+    d="M 170 165 C 170 155, 180 150, 185 155 C 190 160, 190 175, 185 180 C 180 185, 170 180, 170 175 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Right eye: round circle -->
+  <path
+    id="star-right-eye"
+    d="M 215 165 C 215 155, 225 150, 230 155 C 235 160, 235 175, 230 180 C 225 185, 215 180, 215 175 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Mouth: cute smile arc -->
+  <path
+    id="star-mouth"
+    d="M 175 200 C 180 225, 220 225, 225 200 C 220 215, 180 215, 175 200 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Small star 1: top-left corner -->
+  <path
+    id="star-small-1"
+    d="M 70 60
+       L 78 82
+       L 100 82
+       L 82 96
+       L 90 118
+       L 70 104
+       L 50 118
+       L 58 96
+       L 40 82
+       L 62 82
+       Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Small star 2: bottom-right area -->
+  <path
+    id="star-small-2"
+    d="M 340 320
+       L 348 342
+       L 370 342
+       L 352 356
+       L 360 378
+       L 340 364
+       L 320 378
+       L 328 356
+       L 310 342
+       L 332 342
+       Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+</svg>

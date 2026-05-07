@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Sunflower (girassol): Big friendly sunflower — chunky, round, toddler-friendly -->
+
+  <!-- Stem: thick green stem going down -->
+  <path
+    id="sunflower-stem"
+    d="M 190 220 L 190 380 L 210 380 L 210 220 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Left leaf -->
+  <path
+    id="sunflower-leaf-left"
+    d="M 190 300 C 160 280, 90 275, 70 290 C 55 300, 65 320, 90 320 C 115 320, 160 310, 190 310 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Right leaf -->
+  <path
+    id="sunflower-leaf-right"
+    d="M 210 330 C 240 310, 310 305, 330 320 C 345 330, 335 350, 310 350 C 285 350, 240 340, 210 340 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Petal 1: top -->
+  <path
+    id="sunflower-petal-1"
+    d="M 190 105 C 185 70, 195 35, 200 30 C 205 35, 215 70, 210 105 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Petal 2: top-right -->
+  <path
+    id="sunflower-petal-2"
+    d="M 240 118 C 260 90, 290 70, 298 73 C 300 80, 285 108, 255 132 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Petal 3: bottom-right -->
+  <path
+    id="sunflower-petal-3"
+    d="M 255 175 C 285 170, 320 175, 325 182 C 322 190, 290 195, 255 192 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Petal 4: bottom -->
+  <path
+    id="sunflower-petal-4"
+    d="M 210 215 C 215 248, 205 280, 200 285 C 195 280, 185 248, 190 215 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Petal 5: bottom-left -->
+  <path
+    id="sunflower-petal-5"
+    d="M 145 192 C 115 195, 80 190, 75 182 C 78 175, 110 170, 145 175 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Petal 6: top-left -->
+  <path
+    id="sunflower-petal-6"
+    d="M 160 118 C 140 90, 110 70, 102 73 C 100 80, 115 108, 145 132 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Center: large round circle (drawn last to sit on top of petals) -->
+  <path
+    id="sunflower-center"
+    d="M 200 110 C 245 110, 265 135, 265 165 C 265 195, 245 220, 200 220 C 155 220, 135 195, 135 165 C 135 135, 155 110, 200 110 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Decorative: cute smiley face on center -->
+  <circle cx="182" cy="155" r="6" fill="#4a4a4a" />
+  <circle cx="218" cy="155" r="6" fill="#4a4a4a" />
+  <circle cx="184" cy="153" r="2.5" fill="#FFFFFF" />
+  <circle cx="220" cy="153" r="2.5" fill="#FFFFFF" />
+  <path d="M 182 178 C 190 192, 210 192, 218 178" fill="none" stroke="#4a4a4a" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Leaf veins (decorative) -->
+  <path d="M 185 305 C 150 295, 110 292, 85 300" fill="none" stroke="#4a4a4a" stroke-width="1.5" stroke-linecap="round" opacity="0.3" />
+  <path d="M 215 335 C 250 325, 290 322, 315 330" fill="none" stroke="#4a4a4a" stroke-width="1.5" stroke-linecap="round" opacity="0.3" />
+</svg>
