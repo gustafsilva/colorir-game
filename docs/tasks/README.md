@@ -4,13 +4,13 @@
 
 ---
 
-## 1. Configuração Inicial
+## 1. Configuração Inicial ✅
 
-- [ ] Instalar e configurar **Tailwind CSS**
-- [ ] Configurar **React Router** para navegação entre telas
-- [ ] Definir estrutura de pastas (`components/`, `pages/`, `assets/svg/`, `hooks/`, `types/`)
-- [ ] Configurar tema base (cores, fontes, tamanhos touch-friendly)
-- [ ] Adicionar configuração de **PWA** (manifest, service worker básico)
+- [x] Instalar e configurar **Tailwind CSS** (v4 com `@tailwindcss/vite`)
+- [x] Configurar **React Router** para navegação entre telas (v7, rotas `/` e `/coloring/:id`)
+- [x] Definir estrutura de pastas (`components/`, `pages/`, `assets/svg/`, `hooks/`, `types/`, `layouts/`)
+- [x] Configurar tema base (fonte Baloo 2, paleta vibrante crayon-*, touch targets 48px)
+- [x] Adicionar configuração de **PWA** (manifest, service worker com precache, ícones 192/512px)
 
 ## 2. Tela Inicial — Galeria de Imagens
 
