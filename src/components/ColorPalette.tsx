@@ -1,4 +1,4 @@
-import { useCallback } from "react"
+import { useCallback, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
 /**
@@ -31,14 +31,15 @@ interface ColorPaletteProps {
  *
  * Design decisions for ages 2-5:
  * ─────────────────────────────
- * • Large round buttons (56px) exceed the 48px minimum touch target
+ * • Large round buttons (52px mobile / 56px tablet+) exceed 48px minimum
  * • 16px gap between swatches prevents accidental neighbor taps
- * • Selected state uses scale + ring + glow — three redundant visual cues
- *   so even very young children notice the active color
+ * • Bounce animation on select provides delightful tactile feedback
+ * • Slow pulse on selected swatch draws attention to current color
+ * • Vibrant pastel rainbow gradient bar feels playful and inviting
+ * • Pop sparkle ✨ on tap rewards interaction without overstimulating
+ * • Gradient fade edges hint at scrollability without confusing toddlers
  * • No text anywhere — purely visual color selection
- * • Semi-transparent backdrop keeps focus on the drawing canvas above
- * • Respects prefers-reduced-motion: glow pulse and scale transitions
- *   are disabled, replaced with a simple opaque ring
+ * • Respects prefers-reduced-motion: animations disabled, opaque ring only
  * • role="radiogroup" / role="radio" for assistive technology
  * • Portuguese aria-labels for Brazilian Portuguese localization
  */
@@ -59,42 +60,57 @@ export default function ColorPalette({
       role="radiogroup"
       aria-label="Paleta de cores"
       className={cn(
-        // Fixed to bottom, above safe area on notched devices
         "fixed right-0 bottom-0 left-0 z-50",
         "pb-[env(safe-area-inset-bottom,8px)]",
-        // Soft semi-transparent background — doesn't fight the canvas
-        "bg-white/70 backdrop-blur-md",
-        // Subtle top border to separate from canvas
-        "border-t border-white/50",
-        // Shadow for gentle lift
-        "shadow-[0_-2px_16px_rgba(0,0,0,0.06)]",
+        // Fun pastel rainbow gradient — playful & inviting for toddlers
+        "bg-gradient-to-r from-rose-200/90 via-amber-100/90 via-40% to-sky-200/90",
+        "backdrop-blur-xl",
+        "border-t-2 border-white/50",
+        "shadow-[0_-2px_20px_rgba(0,0,0,0.06)]",
       )}
     >
-      <div
-        className={cn(
-          // Center swatches horizontally with generous padding
-          "flex items-center justify-center",
-          "gap-3 px-4 py-3",
-          // On very small screens, allow horizontal scroll
-          "overflow-x-auto",
-          // Hide scrollbar for a cleaner kid-friendly look
-          "scrollbar-none",
-        )}
-      >
-        {colors.map((color) => {
-          const isSelected = color === selectedColor
-          const label = COLOR_LABELS[color] ?? color
+      {/* Scroll container with fade indicators */}
+      <div className="relative">
+        {/* Left fade — hints scrollability */}
+        <div
+          aria-hidden="true"
+          className={cn(
+            "pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-8",
+            "bg-gradient-to-r from-rose-200/80 to-transparent",
+          )}
+        />
+        {/* Right fade — hints scrollability */}
+        <div
+          aria-hidden="true"
+          className={cn(
+            "pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-8",
+            "bg-gradient-to-l from-sky-200/80 to-transparent",
+          )}
+        />
 
-          return (
-            <ColorSwatch
-              key={color}
-              color={color}
-              label={label}
-              isSelected={isSelected}
-              onSelect={handleSelect}
-            />
-          )
-        })}
+        <div
+          className={cn(
+            "flex items-center justify-center",
+            "gap-4 px-10 py-4",
+            "overflow-x-auto",
+            "scrollbar-none",
+          )}
+        >
+          {colors.map((color) => {
+            const isSelected = color === selectedColor
+            const label = COLOR_LABELS[color] ?? color
+
+            return (
+              <ColorSwatch
+                key={color}
+                color={color}
+                label={label}
+                isSelected={isSelected}
+                onSelect={handleSelect}
+              />
+            )
+          })}
+        </div>
       </div>
     </nav>
   )
@@ -112,92 +128,85 @@ interface ColorSwatchProps {
 /**
  * Individual color swatch — a big round "paint pot" button.
  *
- * Touch target: 56×56px (exceeds 48px minimum for toddler motor skills).
- * Three-layer selected indicator:
- *   1. Scale up to 1.25× — size change is the most obvious cue
- *   2. White ring (4px) — creates contrast separation on any color
- *   3. Colored glow shadow — a soft halo reinforces selection
+ * Touch target: 52×52px (mobile) / 56×56px (tablet+) — exceeds 48px minimum.
+ * Animations (motion-safe only):
+ *   • Bounce on select: scale 1→1.25→1.1→1.18 plays once
+ *   • Pulse on selected: gentle 1.18→1.22→1.18 loops continuously
+ *   • Pop sparkle: ✨ floats up & fades on tap for delight feedback
+ * Selected visual indicator layers:
+ *   1. Scale up via animation — size change is most obvious cue
+ *   2. White ring (3.5px) — contrast separation on any color
+ *   3. Colored glow shadow — soft halo reinforces selection
  *
  * Active (pressed) state scales down to 0.85× for tactile "squish" feedback.
  */
 function ColorSwatch({ color, label, isSelected, onSelect }: ColorSwatchProps) {
+  const [showPop, setShowPop] = useState(false)
+  const popTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const handleClick = useCallback(() => {
+    onSelect(color)
+
+    // Trigger the pop sparkle effect
+    setShowPop(true)
+    if (popTimeoutRef.current) clearTimeout(popTimeoutRef.current)
+    popTimeoutRef.current = setTimeout(() => setShowPop(false), 500)
+  }, [color, onSelect])
+
   return (
     <button
       type="button"
       role="radio"
       aria-checked={isSelected}
       aria-label={label}
-      onClick={() => onSelect(color)}
+      onClick={handleClick}
       className={cn(
-        // Base shape — round, 56px (--spacing-touch-lg)
         "relative flex-shrink-0",
-        "h-14 w-14 rounded-full",
-        // Remove default button styles
+        // 52px on mobile (toddler-friendly), 56px on larger screens
+        "h-[52px] w-[52px] sm:h-14 sm:w-14",
+        "rounded-full",
         "border-none outline-none",
         "cursor-pointer",
-        // Focus ring for keyboard / switch access
-        "focus-visible:ring-3 focus-visible:ring-primary/60 focus-visible:ring-offset-2",
-        // ── Motion-safe transitions ──
-        // Scale + shadow animate for selected/pressed states
-        "motion-safe:transition-[transform,box-shadow]",
-        "motion-safe:duration-200",
-        "motion-safe:[transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]",
-        // Press feedback: satisfying "squish"
+        "focus-visible:ring-3 focus-visible:ring-primary/50 focus-visible:ring-offset-2",
+        // Active press squish
         "motion-safe:active:scale-[0.85]",
-        "motion-safe:active:duration-100",
-        "motion-safe:active:[transition-timing-function:ease-out]",
-        // ── Selected state ──
         isSelected && [
-          // Scale up so the active color is clearly bigger
-          "motion-safe:scale-125",
-          // White ring creates contrast against any swatch color
+          // Bounce plays once (400ms), then pulse loops continuously after
+          "motion-safe:animate-[swatch-bounce_400ms_cubic-bezier(0.34,1.56,0.64,1)_1_forwards,swatch-pulse_1.8s_ease-in-out_400ms_infinite]",
           "ring-[3.5px] ring-white",
-          // Outer shadow ring for extra pop
-          "shadow-[0_0_0_2.5px_rgba(0,0,0,0.12),0_0_12px_4px_var(--swatch-glow)]",
-          // Reduced motion fallback: thicker ring, no scale
-          "motion-reduce:scale-100",
-          "motion-reduce:ring-[5px]",
+          "shadow-[0_0_0_2px_rgba(0,0,0,0.06),0_3px_14px_4px_var(--swatch-glow)]",
+          "motion-reduce:scale-100 motion-reduce:ring-[5px] motion-reduce:animate-none",
         ],
-        // ── Unselected state ──
         !isSelected && [
           "scale-100",
-          // Subtle inner shadow to look like a paint pot
-          "shadow-[inset_0_-3px_6px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.1)]",
+          "shadow-[inset_0_-2px_5px_rgba(0,0,0,0.12),0_1px_4px_rgba(0,0,0,0.1)]",
+          "motion-safe:transition-[transform,box-shadow] motion-safe:duration-200 motion-safe:ease-out",
         ],
       )}
-      style={
-        {
-          backgroundColor: color,
-          // Expose color as custom property for the glow shadow
-          "--swatch-glow": color,
-        } as React.CSSProperties
-      }
+      style={{
+        backgroundColor: color,
+        "--swatch-glow": color,
+      } as React.CSSProperties}
     >
-      {/* Inner highlight — gives a 3D "glossy paint pot" look */}
+      {/* Glossy highlight — makes swatches look like shiny paint pots */}
       <span
         aria-hidden="true"
-        className={cn(
-          "pointer-events-none absolute inset-0 rounded-full",
-          "bg-gradient-to-b from-white/35 via-transparent to-transparent",
-          // Top-heavy gradient for the glossy dome effect
-          "bg-[length:100%_50%] bg-no-repeat",
-        )}
+        className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b from-white/30 via-transparent to-transparent bg-[length:100%_45%] bg-no-repeat"
       />
 
-      {/* Selected pulse ring — animated glow that draws the eye */}
-      {isSelected && (
+      {/* Pop sparkle on tap — rewards interaction with brief delight */}
+      {showPop && (
         <span
           aria-hidden="true"
           className={cn(
-            "pointer-events-none absolute -inset-1 rounded-full",
-            "motion-safe:animate-[swatch-pulse_1.8s_ease-in-out_infinite]",
+            "pointer-events-none absolute -top-3 left-1/2 -translate-x-1/2",
+            "text-base select-none",
+            "motion-safe:animate-[swatch-pop_500ms_ease-out_forwards]",
             "motion-reduce:hidden",
           )}
-          style={{
-            boxShadow: `0 0 10px 3px ${color}`,
-            opacity: 0.5,
-          }}
-        />
+        >
+          ✨
+        </span>
       )}
     </button>
   )

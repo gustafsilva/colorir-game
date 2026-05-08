@@ -2,12 +2,13 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/baloo-2";
+@import "@fontsource-variable/geist";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --font-heading: 'Baloo 2 Variable', cursive;
-  --font-sans: 'Baloo 2 Variable', cursive;
+  --font-sans: 'Geist Variable', system-ui, sans-serif;
 
   /* Touch-friendly sizing */
   --spacing-touch: 48px;
@@ -61,41 +62,43 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  --animate-page-enter: page-enter 400ms ease-out both;
 }
 
 :root {
-  --background: oklch(0.97 0.01 90);
-  --foreground: oklch(0.25 0.02 260);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.25 0.02 260);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.25 0.02 260);
-  --primary: oklch(0.55 0.22 260);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.88 0.17 90);
-  --secondary-foreground: oklch(0.3 0.05 50);
-  --muted: oklch(0.94 0.01 90);
-  --muted-foreground: oklch(0.5 0.02 260);
+  --background: oklch(0.978 0.004 75);
+  --foreground: oklch(0.18 0.015 260);
+  --card: oklch(0.995 0.002 75);
+  --card-foreground: oklch(0.18 0.015 260);
+  --popover: oklch(0.995 0.002 75);
+  --popover-foreground: oklch(0.18 0.015 260);
+  --primary: oklch(0.50 0.19 260);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.94 0.008 75);
+  --secondary-foreground: oklch(0.3 0.02 50);
+  --muted: oklch(0.955 0.005 75);
+  --muted-foreground: oklch(0.45 0.015 260);
   --accent: oklch(0.75 0.18 55);
-  --accent-foreground: oklch(0.98 0 0);
+  --accent-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.63 0.26 25);
-  --border: oklch(0.9 0.02 260);
-  --input: oklch(0.92 0.01 260);
-  --ring: oklch(0.55 0.22 260);
+  --border: oklch(0.93 0.006 75);
+  --input: oklch(0.94 0.004 75);
+  --ring: oklch(0.50 0.19 260);
   --chart-1: oklch(0.63 0.26 25);
   --chart-2: oklch(0.75 0.18 55);
   --chart-3: oklch(0.88 0.17 90);
   --chart-4: oklch(0.72 0.19 145);
   --chart-5: oklch(0.55 0.22 260);
-  --radius: 1rem;
-  --sidebar: oklch(0.96 0.01 260);
-  --sidebar-foreground: oklch(0.25 0.02 260);
-  --sidebar-primary: oklch(0.55 0.22 260);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.92 0.04 260);
-  --sidebar-accent-foreground: oklch(0.25 0.02 260);
-  --sidebar-border: oklch(0.9 0.02 260);
-  --sidebar-ring: oklch(0.55 0.22 260);
+  --radius: 1.25rem;
+  --sidebar: oklch(0.965 0.005 75);
+  --sidebar-foreground: oklch(0.18 0.015 260);
+  --sidebar-primary: oklch(0.50 0.19 260);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.93 0.008 75);
+  --sidebar-accent-foreground: oklch(0.18 0.015 260);
+  --sidebar-border: oklch(0.93 0.006 75);
+  --sidebar-ring: oklch(0.50 0.19 260);
 }
 
 @layer base {
@@ -120,111 +123,216 @@
 
 @keyframes card-entrance {
   from {
-    opacity: 0;
-    transform: scale(0.7);
+    opacity: 0.45;
+    transform: translateY(16px) rotate(0deg);
   }
   to {
     opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ─── Color Palette Swatch Animations (ages 2-5) ─── */
+
+/* Bounce on select: plays once when a swatch becomes active */
+@keyframes swatch-bounce {
+  0% {
     transform: scale(1);
   }
+  40% {
+    transform: scale(1.25);
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1.18);
+  }
 }
 
-@keyframes card-float {
-  0%, 100% {
-    transform: translateY(0);
+/* Gentle pulse on selected swatch: draws toddler attention to current color */
+@keyframes swatch-pulse {
+  0%,
+  100% {
+    transform: scale(1.18);
   }
   50% {
-    transform: translateY(-3px);
+    transform: scale(1.22);
   }
 }
 
-@keyframes card-border-pulse {
-  0%, 100% {
-    border-color: inherit;
+/* Pop sparkle: floats up and fades out on tap for delight feedback */
+@keyframes swatch-pop {
+  0% {
     opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(0.6);
   }
   50% {
-    opacity: 0.6;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-8px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-16px) scale(0.8);
   }
 }
 
-/*
- * When the user has no motion preference, animate cards with:
- * 1. Staggered entrance (fade + scale)
- * 2. Gentle idle float (translateY oscillation)
- * 3. Subtle border pulse (opacity oscillation)
- */
+@keyframes card-wobble {
+  0%, 100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
+
+@keyframes bounce-title {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  30% {
+    transform: translateY(-8px) rotate(-4deg);
+  }
+  60% {
+    transform: translateY(-4px) rotate(4deg);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .drawing-card {
-    /* Start invisible — entrance animation reveals */
-    opacity: 0;
-    animation:
-      card-entrance 500ms cubic-bezier(0.34, 1.56, 0.64, 1) both,
-      card-float var(--float-duration, 3s) ease-in-out var(--float-delay, 0ms) infinite,
-      card-border-pulse 2s ease-in-out var(--pulse-delay, 0ms) infinite;
-    animation-delay: var(--entrance-delay, 0ms), var(--float-delay, 0ms), var(--pulse-delay, 0ms);
+    opacity: 1;
+    animation: card-entrance 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--entrance-delay, 0ms);
+  }
+
+  .card-wobble {
+    animation: card-wobble 3s ease-in-out infinite;
+    animation-delay: var(--wobble-delay, 0ms);
+  }
+
+  .bounce-title {
+    animation: bounce-title 2s ease-in-out infinite;
   }
 }
 
-/* Reduced motion: instant visibility, no transform animations */
 @media (prefers-reduced-motion: reduce) {
   .drawing-card {
     opacity: 1;
     transform: none;
     animation: none;
   }
-}
 
-/* ─── Color Palette Animations ─── */
-
-@keyframes swatch-pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.45;
+  .card-wobble {
+    animation: none;
   }
-  50% {
-    transform: scale(1.35);
-    opacity: 0;
+
+  .bounce-title {
+    animation: none;
   }
 }
 
 /* ─── Coloring Page Styles ─── */
 
-/* Fillable SVG paths — visual feedback on interaction */
+/* Custom paintbrush cursor for the coloring canvas */
+.coloring-canvas-cursor {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M22 2c1.5-1 3.5.2 3 2l-5 10c-.5 1-1.5 1.5-2.5 1.5L14 16l-1 3c-.3.8-1 1.5-2 1.5H9l-.5 2.5c-.2.8-.8 1.5-1.7 1.5H5c-1.2 0-2-.8-2-2 0-.5.1-1 .4-1.4L6 17l1-3 3-2 3.5-3.5c.5-.5 1.2-.8 2-.5L22 2z' fill='%23FF6B35' stroke='%23333' stroke-width='0.8'/%3E%3Cpath d='M5 22.5c0 .8.6 1.5 1.4 1.5.5 0 .9-.3 1.1-.7l.5-2.3H7c-.6 0-1.1.2-1.5.5-.3.3-.5.6-.5 1z' fill='%23FFD700'/%3E%3C/svg%3E") 2 26, pointer;
+}
+
 .colorable-path {
-  transition: filter 150ms ease-out;
+  transition: fill 300ms ease-out, filter 150ms ease-out;
   cursor: pointer;
 }
 
 .colorable-path:hover {
-  filter: brightness(1.08);
+  filter: brightness(1.06) drop-shadow(0 0 4px rgba(100, 180, 255, 0.7));
+  animation: path-hover-glow 1.2s ease-in-out infinite;
 }
 
 .colorable-path:active {
-  filter: brightness(0.92);
+  filter: brightness(0.94);
+  animation: none;
 }
 
-/* Color swatch selection animation */
-@keyframes swatch-select {
-  0% {
-    transform: scale(1);
+/* Unfilled paths pulsing "paint me!" hint */
+.colorable-path--empty {
+  stroke: rgba(150, 150, 220, 0.4);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+  animation: empty-path-pulse 2s ease-in-out infinite;
+}
+
+@keyframes path-hover-glow {
+  0%, 100% {
+    filter: brightness(1.06) drop-shadow(0 0 4px rgba(100, 180, 255, 0.7));
   }
   50% {
-    transform: scale(1.25);
-  }
-  100% {
-    transform: scale(1.15);
+    filter: brightness(1.08) drop-shadow(0 0 8px rgba(100, 180, 255, 0.9));
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .color-swatch-active {
-    animation: swatch-select 250ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+@keyframes empty-path-pulse {
+  0%, 100% {
+    opacity: 1;
+    stroke-opacity: 0.4;
+  }
+  50% {
+    opacity: 0.85;
+    stroke-opacity: 0.8;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .color-swatch-active {
-    transform: scale(1.15);
+  .colorable-path:hover {
+    animation: none;
+  }
+  .colorable-path--empty {
+    animation: none;
+    opacity: 0.9;
+  }
+}
+
+@keyframes splash-pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+@keyframes star-light-up {
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  75% {
+    transform: scale(1.0);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes star-shimmer {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(255, 200, 0, 0.7));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(255, 220, 0, 1));
   }
 }

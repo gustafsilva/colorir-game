@@ -39,10 +39,12 @@ const colorVarMap: Record<string, string> = {
  *
  * Design decisions for 2-5 year olds:
  * - Large touch target (entire card is tappable)
- * - Exaggerated press feedback (scale + glow) so toddlers see their tap registered
+ * - Colorful glow shadow matching accent color for visual delight
+ * - Continuous wobble animation gives cards a "living" personality
+ * - Dramatic bounce-back on tap so toddlers see their tap registered
  * - No text — only visual SVG preview
  * - Debounced navigation prevents double-tap issues common with small children
- * - Staggered entrance animation creates a "magical reveal" moment
+ * - Staggered entrance + wobble delay creates organic motion
  */
 export default function DrawingCard({ drawing, color, index }: DrawingCardProps) {
   const isNavigating = useRef(false)
@@ -63,10 +65,7 @@ export default function DrawingCard({ drawing, color, index }: DrawingCardProps)
   )
 
   const label = ariaLabels[drawing.id] ?? `Colorir ${drawing.name}`
-  const glowColor = colorVarMap[color] ?? "var(--color-crayon-blue)"
-
-  // Vary the float duration slightly per card so they don't all bob in sync
-  const floatDuration = 3 + (index % 3) * 0.5
+  const accentColor = colorVarMap[color] ?? "var(--color-crayon-blue)"
 
   return (
     <Link
@@ -74,53 +73,52 @@ export default function DrawingCard({ drawing, color, index }: DrawingCardProps)
       aria-label={label}
       onClick={handleClick}
       className={cn(
-        // Layout — square card
-        "group relative block aspect-square w-full",
-        // Background & shape
-        "rounded-3xl bg-white",
-        // Border — 3px colored, uses dynamic crayon color
-        "border-3",
-        color === "crayon-red" && "border-crayon-red",
-        color === "crayon-orange" && "border-crayon-orange",
-        color === "crayon-yellow" && "border-crayon-yellow",
-        color === "crayon-green" && "border-crayon-green",
-        color === "crayon-blue" && "border-crayon-blue",
-        color === "crayon-purple" && "border-crayon-purple",
-        // Focus ring for keyboard navigation (accessibility)
+        "group relative block aspect-square w-full max-w-[220px] justify-self-center overflow-hidden",
+        "rounded-3xl",
+        "border-2 border-white/60",
+        "shadow-[0_4px_20px_-4px_var(--card-glow)]",
         "outline-none focus-visible:ring-3 focus-visible:ring-primary/50 focus-visible:ring-offset-2",
-        // Touch feedback — scale on press with spring bounce back
-        "transition-transform duration-300",
-        "[transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]",
-        "active:scale-[0.92] active:duration-[120ms] active:[transition-timing-function:ease-out]",
-        // Cursor
+        "transition-all duration-300 ease-out",
+        "hover:-translate-y-1 hover:shadow-[0_8px_30px_-4px_var(--card-glow)]",
+        "active:scale-[0.94] active:duration-100 active:ease-[cubic-bezier(0.34,1.56,0.64,1)]",
         "cursor-pointer",
-        // Entrance animation class (keyframes defined below)
-        "drawing-card",
+        "drawing-card card-wobble",
       )}
-      style={
-        {
-          "--glow-color": glowColor,
-          "--entrance-delay": `${index * 100}ms`,
-          "--float-duration": `${floatDuration}s`,
-          "--float-delay": `${index * 200}ms`,
-          "--pulse-delay": `${index * 333}ms`,
-        } as React.CSSProperties
-      }
+      style={{
+        "--entrance-delay": `${index * 80}ms`,
+        "--card-glow": accentColor,
+        "--wobble-delay": `${index * 200}ms`,
+        backgroundColor: `color-mix(in srgb, ${accentColor} 18%, white)`,
+      } as React.CSSProperties}
     >
-      {/* Active glow layer — visible on press */}
+      {/* Inner pastel panel with subtle pattern */}
       <span
-        className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-100 group-active:opacity-100"
-        style={{ boxShadow: "0 0 16px 4px var(--glow-color)" }}
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-3 rounded-2xl border border-black/6 bg-[radial-gradient(circle_at_2px_2px,rgba(0,0,0,0.04)_1px,transparent_0)] bg-[size:10px_10px]"
+        style={{ backgroundColor: `color-mix(in srgb, ${accentColor} 12%, white)` }}
+      />
+
+      {/* Thick rounded accent bar */}
+      <span
+        className="pointer-events-none absolute right-2 bottom-0 left-2 h-[6px] rounded-t-full"
+        style={{ backgroundColor: accentColor }}
         aria-hidden="true"
       />
 
-      {/* SVG thumbnail — centered in card, ~75% size */}
+      {/* Emoji fallback/preview so card remains identifiable even if SVG is hard to see */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 flex items-center justify-center text-5xl opacity-20 transition-opacity duration-300 group-hover:opacity-12"
+      >
+        {drawing.name}
+      </span>
+
       <img
         src={drawing.svgPath}
         alt=""
         aria-hidden="true"
         draggable={false}
-        className="absolute inset-0 m-auto h-[75%] w-[75%] object-contain select-none"
+        className="absolute inset-0 m-auto h-[72%] w-[72%] object-contain select-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)] transition-transform duration-300 ease-out group-hover:scale-[1.06]"
       />
     </Link>
   )

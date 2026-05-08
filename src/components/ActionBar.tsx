@@ -11,55 +11,39 @@ interface ActionBarProps {
 }
 
 /**
- * Shared button styles for the action bar.
+ * Child-friendly ActionBar for ages 2-5.
  *
- * Design decisions for 2-5 year olds:
- * - 48px minimum touch target (--spacing-touch) for small fingers
- * - Soft translucent white background so buttons are visible on any coloring canvas
- * - Bold, rounded icons at 28px — large enough to be instantly recognizable
- * - No text labels — toddlers are pre-literate; icons only
- * - Spring-bounce press feedback mirrors DrawingCard pattern for consistency
- * - Disabled state uses low opacity + pointer-events-none so children
- *   aren't confused by unresponsive buttons
- * - prefers-reduced-motion removes the scale transition for accessibility
+ * Layout: [👈 Back] ·················· [↩️ Undo] [🗑️ Clear]
+ *
+ * Design decisions for toddlers & preschoolers:
+ * - 56px minimum touch targets (--spacing-touch-lg) for imprecise motor skills
+ * - Fully rounded pill shapes — friendly, no sharp corners
+ * - Vibrant crayon-colored backgrounds with matching colored shadows
+ * - Bounce animation on tap — playful positive feedback
+ * - Emoji secondary indicators for pre-literate recognition
+ * - Bold 2.5 stroke icons at 28px for high visibility
  */
+
 const buttonBase = cn(
-  // Touch target — at least 48px square
-  "flex items-center justify-center",
-  "min-h-(--spacing-touch) min-w-(--spacing-touch)",
-  // Shape & background — soft frosted pill
-  "rounded-2xl bg-white/70 backdrop-blur-sm",
-  // Focus ring for keyboard/switch navigation (accessibility)
-  "outline-none focus-visible:ring-3 focus-visible:ring-primary/50 focus-visible:ring-offset-2",
-  // Touch feedback — matches DrawingCard spring pattern
-  "transition-transform duration-300",
-  "[transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]",
-  "active:scale-[0.88] active:duration-[120ms] active:[transition-timing-function:ease-out]",
-  // Respect prefers-reduced-motion
-  "motion-reduce:transition-none motion-reduce:active:scale-100",
-  // Cursor
-  "cursor-pointer",
+  "relative flex items-center justify-center gap-1.5",
+  "min-h-(--spacing-touch-lg) min-w-(--spacing-touch-lg) px-4",
+  "rounded-full",
+  "border-2 border-white/50",
+  "outline-none focus-visible:ring-4 focus-visible:ring-white/70 focus-visible:ring-offset-2",
+  "transition-transform duration-200 ease-out",
+  "active:animate-[bounce-tap_300ms_ease-out]",
+  "motion-reduce:active:animate-none motion-reduce:transition-none",
+  "cursor-pointer select-none",
 )
 
 const disabledClasses = cn(
-  "opacity-30 pointer-events-none cursor-default",
-  // Override active state so there's zero feedback when disabled
-  "active:scale-100",
+  "opacity-30 pointer-events-none cursor-default saturate-50",
+  "active:animate-none",
 )
 
 const iconSize = 28
 const iconStroke = 2.5
 
-/**
- * ActionBar — top toolbar for the coloring screen.
- *
- * Layout: [Back] ·················· [Undo] [Clear]
- *
- * Positioned at the top of the coloring view with `justify-between` so the
- * back button sits on the left and action buttons group on the right.
- * The bar itself is transparent — only the individual buttons have backgrounds,
- * keeping the canvas area as open and uncluttered as possible for tiny artists.
- */
 export default function ActionBar({
   onUndo,
   onClear,
@@ -80,56 +64,93 @@ export default function ActionBar({
   }, [navigate])
 
   return (
-    <nav
-      aria-label="Ações do desenho"
-      className="flex w-full items-center justify-between px-4 py-3"
-    >
-      {/* Left — Back to gallery */}
-      <button
-        type="button"
-        onClick={handleBack}
-        aria-label="Voltar para galeria"
-        className={buttonBase}
+    <>
+      {/* Bounce-tap keyframe: scale up then settle back */}
+      <style>{`
+        @keyframes bounce-tap {
+          0%   { transform: scale(1); }
+          35%  { transform: scale(1.1); }
+          65%  { transform: scale(0.96); }
+          100% { transform: scale(1); }
+        }
+      `}</style>
+
+      <nav
+        aria-label="Ações do desenho"
+        className="flex w-full items-center justify-between px-4 py-3"
       >
-        <ArrowLeft
-          size={iconSize}
-          strokeWidth={iconStroke}
-          aria-hidden="true"
-        />
-      </button>
-
-      {/* Right — Undo + Clear grouped together */}
-      <div className="flex items-center gap-3">
+        {/* Left — Back to gallery (soft blue) */}
         <button
           type="button"
-          onClick={onUndo}
-          disabled={!canUndo}
-          aria-label="Desfazer"
-          aria-disabled={!canUndo}
-          className={cn(buttonBase, !canUndo && disabledClasses)}
+          onClick={handleBack}
+          aria-label="Voltar para galeria"
+          className={cn(
+            buttonBase,
+            "bg-(--color-crayon-blue) text-white",
+            "shadow-[0_4px_14px_color-mix(in_srgb,var(--color-crayon-blue)_50%,transparent)]",
+          )}
         >
-          <Undo2
+          <ArrowLeft
             size={iconSize}
             strokeWidth={iconStroke}
             aria-hidden="true"
           />
+          <span className="text-base leading-none" aria-hidden="true">
+            👈
+          </span>
         </button>
 
-        <button
-          type="button"
-          onClick={onClear}
-          disabled={!canClear}
-          aria-label="Limpar tudo"
-          aria-disabled={!canClear}
-          className={cn(buttonBase, !canClear && disabledClasses)}
-        >
-          <Trash2
-            size={iconSize}
-            strokeWidth={iconStroke}
-            aria-hidden="true"
-          />
-        </button>
-      </div>
-    </nav>
+        {/* Right — Undo + Clear grouped together */}
+        <div className="flex items-center gap-4">
+          {/* Undo (soft orange/amber) */}
+          <button
+            type="button"
+            onClick={onUndo}
+            disabled={!canUndo}
+            aria-label="Desfazer"
+            aria-disabled={!canUndo}
+            className={cn(
+              buttonBase,
+              "bg-(--color-crayon-orange) text-white",
+              "shadow-[0_4px_14px_color-mix(in_srgb,var(--color-crayon-orange)_50%,transparent)]",
+              !canUndo && disabledClasses,
+            )}
+          >
+            <Undo2
+              size={iconSize}
+              strokeWidth={iconStroke}
+              aria-hidden="true"
+            />
+            <span className="text-base leading-none" aria-hidden="true">
+              ↩️
+            </span>
+          </button>
+
+          {/* Clear (soft pink/red) */}
+          <button
+            type="button"
+            onClick={onClear}
+            disabled={!canClear}
+            aria-label="Limpar tudo"
+            aria-disabled={!canClear}
+            className={cn(
+              buttonBase,
+              "bg-(--color-crayon-pink) text-white",
+              "shadow-[0_4px_14px_color-mix(in_srgb,var(--color-crayon-pink)_50%,transparent)]",
+              !canClear && disabledClasses,
+            )}
+          >
+            <Trash2
+              size={iconSize}
+              strokeWidth={iconStroke}
+              aria-hidden="true"
+            />
+            <span className="text-base leading-none" aria-hidden="true">
+              🗑️
+            </span>
+          </button>
+        </div>
+      </nav>
+    </>
   )
 }

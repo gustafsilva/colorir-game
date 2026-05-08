@@ -6,6 +6,12 @@ interface ColoringSVGProps {
   onPathClick: (pathId: string) => void
 }
 
+const EMPTY_FILL = "#FFFFFF"
+
+function isEmptyFill(fill: string | undefined): boolean {
+  return !fill || fill.toUpperCase() === EMPTY_FILL
+}
+
 /**
  * Renders an SVG inline and handles coloring interactions via event delegation.
  *
@@ -48,7 +54,14 @@ export default function ColoringSVG({ svgContent, fills, onPathClick }: Coloring
     svg.querySelectorAll("path[id]").forEach((path) => {
       const id = path.getAttribute("id")
       if (id) {
-        path.setAttribute("fill", fills[id] ?? "#FFFFFF")
+        const fillColor = fills[id] ?? EMPTY_FILL
+        path.setAttribute("fill", fillColor)
+
+        if (isEmptyFill(fillColor)) {
+          path.classList.add("colorable-path--empty")
+        } else {
+          path.classList.remove("colorable-path--empty")
+        }
       }
     })
   }, [fills])
@@ -73,7 +86,7 @@ export default function ColoringSVG({ svgContent, fills, onPathClick }: Coloring
     <div
       ref={containerRef}
       onClick={handleClick}
-      className="flex flex-1 items-center justify-center overflow-hidden p-2 sm:p-4"
+      className="coloring-canvas-cursor flex flex-1 items-center justify-center overflow-hidden p-3 sm:p-5"
     />
   )
 }
