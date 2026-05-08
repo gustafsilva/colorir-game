@@ -3,33 +3,29 @@ import { useEffect, useRef, useCallback } from 'react'
 /**
  * AnimatedBackground — A dreamy, magical floating particle canvas for toddlers (ages 2-5).
  *
- * Design decisions for young children:
- * - Soft pastel colors only so particles never compete with coloring content
- * - Slow, gentle movement to avoid overstimulation or motion sickness
- * - Respects prefers-reduced-motion for accessibility
- * - pointer-events: none ensures no accidental interaction
- * - Limited particle count (~20-30) for mobile performance
+ * Particles are hand-drawn canvas paths that mimic Phosphor Duotone shapes
+ * (Star, Drop, Heart, Sparkle). Drawing paths instead of rasterizing SVG keeps
+ * the animation cheap and lets each particle pick a vivid crayon palette color.
  */
 
 type Density = 'low' | 'medium' | 'high'
 
 interface AnimatedBackgroundProps {
-  /** Controls number of floating particles. Default: 'medium' */
   density?: Density
 }
 
-// Emoji shapes that feel magical and safe for toddlers
-const PARTICLE_EMOJIS = ['⭐', '🫧', '❤️', '✨'] as const
+type Shape = 'star' | 'drop' | 'heart' | 'sparkle'
 
-// Soft pastel colors that won't compete with coloring content
-const PASTEL_COLORS = [
-  'rgba(255, 182, 193, 0.6)', // soft pink
-  'rgba(173, 216, 230, 0.6)', // light blue
-  'rgba(255, 218, 185, 0.6)', // peach
-  'rgba(221, 160, 221, 0.6)', // plum
-  'rgba(176, 224, 230, 0.6)', // powder blue
-  'rgba(255, 253, 208, 0.6)', // cream yellow
-  'rgba(200, 230, 201, 0.6)', // mint green
+const SHAPES: Shape[] = ['star', 'drop', 'heart', 'sparkle']
+
+const CRAYON_PALETTE = [
+  'oklch(0.63 0.26 25)',
+  'oklch(0.75 0.18 55)',
+  'oklch(0.88 0.17 90)',
+  'oklch(0.72 0.19 145)',
+  'oklch(0.55 0.22 260)',
+  'oklch(0.55 0.22 300)',
+  'oklch(0.7 0.2 350)',
 ] as const
 
 const DENSITY_MAP: Record<Density, number> = {
@@ -41,7 +37,7 @@ const DENSITY_MAP: Record<Density, number> = {
 interface Particle {
   x: number
   y: number
-  emoji: string
+  shape: Shape
   size: number
   speed: number
   swayAmplitude: number
@@ -52,32 +48,99 @@ interface Particle {
   opacityDirection: number
   opacityMin: number
   opacityMax: number
-  phase: number // offset for sine wave so particles don't all sway in sync
+  phase: number
   color: string
 }
 
 function createParticle(canvasWidth: number, canvasHeight: number, startAtBottom = false): Particle {
-  const emoji = PARTICLE_EMOJIS[Math.floor(Math.random() * PARTICLE_EMOJIS.length)]
-  const color = PASTEL_COLORS[Math.floor(Math.random() * PASTEL_COLORS.length)]
-
   return {
     x: Math.random() * canvasWidth,
     y: startAtBottom
       ? canvasHeight + Math.random() * 60
       : Math.random() * canvasHeight,
-    emoji,
-    size: 16 + Math.random() * 14, // 16-30px — large enough for toddlers to notice
-    speed: 0.3 + Math.random() * 0.5, // slow upward drift
-    swayAmplitude: 15 + Math.random() * 25, // gentle side-to-side
-    swayFrequency: 0.005 + Math.random() * 0.01, // slow oscillation
+    shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
+    size: 14 + Math.random() * 14,
+    speed: 0.3 + Math.random() * 0.5,
+    swayAmplitude: 15 + Math.random() * 25,
+    swayFrequency: 0.005 + Math.random() * 0.01,
     rotation: Math.random() * Math.PI * 2,
-    rotationSpeed: (Math.random() - 0.5) * 0.01, // very slow rotation
+    rotationSpeed: (Math.random() - 0.5) * 0.01,
     opacity: 0.3 + Math.random() * 0.4,
     opacityDirection: Math.random() > 0.5 ? 1 : -1,
-    opacityMin: 0.15,
+    opacityMin: 0.18,
     opacityMax: 0.7,
     phase: Math.random() * Math.PI * 2,
-    color,
+    color: CRAYON_PALETTE[Math.floor(Math.random() * CRAYON_PALETTE.length)],
+  }
+}
+
+function drawStar(ctx: CanvasRenderingContext2D, size: number) {
+  const outer = size / 2
+  const inner = outer * 0.45
+  ctx.beginPath()
+  for (let i = 0; i < 10; i++) {
+    const r = i % 2 === 0 ? outer : inner
+    const a = (Math.PI / 5) * i - Math.PI / 2
+    const x = Math.cos(a) * r
+    const y = Math.sin(a) * r
+    if (i === 0) ctx.moveTo(x, y)
+    else ctx.lineTo(x, y)
+  }
+  ctx.closePath()
+  ctx.fill()
+}
+
+function drawDrop(ctx: CanvasRenderingContext2D, size: number) {
+  const half = size / 2
+  ctx.beginPath()
+  ctx.moveTo(0, -half)
+  ctx.bezierCurveTo(half, -half * 0.2, half * 0.9, half, 0, half)
+  ctx.bezierCurveTo(-half * 0.9, half, -half, -half * 0.2, 0, -half)
+  ctx.closePath()
+  ctx.fill()
+}
+
+function drawHeart(ctx: CanvasRenderingContext2D, size: number) {
+  const s = size / 2
+  ctx.beginPath()
+  ctx.moveTo(0, s * 0.85)
+  ctx.bezierCurveTo(-s * 1.4, s * 0.05, -s * 0.7, -s * 1.05, 0, -s * 0.3)
+  ctx.bezierCurveTo(s * 0.7, -s * 1.05, s * 1.4, s * 0.05, 0, s * 0.85)
+  ctx.closePath()
+  ctx.fill()
+}
+
+function drawSparkle(ctx: CanvasRenderingContext2D, size: number) {
+  const s = size / 2
+  const thin = s * 0.22
+  ctx.beginPath()
+  // 4-point sparkle (vertical + horizontal diamond)
+  ctx.moveTo(0, -s)
+  ctx.lineTo(thin, -thin)
+  ctx.lineTo(s, 0)
+  ctx.lineTo(thin, thin)
+  ctx.lineTo(0, s)
+  ctx.lineTo(-thin, thin)
+  ctx.lineTo(-s, 0)
+  ctx.lineTo(-thin, -thin)
+  ctx.closePath()
+  ctx.fill()
+}
+
+function drawShape(ctx: CanvasRenderingContext2D, shape: Shape, size: number) {
+  switch (shape) {
+    case 'star':
+      drawStar(ctx, size)
+      break
+    case 'drop':
+      drawDrop(ctx, size)
+      break
+    case 'heart':
+      drawHeart(ctx, size)
+      break
+    case 'sparkle':
+      drawSparkle(ctx, size)
+      break
   }
 }
 
@@ -91,24 +154,22 @@ export default function AnimatedBackground({ density = 'medium' }: AnimatedBackg
     (width: number, height: number) => {
       const count = DENSITY_MAP[density]
       particlesRef.current = Array.from({ length: count }, () =>
-        createParticle(width, height, false)
+        createParticle(width, height, false),
       )
     },
-    [density]
+    [density],
   )
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    // Respect prefers-reduced-motion — disable animation entirely
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     if (motionQuery.matches) return
 
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    // Set canvas size to match window
     const resize = () => {
       const dpr = window.devicePixelRatio || 1
       canvas.width = window.innerWidth * dpr
@@ -117,7 +178,6 @@ export default function AnimatedBackground({ density = 'medium' }: AnimatedBackg
       canvas.style.height = `${window.innerHeight}px`
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
 
-      // Re-initialize particles if none exist yet
       if (particlesRef.current.length === 0) {
         initParticles(window.innerWidth, window.innerHeight)
       }
@@ -128,7 +188,6 @@ export default function AnimatedBackground({ density = 'medium' }: AnimatedBackg
 
     window.addEventListener('resize', resize)
 
-    // Main animation loop
     const animate = () => {
       timeRef.current++
       const width = window.innerWidth
@@ -137,21 +196,16 @@ export default function AnimatedBackground({ density = 'medium' }: AnimatedBackg
       ctx.clearRect(0, 0, width, height)
 
       for (const particle of particlesRef.current) {
-        // Update position — float upward
         particle.y -= particle.speed
 
-        // Gentle sine-wave sway
         const sway =
           Math.sin(timeRef.current * particle.swayFrequency + particle.phase) *
           particle.swayAmplitude *
           0.02
 
         particle.x += sway
-
-        // Slow rotation
         particle.rotation += particle.rotationSpeed
 
-        // Fade in/out lifecycle
         particle.opacity += particle.opacityDirection * 0.003
         if (particle.opacity >= particle.opacityMax) {
           particle.opacity = particle.opacityMax
@@ -161,28 +215,23 @@ export default function AnimatedBackground({ density = 'medium' }: AnimatedBackg
           particle.opacityDirection = 1
         }
 
-        // Respawn at bottom when drifted off top
         if (particle.y < -particle.size * 2) {
           const respawned = createParticle(width, height, true)
           Object.assign(particle, respawned)
         }
 
-        // Wrap horizontally
         if (particle.x < -particle.size) {
           particle.x = width + particle.size
         } else if (particle.x > width + particle.size) {
           particle.x = -particle.size
         }
 
-        // Draw particle
         ctx.save()
         ctx.globalAlpha = particle.opacity
         ctx.translate(particle.x, particle.y)
         ctx.rotate(particle.rotation)
-        ctx.font = `${particle.size}px serif`
-        ctx.textAlign = 'center'
-        ctx.textBaseline = 'middle'
-        ctx.fillText(particle.emoji, 0, 0)
+        ctx.fillStyle = particle.color
+        drawShape(ctx, particle.shape, particle.size)
         ctx.restore()
       }
 
@@ -191,7 +240,6 @@ export default function AnimatedBackground({ density = 'medium' }: AnimatedBackg
 
     animationFrameRef.current = requestAnimationFrame(animate)
 
-    // Handle motion preference changes at runtime
     const handleMotionChange = (e: MediaQueryListEvent) => {
       if (e.matches) {
         cancelAnimationFrame(animationFrameRef.current)
@@ -203,7 +251,6 @@ export default function AnimatedBackground({ density = 'medium' }: AnimatedBackg
 
     motionQuery.addEventListener('change', handleMotionChange)
 
-    // Cleanup on unmount
     return () => {
       cancelAnimationFrame(animationFrameRef.current)
       window.removeEventListener('resize', resize)

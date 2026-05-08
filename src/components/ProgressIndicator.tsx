@@ -1,3 +1,4 @@
+import { Star } from "@phosphor-icons/react"
 import { cn } from "@/lib/utils"
 
 interface ProgressIndicatorProps {
@@ -18,6 +19,9 @@ function getStarsLit(progress: number): number {
   return 0
 }
 
+const STAR_LIT_COLOR = "var(--color-crayon-yellow)"
+const STAR_DIM_COLOR = "color-mix(in srgb, var(--color-crayon-brown) 30%, white)"
+
 export default function ProgressIndicator({ progress }: ProgressIndicatorProps) {
   const starsLit = getStarsLit(Math.max(0, Math.min(100, progress)))
   const allLit = starsLit === 5
@@ -35,15 +39,19 @@ export default function ProgressIndicator({ progress }: ProgressIndicatorProps) 
           <span
             key={i}
             className={cn(
-              "inline-block text-[20px] leading-none select-none transition-opacity duration-200",
+              "inline-block leading-none select-none transition-opacity duration-200",
               isLit
                 ? "opacity-100 scale-120 animate-[star-light-up_0.4s_ease-out] drop-shadow-[0_0_4px_rgba(255,200,0,0.7)] motion-reduce:animate-none"
-                : "opacity-25 scale-100",
-              allLit && isLit && "animate-[star-shimmer_1.5s_ease-in-out_infinite] motion-reduce:animate-none"
+                : "opacity-60 scale-100",
+              allLit && isLit && "animate-[star-shimmer_1.5s_ease-in-out_infinite] motion-reduce:animate-none",
             )}
             aria-hidden="true"
           >
-            ⭐
+            <Star
+              weight={isLit ? "fill" : "duotone"}
+              size={22}
+              color={isLit ? STAR_LIT_COLOR : STAR_DIM_COLOR}
+            />
           </span>
         )
       })}

@@ -8,12 +8,12 @@ import appleSvg from "@/assets/svg/apple.svg?url"
 import sunflowerSvg from "@/assets/svg/sunflower.svg?url"
 
 export const drawings: Drawing[] = [
-  { id: "cat", name: "🐱", svgPath: catSvg },
-  { id: "rainbow", name: "🌈", svgPath: rainbowSvg },
-  { id: "star", name: "⭐", svgPath: starSvg },
-  { id: "butterfly", name: "🦋", svgPath: butterflySvg },
-  { id: "apple", name: "🍎", svgPath: appleSvg },
-  { id: "sunflower", name: "🌻", svgPath: sunflowerSvg },
+  { id: "cat", name: "gato", svgPath: catSvg },
+  { id: "rainbow", name: "arco-íris", svgPath: rainbowSvg },
+  { id: "star", name: "estrela", svgPath: starSvg },
+  { id: "butterfly", name: "borboleta", svgPath: butterflySvg },
+  { id: "apple", name: "maçã", svgPath: appleSvg },
+  { id: "sunflower", name: "girassol", svgPath: sunflowerSvg },
 ]
 
 /**

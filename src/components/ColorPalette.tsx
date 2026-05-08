@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react"
+import { Sparkle } from "@phosphor-icons/react"
 import { cn } from "@/lib/utils"
 
 /**
@@ -36,7 +37,7 @@ interface ColorPaletteProps {
  * • Bounce animation on select provides delightful tactile feedback
  * • Slow pulse on selected swatch draws attention to current color
  * • Vibrant pastel rainbow gradient bar feels playful and inviting
- * • Pop sparkle ✨ on tap rewards interaction without overstimulating
+ * • Pop sparkle on tap rewards interaction without overstimulating
  * • Gradient fade edges hint at scrollability without confusing toddlers
  * • No text anywhere — purely visual color selection
  * • Respects prefers-reduced-motion: animations disabled, opaque ring only
@@ -132,7 +133,7 @@ interface ColorSwatchProps {
  * Animations (motion-safe only):
  *   • Bounce on select: scale 1→1.25→1.1→1.18 plays once
  *   • Pulse on selected: gentle 1.18→1.22→1.18 loops continuously
- *   • Pop sparkle: ✨ floats up & fades on tap for delight feedback
+ *   • Pop sparkle: Phosphor icon floats up & fades on tap for delight feedback
  * Selected visual indicator layers:
  *   1. Scale up via animation — size change is most obvious cue
  *   2. White ring (3.5px) — contrast separation on any color
@@ -170,44 +171,67 @@ function ColorSwatch({ color, label, isSelected, onSelect }: ColorSwatchProps) {
         "focus-visible:ring-3 focus-visible:ring-primary/50 focus-visible:ring-offset-2",
         // Active press squish
         "motion-safe:active:scale-[0.85]",
+        "swatch-paintpot",
         isSelected && [
           // Bounce plays once (400ms), then pulse loops continuously after
           "motion-safe:animate-[swatch-bounce_400ms_cubic-bezier(0.34,1.56,0.64,1)_1_forwards,swatch-pulse_1.8s_ease-in-out_400ms_infinite]",
           "ring-[3.5px] ring-white",
-          "shadow-[0_0_0_2px_rgba(0,0,0,0.06),0_3px_14px_4px_var(--swatch-glow)]",
+          "swatch-paintpot--selected",
           "motion-reduce:scale-100 motion-reduce:ring-[5px] motion-reduce:animate-none",
         ],
         !isSelected && [
           "scale-100",
-          "shadow-[inset_0_-2px_5px_rgba(0,0,0,0.12),0_1px_4px_rgba(0,0,0,0.1)]",
           "motion-safe:transition-[transform,box-shadow] motion-safe:duration-200 motion-safe:ease-out",
         ],
       )}
       style={{
-        backgroundColor: color,
+        "--swatch-color": color,
         "--swatch-glow": color,
       } as React.CSSProperties}
     >
-      {/* Glossy highlight — makes swatches look like shiny paint pots */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b from-white/30 via-transparent to-transparent bg-[length:100%_45%] bg-no-repeat"
-      />
-
       {/* Pop sparkle on tap — rewards interaction with brief delight */}
       {showPop && (
         <span
           aria-hidden="true"
           className={cn(
             "pointer-events-none absolute -top-3 left-1/2 -translate-x-1/2",
-            "text-base select-none",
+            "select-none",
             "motion-safe:animate-[swatch-pop_500ms_ease-out_forwards]",
             "motion-reduce:hidden",
           )}
         >
-          ✨
+          <Sparkle
+            size={18}
+            weight="duotone"
+            color="var(--color-crayon-yellow)"
+          />
         </span>
       )}
+
+      <style>{`
+        .swatch-paintpot {
+          background: radial-gradient(
+            circle at 30% 25%,
+            color-mix(in srgb, var(--swatch-color) 70%, white) 0%,
+            var(--swatch-color) 45%,
+            color-mix(in srgb, var(--swatch-color) 80%, black) 100%
+          );
+          box-shadow:
+            inset 0 3px 6px rgba(255, 255, 255, 0.5),
+            inset 0 -4px 8px rgba(0, 0, 0, 0.25),
+            0 3px 0 color-mix(in srgb, var(--swatch-color) 50%, black),
+            0 8px 14px -2px color-mix(in srgb, var(--swatch-color) 40%, transparent),
+            0 1px 2px rgba(0, 0, 0, 0.15);
+        }
+        .swatch-paintpot--selected {
+          box-shadow:
+            inset 0 3px 6px rgba(255, 255, 255, 0.6),
+            inset 0 -4px 8px rgba(0, 0, 0, 0.25),
+            0 0 0 2px rgba(0, 0, 0, 0.06),
+            0 4px 0 color-mix(in srgb, var(--swatch-color) 50%, black),
+            0 10px 22px 4px var(--swatch-glow);
+        }
+      `}</style>
     </button>
   )
 }

@@ -1,7 +1,9 @@
 import { useCallback, useRef } from "react"
 import { Link } from "react-router"
+import { Star } from "@phosphor-icons/react"
 import type { Drawing } from "@/types"
 import { cn } from "@/lib/utils"
+import { useCompletedDrawings } from "@/hooks/useCompletedDrawings"
 
 interface DrawingCardProps {
   drawing: Drawing
@@ -11,10 +13,6 @@ interface DrawingCardProps {
   index: number
 }
 
-/**
- * Portuguese labels for accessibility — maps drawing id to a human-readable
- * description for screen readers. Emoji-only cards need descriptive alt text.
- */
 const ariaLabels: Record<string, string> = {
   cat: "Colorir o gato",
   rainbow: "Colorir o arco-íris",
@@ -24,7 +22,6 @@ const ariaLabels: Record<string, string> = {
   sunflower: "Colorir o girassol",
 }
 
-/** Maps color token names to CSS custom property references */
 const colorVarMap: Record<string, string> = {
   "crayon-red": "var(--color-crayon-red)",
   "crayon-orange": "var(--color-crayon-orange)",
@@ -34,35 +31,21 @@ const colorVarMap: Record<string, string> = {
   "crayon-purple": "var(--color-crayon-purple)",
 }
 
-/**
- * DrawingCard — a tappable card that shows an SVG drawing thumbnail.
- *
- * Design decisions for 2-5 year olds:
- * - Large touch target (entire card is tappable)
- * - Colorful glow shadow matching accent color for visual delight
- * - Continuous wobble animation gives cards a "living" personality
- * - Dramatic bounce-back on tap so toddlers see their tap registered
- * - No text — only visual SVG preview
- * - Debounced navigation prevents double-tap issues common with small children
- * - Staggered entrance + wobble delay creates organic motion
- */
 export default function DrawingCard({ drawing, color, index }: DrawingCardProps) {
   const isNavigating = useRef(false)
+  const { isCompleted } = useCompletedDrawings()
+  const completed = isCompleted(drawing.id)
 
-  const handleClick = useCallback(
-    (e: React.MouseEvent) => {
-      // Debounce: prevent double-navigation within 500ms
-      if (isNavigating.current) {
-        e.preventDefault()
-        return
-      }
-      isNavigating.current = true
-      setTimeout(() => {
-        isNavigating.current = false
-      }, 500)
-    },
-    [],
-  )
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    if (isNavigating.current) {
+      e.preventDefault()
+      return
+    }
+    isNavigating.current = true
+    setTimeout(() => {
+      isNavigating.current = false
+    }, 500)
+  }, [])
 
   const label = ariaLabels[drawing.id] ?? `Colorir ${drawing.name}`
   const accentColor = colorVarMap[color] ?? "var(--color-crayon-blue)"
@@ -70,17 +53,16 @@ export default function DrawingCard({ drawing, color, index }: DrawingCardProps)
   return (
     <Link
       to={`/coloring/${drawing.id}`}
-      aria-label={label}
+      viewTransition
+      aria-label={completed ? `${label} (já colorido)` : label}
       onClick={handleClick}
       className={cn(
-        "group relative block aspect-square w-full max-w-[220px] justify-self-center overflow-hidden",
-        "rounded-3xl",
-        "border-2 border-white/60",
-        "shadow-[0_4px_20px_-4px_var(--card-glow)]",
+        "group relative flex aspect-square w-full max-w-[220px] flex-col items-stretch justify-self-center overflow-visible",
+        "drawing-card-puffy",
         "outline-none focus-visible:ring-3 focus-visible:ring-primary/50 focus-visible:ring-offset-2",
-        "transition-all duration-300 ease-out",
-        "hover:-translate-y-1 hover:shadow-[0_8px_30px_-4px_var(--card-glow)]",
-        "active:scale-[0.94] active:duration-100 active:ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+        "transition-transform duration-300 ease-out",
+        "hover:-translate-y-1 active:translate-y-1",
+        "active:scale-[0.97] active:duration-100",
         "cursor-pointer",
         "drawing-card card-wobble",
       )}
@@ -88,38 +70,90 @@ export default function DrawingCard({ drawing, color, index }: DrawingCardProps)
         "--entrance-delay": `${index * 80}ms`,
         "--card-glow": accentColor,
         "--wobble-delay": `${index * 200}ms`,
-        backgroundColor: `color-mix(in srgb, ${accentColor} 18%, white)`,
       } as React.CSSProperties}
     >
-      {/* Inner pastel panel with subtle pattern */}
+      {/* Thumbnail surface — the puffy panel */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-3 rounded-2xl border border-black/6 bg-[radial-gradient(circle_at_2px_2px,rgba(0,0,0,0.04)_1px,transparent_0)] bg-[size:10px_10px]"
-        style={{ backgroundColor: `color-mix(in srgb, ${accentColor} 12%, white)` }}
-      />
+        className="relative block aspect-square w-full overflow-hidden rounded-[28px] border-[3px] border-white drawing-card-surface"
+      >
+        {/* Inner pastel panel with subtle pattern */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-3 rounded-2xl border border-black/6 bg-[radial-gradient(circle_at_2px_2px,rgba(0,0,0,0.04)_1px,transparent_0)] bg-[size:10px_10px]"
+          style={{ backgroundColor: `color-mix(in srgb, ${accentColor} 12%, white)` }}
+        />
 
-      {/* Thick rounded accent bar */}
-      <span
-        className="pointer-events-none absolute right-2 bottom-0 left-2 h-[6px] rounded-t-full"
-        style={{ backgroundColor: accentColor }}
-        aria-hidden="true"
-      />
+        {/* Thick rounded accent bar */}
+        <span
+          className="pointer-events-none absolute right-2 bottom-0 left-2 h-[6px] rounded-t-full"
+          style={{ backgroundColor: accentColor }}
+          aria-hidden="true"
+        />
 
-      {/* Emoji fallback/preview so card remains identifiable even if SVG is hard to see */}
+        <img
+          src={drawing.svgPath}
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          className="absolute inset-0 m-auto h-[72%] w-[72%] object-contain select-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)] transition-transform duration-300 ease-out group-hover:scale-[1.06]"
+          style={{ viewTransitionName: `drawing-${drawing.id}` } as React.CSSProperties}
+        />
+
+        {/* Completed badge */}
+        {completed && (
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute top-1.5 right-1.5 rounded-full bg-white/85 p-1 shadow-[0_2px_6px_rgba(0,0,0,0.15)] motion-safe:animate-[star-shimmer_1.5s_ease-in-out_infinite]"
+          >
+            <Star
+              size={22}
+              weight="fill"
+              color="var(--color-crayon-yellow)"
+            />
+          </span>
+        )}
+      </span>
+
+      {/* Name label below */}
       <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 flex items-center justify-center text-5xl opacity-20 transition-opacity duration-300 group-hover:opacity-12"
+        className="text-puffy-sm mt-2 block text-center text-[15px] capitalize leading-tight sm:text-base"
+        style={{ color: accentColor }}
       >
         {drawing.name}
       </span>
 
-      <img
-        src={drawing.svgPath}
-        alt=""
-        aria-hidden="true"
-        draggable={false}
-        className="absolute inset-0 m-auto h-[72%] w-[72%] object-contain select-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)] transition-transform duration-300 ease-out group-hover:scale-[1.06]"
-      />
+      <style>{`
+        .drawing-card-surface {
+          background: linear-gradient(
+            145deg,
+            color-mix(in srgb, var(--card-glow) 22%, white) 0%,
+            color-mix(in srgb, var(--card-glow) 8%, white) 100%
+          );
+          box-shadow:
+            inset 0 2px 0 rgba(255, 255, 255, 0.9),
+            inset 0 -4px 8px color-mix(in srgb, var(--card-glow) 30%, transparent),
+            0 6px 0 color-mix(in srgb, var(--card-glow) 50%, white),
+            0 12px 24px -6px color-mix(in srgb, var(--card-glow) 35%, transparent),
+            0 1px 3px rgba(0, 0, 0, 0.08);
+          transition: box-shadow 250ms ease-out;
+        }
+        .drawing-card-puffy:hover .drawing-card-surface {
+          box-shadow:
+            inset 0 2px 0 rgba(255, 255, 255, 0.95),
+            inset 0 -4px 10px color-mix(in srgb, var(--card-glow) 35%, transparent),
+            0 8px 0 color-mix(in srgb, var(--card-glow) 50%, white),
+            0 18px 32px -8px color-mix(in srgb, var(--card-glow) 45%, transparent),
+            0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .drawing-card-puffy:active .drawing-card-surface {
+          box-shadow:
+            inset 0 2px 0 rgba(255, 255, 255, 0.85),
+            inset 0 -2px 4px color-mix(in srgb, var(--card-glow) 25%, transparent),
+            0 2px 0 color-mix(in srgb, var(--card-glow) 50%, white),
+            0 6px 12px -4px color-mix(in srgb, var(--card-glow) 35%, transparent);
+        }
+      `}</style>
     </Link>
   )
 }

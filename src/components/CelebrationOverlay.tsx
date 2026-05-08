@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, useCallback } from "react"
+import { useEffect, useRef, useState, useCallback, type ComponentType } from "react"
+import { Star, Sparkle, Confetti, type IconProps } from "@phosphor-icons/react"
 
 type Milestone = "none" | "half" | "three-quarters" | "complete"
 
@@ -17,10 +18,25 @@ const CONFETTI_COLORS = [
   "oklch(0.7 0.2 350)",
 ]
 
-const MILESTONE_EMOJI: Record<Exclude<Milestone, "none">, string> = {
-  half: "⭐",
-  "three-quarters": "🌟",
-  complete: "🎉",
+const MILESTONE_ICON: Record<
+  Exclude<Milestone, "none">,
+  { Icon: ComponentType<IconProps>; color: string; label: string }
+> = {
+  half: {
+    Icon: Star,
+    color: "var(--color-crayon-yellow)",
+    label: "Estrela conquistada",
+  },
+  "three-quarters": {
+    Icon: Sparkle,
+    color: "var(--color-crayon-orange)",
+    label: "Quase lá",
+  },
+  complete: {
+    Icon: Confetti,
+    color: "var(--color-crayon-pink)",
+    label: "Desenho concluído",
+  },
 }
 
 const PARTICLE_COUNT = 50
@@ -134,7 +150,7 @@ export default function CelebrationOverlay({ milestone, onDismiss }: Celebration
 
   if (milestone === "none") return null
 
-  const emoji = MILESTONE_EMOJI[milestone]
+  const { Icon, color, label } = MILESTONE_ICON[milestone]
 
   return (
     <div
@@ -145,17 +161,18 @@ export default function CelebrationOverlay({ milestone, onDismiss }: Celebration
       }}
       role="button"
       tabIndex={0}
-      aria-label="Celebration! Tap to dismiss"
+      aria-label={`${label} — toque para continuar`}
     >
       {!reducedMotion && (
         <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none" />
       )}
-      <span
-        className="text-7xl select-none animate-[celebration-pulse_0.6s_ease-in-out_infinite_alternate]"
+      <Icon
+        weight="duotone"
+        size={128}
+        color={color}
         aria-hidden="true"
-      >
-        {emoji}
-      </span>
+        className="select-none drop-shadow-[0_4px_18px_rgba(0,0,0,0.18)] animate-[celebration-pulse_0.6s_ease-in-out_infinite_alternate] motion-reduce:animate-none"
+      />
       <style>{`
         @keyframes celebration-pulse {
           from { transform: scale(1); }
