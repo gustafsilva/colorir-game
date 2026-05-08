@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback, type ComponentType } from "react"
 import { Star, Sparkle, Confetti, type IconProps } from "@phosphor-icons/react"
+import mariaPhoto from "@/assets/maria/maria_cortado.jpeg"
 
 type Milestone = "none" | "half" | "three-quarters" | "complete"
 
@@ -166,13 +167,22 @@ export default function CelebrationOverlay({ milestone, onDismiss }: Celebration
       {!reducedMotion && (
         <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none" />
       )}
-      <Icon
-        weight="duotone"
-        size={128}
-        color={color}
-        aria-hidden="true"
-        className="select-none drop-shadow-[0_4px_18px_rgba(0,0,0,0.18)] animate-[celebration-pulse_0.6s_ease-in-out_infinite_alternate] motion-reduce:animate-none"
-      />
+      {milestone === "complete" ? (
+        <img
+          src={mariaPhoto}
+          alt="Maria"
+          draggable={false}
+          className="w-56 h-56 rounded-full object-cover ring-4 ring-white select-none drop-shadow-[0_4px_18px_rgba(0,0,0,0.18)] animate-[celebration-pulse_0.6s_ease-in-out_infinite_alternate] motion-reduce:animate-none"
+        />
+      ) : (
+        <Icon
+          weight="duotone"
+          size={128}
+          color={color}
+          aria-hidden="true"
+          className="select-none drop-shadow-[0_4px_18px_rgba(0,0,0,0.18)] animate-[celebration-pulse_0.6s_ease-in-out_infinite_alternate] motion-reduce:animate-none"
+        />
+      )}
       <style>{`
         @keyframes celebration-pulse {
           from { transform: scale(1); }
