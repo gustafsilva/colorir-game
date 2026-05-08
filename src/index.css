@@ -174,3 +174,57 @@
     animation: none;
   }
 }
+
+/* ─── Color Palette Animations ─── */
+
+@keyframes swatch-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+/* ─── Coloring Page Styles ─── */
+
+/* Fillable SVG paths — visual feedback on interaction */
+.colorable-path {
+  transition: filter 150ms ease-out;
+  cursor: pointer;
+}
+
+.colorable-path:hover {
+  filter: brightness(1.08);
+}
+
+.colorable-path:active {
+  filter: brightness(0.92);
+}
+
+/* Color swatch selection animation */
+@keyframes swatch-select {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .color-swatch-active {
+    animation: swatch-select 250ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .color-swatch-active {
+    transform: scale(1.15);
+  }
+}

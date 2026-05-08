@@ -29,14 +29,14 @@
 
 ## 3. Tela de Colorir
 
-- [ ] Criar página `ColoringPage` com SVG em tela cheia
-- [ ] Criar componente `ColorPalette` — paleta fixa no rodapé (6–8 cores vibrantes)
-- [ ] Implementar seleção de cor com destaque visual na cor ativa
-- [ ] Implementar preenchimento de região SVG ao tocar (`<path>` com `fill`)
-- [ ] Botão **Desfazer** (undo) — reverte a última ação
-- [ ] Botão **Limpar tudo** — reseta todas as cores do desenho
-- [ ] Botão **Voltar** — retorna à galeria
-- [ ] Criar/incluir **4–6 desenhos SVG** com regiões bem definidas (animais, frutas, estrelas, arco-íris)
+- [x] Criar página `ColoringPage` com SVG em tela cheia
+- [x] Criar componente `ColorPalette` — paleta fixa no rodapé (6–8 cores vibrantes)
+- [x] Implementar seleção de cor com destaque visual na cor ativa
+- [x] Implementar preenchimento de região SVG ao tocar (`<path>` com `fill`)
+- [x] Botão **Desfazer** (undo) — reverte a última ação
+- [x] Botão **Limpar tudo** — reseta todas as cores do desenho
+- [x] Botão **Voltar** — retorna à galeria
+- [x] Criar/incluir **4–6 desenhos SVG** com regiões bem definidas (animais, frutas, estrelas, arco-íris)
 
 **Critérios de aceite:**
 - SVG ocupa a área principal da tela
