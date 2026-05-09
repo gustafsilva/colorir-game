@@ -1,73 +1,47 @@
-# React + TypeScript + Vite
+# Colorir Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um app simples de colorir, feito com carinho pra minha filha.
 
-Currently, two official plugins are available:
+A ideia é ter um cantinho leve, sem propaganda e sem distração, onde ela pode escolher um desenho, pintar do jeito dela e voltar quando quiser. Se o seu filho ou filha também curtir, fico feliz que use — e mais feliz ainda se quiser contribuir com novos desenhos ou melhorias.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![Galeria](./gallery-390.png)
 
-## React Compiler
+## Rodando localmente
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Pré-requisitos: [Node.js](https://nodejs.org) 20+ e [pnpm](https://pnpm.io).
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm install
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+O app abre em `http://localhost:5173/colorir-game/`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Outros comandos úteis:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm build     # build de produção
+pnpm preview   # serve o build local
+pnpm lint      # roda o ESLint
 ```
+
+## Stack
+
+- React 19 + TypeScript
+- Vite + PWA (funciona offline depois da primeira visita)
+- Tailwind CSS 4 + shadcn/ui + Radix
+- React Router
+
+## Contribuindo
+
+Toda ajuda é bem-vinda, principalmente:
+
+- **Novos desenhos** — SVGs simples, com áreas bem fechadas pra pintar. Dá uma olhada em `src/assets/svg/` e `src/data/drawings.ts` pra ver o padrão.
+- **Melhorias de UX** pensando em criança pequena (botões grandes, feedback claro, pouca leitura).
+- **Acessibilidade** e suporte a tablets/touch.
+
+Pode abrir uma issue contando a ideia antes de mandar PR, ou já mandar direto se for algo pequeno. Sem cerimônia.
+
+## Licença
+
+Projeto pessoal, código aberto pra quem quiser usar e contribuir.
