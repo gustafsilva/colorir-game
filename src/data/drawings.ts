@@ -16,6 +16,10 @@ import peppaPigSvg from "@/assets/svg/peppa-pig.svg?url"
 import rebeccaRabbitSvg from "@/assets/svg/rebecca-rabbit.svg?url"
 import papaiPigSvg from "@/assets/svg/papai-pig.svg?url"
 import georgePigSvg from "@/assets/svg/george-pig.svg?url"
+import mamaePigSvg from "@/assets/svg/mamae-pig.svg?url"
+import mariaClaraSvg from "@/assets/svg/maria-clara.svg?url"
+import galinhaPintadinhaSvg from "@/assets/svg/galinha-pintadinha.svg?url"
+import jpSvg from "@/assets/svg/jp.svg?url"
 
 export const drawings: Drawing[] = [
   { id: "cat", name: "gato", svgPath: catSvg },
@@ -34,6 +38,10 @@ export const drawings: Drawing[] = [
   { id: "rebecca-rabbit", name: "Rebecca", svgPath: rebeccaRabbitSvg },
   { id: "papai-pig", name: "Papai Pig", svgPath: papaiPigSvg },
   { id: "george-pig", name: "George", svgPath: georgePigSvg },
+  { id: "mamae-pig", name: "Mamãe Pig", svgPath: mamaePigSvg },
+  { id: "maria-clara", name: "Maria Clara", svgPath: mariaClaraSvg },
+  { id: "galinha-pintadinha", name: "Galinha Pintadinha", svgPath: galinhaPintadinhaSvg },
+  { id: "jp", name: "JP", svgPath: jpSvg },
 ]
 
 /**
@@ -57,4 +65,8 @@ export const drawingColors: Record<string, string> = {
   "rebecca-rabbit": "crayon-yellow",
   "papai-pig": "crayon-orange",
   "george-pig": "crayon-blue",
+  "mamae-pig": "crayon-red",
+  "maria-clara": "crayon-purple",
+  "galinha-pintadinha": "crayon-yellow",
+  jp: "crayon-blue",
 }

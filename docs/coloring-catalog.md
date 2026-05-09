@@ -89,6 +89,10 @@ cv2.imwrite('/tmp/coloring-source/X-cropped.png', out)
 | `george-pig`| George  | personagens| `crayon-blue`    | imagem fornecida pelo usuário                   | (George com bola — fonte 1334x1252, line art simples e limpo)                                                        |
 | `rebecca-rabbit`| Rebecca| personagens| `crayon-yellow` | imagem fornecida pelo usuário                  | (Rebecca Rabbit — amiga da Peppa)                                                                                     |
 | `papai-pig`| Papai Pig| personagens| `crayon-orange` | imagem fornecida pelo usuário                   | (Papai Pig com gravata e maleta — fonte 189x267, upscaled 4x antes da conversão)                                    |
+| `mamae-pig`| Mamãe Pig| personagens| `crayon-red`    | imagem fornecida pelo usuário                   | (Mamãe Pig de inverno com gorro e cachecol — fonte 800x1052, line art limpo)                                        |
+| `maria-clara`| Maria Clara| personagens| `crayon-purple` | imagem fornecida pelo usuário                | (Maria Clara com laços nos cabelos — fonte 718x978)                                                                  |
+| `galinha-pintadinha`| Galinha Pintadinha| personagens| `crayon-yellow` | imagem fornecida pelo usuário | (Galinha Pintadinha com laço — fonte 736x851)                                                                        |
+| `jp`       | JP       | personagens| `crayon-blue`    | imagem fornecida pelo usuário                   | (rosto sorridente do JP — fonte 817x711)                                                                            |
 
 > **Lição aprendida:** as primeiras versões de `bear` e `number-1` vieram do
 > sketchjoy.com com fundos decorativos (sol, nuvens, árvores, blocos) que

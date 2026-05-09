@@ -14,6 +14,10 @@ import peppaPigSvg from "@/assets/svg/peppa-pig.svg?raw"
 import rebeccaRabbitSvg from "@/assets/svg/rebecca-rabbit.svg?raw"
 import papaiPigSvg from "@/assets/svg/papai-pig.svg?raw"
 import georgePigSvg from "@/assets/svg/george-pig.svg?raw"
+import mamaePigSvg from "@/assets/svg/mamae-pig.svg?raw"
+import mariaClaraSvg from "@/assets/svg/maria-clara.svg?raw"
+import galinhaPintadinhaSvg from "@/assets/svg/galinha-pintadinha.svg?raw"
+import jpSvg from "@/assets/svg/jp.svg?raw"
 
 export const drawingSvgContent: Record<string, string> = {
   cat: catSvg,
@@ -32,4 +36,8 @@ export const drawingSvgContent: Record<string, string> = {
   "rebecca-rabbit": rebeccaRabbitSvg,
   "papai-pig": papaiPigSvg,
   "george-pig": georgePigSvg,
+  "mamae-pig": mamaePigSvg,
+  "maria-clara": mariaClaraSvg,
+  "galinha-pintadinha": galinhaPintadinhaSvg,
+  jp: jpSvg,
 }
