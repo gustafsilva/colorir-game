@@ -8,6 +8,13 @@ import appleSvg from "@/assets/svg/apple.svg?url"
 import sunflowerSvg from "@/assets/svg/sunflower.svg?url"
 import parrotSvg from "@/assets/svg/parrot.svg?url"
 import turtleSvg from "@/assets/svg/turtle.svg?url"
+import letterASvg from "@/assets/svg/letter-a.svg?url"
+import treeSvg from "@/assets/svg/tree.svg?url"
+import number1Svg from "@/assets/svg/number-1.svg?url"
+import bearSvg from "@/assets/svg/bear.svg?url"
+import peppaPigSvg from "@/assets/svg/peppa-pig.svg?url"
+import georgePigSvg from "@/assets/svg/george-pig.svg?url"
+import rebeccaRabbitSvg from "@/assets/svg/rebecca-rabbit.svg?url"
 
 export const drawings: Drawing[] = [
   { id: "cat", name: "gato", svgPath: catSvg },
@@ -18,6 +25,13 @@ export const drawings: Drawing[] = [
   { id: "sunflower", name: "girassol", svgPath: sunflowerSvg },
   { id: "parrot", name: "papagaio", svgPath: parrotSvg },
   { id: "turtle", name: "tartaruga", svgPath: turtleSvg },
+  { id: "letter-a", name: "letra A", svgPath: letterASvg },
+  { id: "tree", name: "árvore", svgPath: treeSvg },
+  { id: "number-1", name: "número 1", svgPath: number1Svg },
+  { id: "bear", name: "urso", svgPath: bearSvg },
+  { id: "peppa-pig", name: "Peppa Pig", svgPath: peppaPigSvg },
+  { id: "george-pig", name: "George", svgPath: georgePigSvg },
+  { id: "rebecca-rabbit", name: "Rebecca", svgPath: rebeccaRabbitSvg },
 ]
 
 /**
@@ -33,4 +47,11 @@ export const drawingColors: Record<string, string> = {
   sunflower: "crayon-orange",
   parrot: "crayon-yellow",
   turtle: "crayon-green",
+  "number-1": "crayon-blue",
+  "letter-a": "crayon-red",
+  tree: "crayon-green",
+  bear: "crayon-orange",
+  "peppa-pig": "crayon-purple",
+  "george-pig": "crayon-blue",
+  "rebecca-rabbit": "crayon-yellow",
 }

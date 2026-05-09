@@ -20,6 +20,15 @@ const ariaLabels: Record<string, string> = {
   butterfly: "Colorir a borboleta",
   apple: "Colorir a maçã",
   sunflower: "Colorir o girassol",
+  parrot: "Colorir o papagaio",
+  turtle: "Colorir a tartaruga",
+  bear: "Colorir o urso",
+  "number-1": "Colorir o número 1",
+  "letter-a": "Colorir a letra A",
+  tree: "Colorir a árvore",
+  "peppa-pig": "Colorir a Peppa Pig",
+  "george-pig": "Colorir o George",
+  "rebecca-rabbit": "Colorir a Rebecca",
 }
 
 const colorVarMap: Record<string, string> = {

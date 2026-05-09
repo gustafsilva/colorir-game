@@ -80,6 +80,11 @@ def kebab_to_camel(s: str) -> str:
     return parts[0] + "".join(p.capitalize() for p in parts[1:])
 
 
+def ts_object_key(s: str) -> str:
+    """IDs com hífen viram chaves quoted em TS — `"foo-bar"` em vez de `foo-bar`."""
+    return f'"{s}"' if "-" in s else s
+
+
 def validate_inputs(args: argparse.Namespace) -> None:
     if not ID_RE.match(args.id):
         sys.exit(f"✗ ID inválido: '{args.id}'. Use lowercase, kebab-case (ex: parrot, blue-bird)")
@@ -274,7 +279,7 @@ def insert_into_drawings_ts(drawing_id: str, name: str, color: str) -> None:
         decl_marker="export const drawingColors",
         opener="= {",
         closer="}",
-        new_line=f'  {drawing_id}: "{color}",',
+        new_line=f'  {ts_object_key(drawing_id)}: "{color}",',
     )
 
     DRAWINGS_TS.write_text(text)
@@ -297,7 +302,7 @@ def insert_into_svg_content_ts(drawing_id: str) -> None:
         decl_marker="export const drawingSvgContent",
         opener="= {",
         closer="}",
-        new_line=f"  {drawing_id}: {var},",
+        new_line=f"  {ts_object_key(drawing_id)}: {var},",
     )
 
     SVG_CONTENT_TS.write_text(text)
@@ -322,7 +327,7 @@ def remove_existing_registration(drawing_id: str) -> None:
             flags=re.MULTILINE,
         )
         text = re.sub(
-            rf'^\s*{drawing_id}: .*,\n',
+            rf'^\s*"?{re.escape(drawing_id)}"?: .*,\n',
             "",
             text,
             flags=re.MULTILINE,
