@@ -20,6 +20,16 @@ import mamaePigSvg from "@/assets/svg/mamae-pig.svg?url"
 import mariaClaraSvg from "@/assets/svg/maria-clara.svg?url"
 import galinhaPintadinhaSvg from "@/assets/svg/galinha-pintadinha.svg?url"
 import jpSvg from "@/assets/svg/jp.svg?url"
+import dogSvg from "@/assets/svg/dog.svg?url"
+import lionSvg from "@/assets/svg/lion.svg?url"
+import fishSvg from "@/assets/svg/fish.svg?url"
+import rabbitSvg from "@/assets/svg/rabbit.svg?url"
+import heartSvg from "@/assets/svg/heart.svg?url"
+import moonSvg from "@/assets/svg/moon.svg?url"
+import cloudSvg from "@/assets/svg/cloud.svg?url"
+import bananaSvg from "@/assets/svg/banana.svg?url"
+import watermelonSvg from "@/assets/svg/watermelon.svg?url"
+import number2Svg from "@/assets/svg/number-2.svg?url"
 
 export const drawings: Drawing[] = [
   { id: "cat", name: "gato", svgPath: catSvg },
@@ -42,7 +52,54 @@ export const drawings: Drawing[] = [
   { id: "maria-clara", name: "Maria Clara", svgPath: mariaClaraSvg },
   { id: "galinha-pintadinha", name: "Galinha Pintadinha", svgPath: galinhaPintadinhaSvg },
   { id: "jp", name: "JP", svgPath: jpSvg },
+  { id: "dog", name: "cachorro", svgPath: dogSvg },
+  { id: "lion", name: "leão", svgPath: lionSvg },
+  { id: "fish", name: "peixe", svgPath: fishSvg },
+  { id: "rabbit", name: "coelho", svgPath: rabbitSvg },
+  { id: "heart", name: "coração", svgPath: heartSvg },
+  { id: "moon", name: "lua", svgPath: moonSvg },
+  { id: "cloud", name: "nuvem", svgPath: cloudSvg },
+  { id: "banana", name: "banana", svgPath: bananaSvg },
+  { id: "watermelon", name: "melancia", svgPath: watermelonSvg },
+  { id: "number-2", name: "número 2", svgPath: number2Svg },
 ]
+
+/**
+ * Categoria de cada desenho — usada pela galeria para agrupar visualmente.
+ * Os ids canônicos vêm de src/data/categories.ts (CATEGORY_ORDER).
+ */
+export const drawingCategories: Record<string, string> = {
+  cat: "animais",
+  rainbow: "natureza",
+  star: "natureza",
+  butterfly: "natureza",
+  apple: "frutas",
+  sunflower: "natureza",
+  parrot: "animais",
+  turtle: "animais",
+  "letter-a": "letras",
+  tree: "natureza",
+  "number-1": "numeros",
+  "number-2": "numeros",
+  bear: "animais",
+  dog: "animais",
+  lion: "animais",
+  fish: "animais",
+  rabbit: "animais",
+  heart: "formas",
+  moon: "formas",
+  cloud: "formas",
+  banana: "frutas",
+  watermelon: "frutas",
+  "peppa-pig": "personagens",
+  "rebecca-rabbit": "personagens",
+  "papai-pig": "personagens",
+  "george-pig": "personagens",
+  "mamae-pig": "personagens",
+  "maria-clara": "personagens",
+  "galinha-pintadinha": "personagens",
+  jp: "personagens",
+}
 
 /**
  * Crayon color mapping — each drawing gets a unique border color
@@ -69,4 +126,14 @@ export const drawingColors: Record<string, string> = {
   "maria-clara": "crayon-purple",
   "galinha-pintadinha": "crayon-yellow",
   jp: "crayon-blue",
+  dog: "crayon-orange",
+  lion: "crayon-yellow",
+  fish: "crayon-blue",
+  rabbit: "crayon-purple",
+  heart: "crayon-red",
+  moon: "crayon-purple",
+  cloud: "crayon-blue",
+  banana: "crayon-yellow",
+  watermelon: "crayon-green",
+  "number-2": "crayon-green",
 }

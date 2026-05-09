@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Moon (lua): Sleepy crescent moon with sparkling stars — chunky toddler style -->
+
+  <!-- Crescent moon body -->
+  <path
+    id="moon-body"
+    d="M 220 70
+       C 130 70, 70 140, 70 220
+       C 70 300, 130 360, 220 360
+       C 240 360, 260 357, 278 350
+       C 215 335, 165 280, 165 215
+       C 165 150, 215 95, 278 80
+       C 260 73, 240 70, 220 70 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Closed sleepy left eye (downward arc) -->
+  <path d="M 140 195 C 150 188, 165 188, 175 195" fill="none" stroke="#4a4a4a" stroke-width="3" stroke-linecap="round" />
+  <!-- Eyelash -->
+  <path d="M 175 195 L 182 191" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Closed sleepy right eye -->
+  <path d="M 200 195 C 210 188, 225 188, 235 195" fill="none" stroke="#4a4a4a" stroke-width="3" stroke-linecap="round" />
+  <path d="M 235 195 L 242 191" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Tiny smile -->
+  <path d="M 175 240 C 185 250, 200 250, 210 240" fill="none" stroke="#4a4a4a" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Cheek blush left -->
+  <circle cx="125" cy="230" r="9" fill="#4a4a4a" opacity="0.18" />
+  <!-- Cheek blush right -->
+  <circle cx="225" cy="230" r="9" fill="#4a4a4a" opacity="0.18" />
+
+  <!-- Star top-right (sparkle) -->
+  <path
+    id="moon-star-1"
+    d="M 320 110
+       L 332 140
+       L 360 140
+       L 338 158
+       L 348 188
+       L 320 170
+       L 292 188
+       L 302 158
+       L 280 140
+       L 308 140 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Tiny star -->
+  <path
+    id="moon-star-2"
+    d="M 330 280
+       L 336 296
+       L 352 296
+       L 340 305
+       L 345 322
+       L 330 312
+       L 315 322
+       L 320 305
+       L 308 296
+       L 324 296 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+</svg>

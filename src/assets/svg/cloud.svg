@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Cloud (nuvem): Big puffy cloud with cute face and raindrops — chunky toddler style -->
+
+  <!-- Cloud body: bumpy puffy shape -->
+  <path
+    id="cloud-body"
+    d="M 100 230
+       C 75 230, 60 210, 70 190
+       C 60 170, 75 145, 100 145
+       C 105 115, 145 105, 165 125
+       C 175 100, 215 95, 235 115
+       C 260 100, 305 115, 305 145
+       C 335 145, 350 175, 335 195
+       C 355 215, 340 245, 315 245
+       C 305 270, 270 280, 250 270
+       C 235 285, 200 285, 185 270
+       C 160 280, 125 270, 115 250
+       C 105 248, 100 240, 100 230 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Left eye -->
+  <circle cx="160" cy="195" r="10" fill="#4a4a4a" />
+  <circle cx="162" cy="192" r="3.5" fill="#FFFFFF" />
+
+  <!-- Right eye -->
+  <circle cx="240" cy="195" r="10" fill="#4a4a4a" />
+  <circle cx="242" cy="192" r="3.5" fill="#FFFFFF" />
+
+  <!-- Smile -->
+  <path d="M 175 230 C 185 248, 215 248, 225 230" fill="none" stroke="#4a4a4a" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Cheek blush left -->
+  <circle cx="135" cy="225" r="9" fill="#4a4a4a" opacity="0.18" />
+  <!-- Cheek blush right -->
+  <circle cx="265" cy="225" r="9" fill="#4a4a4a" opacity="0.18" />
+
+  <!-- Raindrop 1 (region) -->
+  <path
+    id="cloud-drop-1"
+    d="M 140 295
+       C 130 305, 130 325, 140 335
+       C 150 335, 155 325, 155 315
+       C 155 305, 148 295, 140 295 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Raindrop 2 -->
+  <path
+    id="cloud-drop-2"
+    d="M 200 320
+       C 190 330, 190 350, 200 360
+       C 210 360, 215 350, 215 340
+       C 215 330, 208 320, 200 320 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Raindrop 3 -->
+  <path
+    id="cloud-drop-3"
+    d="M 260 295
+       C 250 305, 250 325, 260 335
+       C 270 335, 275 325, 275 315
+       C 275 305, 268 295, 260 295 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+</svg>

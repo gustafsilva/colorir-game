@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Dog (cachorro): Cute round dog face with floppy ears — chunky toddler style -->
+
+  <!-- Left floppy ear -->
+  <path
+    id="dog-left-ear"
+    d="M 110 130
+       C 80 140, 60 200, 80 250
+       C 95 280, 130 270, 140 240
+       C 145 215, 140 165, 130 140 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Right floppy ear -->
+  <path
+    id="dog-right-ear"
+    d="M 290 130
+       C 320 140, 340 200, 320 250
+       C 305 280, 270 270, 260 240
+       C 255 215, 260 165, 270 140 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Head: round friendly dog head -->
+  <path
+    id="dog-head"
+    d="M 200 110
+       C 130 110, 100 170, 100 230
+       C 100 300, 150 350, 200 350
+       C 250 350, 300 300, 300 230
+       C 300 170, 270 110, 200 110 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Snout: oval muzzle in center-bottom -->
+  <path
+    id="dog-snout"
+    d="M 165 250
+       C 165 235, 175 225, 200 225
+       C 225 225, 235 235, 235 250
+       C 235 280, 220 295, 200 295
+       C 180 295, 165 280, 165 250 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Nose: dark filled dot at top of snout -->
+  <path d="M 188 240 C 188 232, 212 232, 212 240 C 212 248, 200 252, 200 252 C 200 252, 188 248, 188 240 Z" fill="#4a4a4a" />
+
+  <!-- Left eye -->
+  <circle cx="165" cy="200" r="9" fill="#4a4a4a" />
+  <circle cx="167" cy="197" r="3" fill="#FFFFFF" />
+
+  <!-- Right eye -->
+  <circle cx="235" cy="200" r="9" fill="#4a4a4a" />
+  <circle cx="237" cy="197" r="3" fill="#FFFFFF" />
+
+  <!-- Mouth: little smile curve under snout -->
+  <path d="M 185 275 C 192 285, 208 285, 215 275" fill="none" stroke="#4a4a4a" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Tongue tip -->
+  <path d="M 197 282 C 197 290, 203 290, 203 282" fill="#4a4a4a" opacity="0.4" />
+</svg>

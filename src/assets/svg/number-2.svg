@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Number 2: Big chunky digit "2" with friendly face — toddler style -->
+
+  <!-- Main "2" shape: thick outlined glyph -->
+  <path
+    id="number-2-main"
+    d="M 110 145
+       C 115 95, 175 65, 230 70
+       C 290 75, 320 130, 305 175
+       C 290 215, 230 250, 180 285
+       C 145 310, 120 320, 115 335
+       L 305 335
+       L 305 365
+       L 90 365
+       C 80 365, 75 360, 75 350
+       C 78 310, 110 285, 165 250
+       C 215 220, 270 195, 275 165
+       C 280 140, 250 110, 215 110
+       C 180 110, 150 130, 145 160
+       L 110 145 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Left eye -->
+  <circle cx="195" cy="155" r="9" fill="#4a4a4a" />
+  <circle cx="197" cy="152" r="3" fill="#FFFFFF" />
+
+  <!-- Right eye -->
+  <circle cx="240" cy="155" r="9" fill="#4a4a4a" />
+  <circle cx="242" cy="152" r="3" fill="#FFFFFF" />
+
+  <!-- Smile -->
+  <path d="M 200 180 C 210 195, 230 195, 240 180" fill="none" stroke="#4a4a4a" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Cheek blush -->
+  <circle cx="175" cy="175" r="7" fill="#4a4a4a" opacity="0.18" />
+  <circle cx="262" cy="175" r="7" fill="#4a4a4a" opacity="0.18" />
+
+  <!-- Two little dots for "2 of something" decoration -->
+  <circle cx="80" cy="80" r="14" fill="#FFFFFF" stroke="#4a4a4a" stroke-width="3" />
+  <circle cx="335" cy="80" r="14" fill="#FFFFFF" stroke="#4a4a4a" stroke-width="3" />
+</svg>

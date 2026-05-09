@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Rabbit (coelho): Cute rabbit with long ears — chunky toddler style -->
+
+  <!-- Left ear (outer) -->
+  <path
+    id="rabbit-left-ear"
+    d="M 145 50
+       C 130 60, 120 130, 130 180
+       C 145 195, 175 195, 180 175
+       C 175 130, 175 70, 165 55
+       C 160 48, 152 48, 145 50 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Right ear (outer) -->
+  <path
+    id="rabbit-right-ear"
+    d="M 255 50
+       C 270 60, 280 130, 270 180
+       C 255 195, 225 195, 220 175
+       C 225 130, 225 70, 235 55
+       C 240 48, 248 48, 255 50 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Head: round face -->
+  <path
+    id="rabbit-head"
+    d="M 200 170
+       C 130 170, 95 220, 95 275
+       C 95 330, 145 360, 200 360
+       C 255 360, 305 330, 305 275
+       C 305 220, 270 170, 200 170 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Inner ear left (decorative) -->
+  <path d="M 152 80 C 145 95, 145 145, 153 175 C 160 175, 165 165, 165 145 C 165 110, 160 85, 155 78 Z" fill="#4a4a4a" opacity="0.18" />
+  <!-- Inner ear right (decorative) -->
+  <path d="M 248 80 C 255 95, 255 145, 247 175 C 240 175, 235 165, 235 145 C 235 110, 240 85, 245 78 Z" fill="#4a4a4a" opacity="0.18" />
+
+  <!-- Cheek left (region) -->
+  <path
+    id="rabbit-cheek-left"
+    d="M 130 270
+       C 135 285, 155 295, 170 285
+       C 165 305, 145 310, 125 295 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Cheek right (region) -->
+  <path
+    id="rabbit-cheek-right"
+    d="M 270 270
+       C 265 285, 245 295, 230 285
+       C 235 305, 255 310, 275 295 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Left eye -->
+  <circle cx="170" cy="240" r="9" fill="#4a4a4a" />
+  <circle cx="172" cy="237" r="3" fill="#FFFFFF" />
+
+  <!-- Right eye -->
+  <circle cx="230" cy="240" r="9" fill="#4a4a4a" />
+  <circle cx="232" cy="237" r="3" fill="#FFFFFF" />
+
+  <!-- Nose -->
+  <path d="M 192 275 C 192 270, 208 270, 208 275 C 208 282, 200 287, 200 287 C 200 287, 192 282, 192 275 Z" fill="#4a4a4a" />
+
+  <!-- Mouth -->
+  <path d="M 200 287 L 200 298" fill="none" stroke="#4a4a4a" stroke-width="2.5" stroke-linecap="round" />
+  <path d="M 200 298 C 195 305, 188 305, 185 300" fill="none" stroke="#4a4a4a" stroke-width="2.5" stroke-linecap="round" />
+  <path d="M 200 298 C 205 305, 212 305, 215 300" fill="none" stroke="#4a4a4a" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Front teeth -->
+  <path d="M 196 298 L 196 308 L 200 311 L 204 308 L 204 298" fill="#FFFFFF" stroke="#4a4a4a" stroke-width="2" stroke-linejoin="round" />
+</svg>

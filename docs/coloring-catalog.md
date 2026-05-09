@@ -93,6 +93,16 @@ cv2.imwrite('/tmp/coloring-source/X-cropped.png', out)
 | `maria-clara`| Maria Clara| personagens| `crayon-purple` | imagem fornecida pelo usuário                | (Maria Clara com laços nos cabelos — fonte 718x978)                                                                  |
 | `galinha-pintadinha`| Galinha Pintadinha| personagens| `crayon-yellow` | imagem fornecida pelo usuário | (Galinha Pintadinha com laço — fonte 736x851)                                                                        |
 | `jp`       | JP       | personagens| `crayon-blue`    | imagem fornecida pelo usuário                   | (rosto sorridente do JP — fonte 817x711)                                                                            |
+| `dog`      | cachorro | animais    | `crayon-orange`  | SVG desenhado à mão                              | (cabeça redonda com orelhas penduradas — formato amigável estilo toddler)                                            |
+| `lion`     | leão     | animais    | `crayon-yellow`  | SVG desenhado à mão                              | (cabeça com juba ondulada e nariz triangular)                                                                        |
+| `fish`     | peixe    | animais    | `crayon-blue`    | SVG desenhado à mão                              | (corpo oval, cauda triangular, bolhas decorativas)                                                                   |
+| `rabbit`   | coelho   | animais    | `crayon-purple`  | SVG desenhado à mão                              | (cabeça redonda, orelhas longas, dois dentes da frente)                                                              |
+| `heart`    | coração  | formas     | `crayon-red`     | SVG desenhado à mão                              | (coração grande sorridente + dois corações pequenos decorativos)                                                     |
+| `moon`     | lua      | formas     | `crayon-purple`  | SVG desenhado à mão                              | (lua crescente sonolenta com duas estrelas decorativas)                                                              |
+| `cloud`    | nuvem    | formas     | `crayon-blue`    | SVG desenhado à mão                              | (nuvem fofa com rosto e três gotinhas de chuva)                                                                      |
+| `banana`   | banana   | frutas     | `crayon-yellow`  | SVG desenhado à mão                              | (banana curva com cabinho e ponta marrom)                                                                            |
+| `watermelon`| melancia| frutas     | `crayon-green`   | SVG desenhado à mão                              | (fatia triangular com casca, polpa e três sementes)                                                                  |
+| `number-2` | número 2 | numeros    | `crayon-green`   | SVG desenhado à mão                              | (dois grande estilizado com rosto fofo + dois círculos decorativos)                                                  |
 
 > **Lição aprendida:** as primeiras versões de `bear` e `number-1` vieram do
 > sketchjoy.com com fundos decorativos (sol, nuvens, árvores, blocos) que

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Watermelon (melancia): Cute slice with seeds and face — chunky toddler style -->
+
+  <!-- Outer rind (the green crust) -->
+  <path
+    id="watermelon-rind"
+    d="M 50 110
+       C 90 95, 310 95, 350 110
+       C 350 240, 270 340, 200 340
+       C 130 340, 50 240, 50 110 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Inner flesh (the pink/red part) -->
+  <path
+    id="watermelon-flesh"
+    d="M 75 130
+       C 110 120, 290 120, 325 130
+       C 325 235, 260 320, 200 320
+       C 140 320, 75 235, 75 130 Z"
+    fill="#FFFFFF"
+    stroke="#4a4a4a"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Left eye -->
+  <circle cx="155" cy="180" r="9" fill="#4a4a4a" />
+  <circle cx="157" cy="177" r="3" fill="#FFFFFF" />
+
+  <!-- Right eye -->
+  <circle cx="245" cy="180" r="9" fill="#4a4a4a" />
+  <circle cx="247" cy="177" r="3" fill="#FFFFFF" />
+
+  <!-- Smile -->
+  <path d="M 175 215 C 185 230, 215 230, 225 215" fill="none" stroke="#4a4a4a" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Cheek blush left -->
+  <circle cx="120" cy="210" r="8" fill="#4a4a4a" opacity="0.18" />
+  <!-- Cheek blush right -->
+  <circle cx="280" cy="210" r="8" fill="#4a4a4a" opacity="0.18" />
+
+  <!-- Seeds: dark filled drops -->
+  <path d="M 130 260 C 130 252, 142 252, 142 260 C 142 270, 136 275, 136 275 C 136 275, 130 270, 130 260 Z" fill="#4a4a4a" />
+  <path d="M 195 280 C 195 272, 207 272, 207 280 C 207 290, 201 295, 201 295 C 201 295, 195 290, 195 280 Z" fill="#4a4a4a" />
+  <path d="M 258 260 C 258 252, 270 252, 270 260 C 270 270, 264 275, 264 275 C 264 275, 258 270, 258 260 Z" fill="#4a4a4a" />
+</svg>
