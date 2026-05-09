@@ -6,6 +6,8 @@ import starSvg from "@/assets/svg/star.svg?url"
 import butterflySvg from "@/assets/svg/butterfly.svg?url"
 import appleSvg from "@/assets/svg/apple.svg?url"
 import sunflowerSvg from "@/assets/svg/sunflower.svg?url"
+import parrotSvg from "@/assets/svg/parrot.svg?url"
+import turtleSvg from "@/assets/svg/turtle.svg?url"
 
 export const drawings: Drawing[] = [
   { id: "cat", name: "gato", svgPath: catSvg },
@@ -14,6 +16,8 @@ export const drawings: Drawing[] = [
   { id: "butterfly", name: "borboleta", svgPath: butterflySvg },
   { id: "apple", name: "maçã", svgPath: appleSvg },
   { id: "sunflower", name: "girassol", svgPath: sunflowerSvg },
+  { id: "parrot", name: "papagaio", svgPath: parrotSvg },
+  { id: "turtle", name: "tartaruga", svgPath: turtleSvg },
 ]
 
 /**
@@ -27,4 +31,6 @@ export const drawingColors: Record<string, string> = {
   butterfly: "crayon-purple",
   apple: "crayon-green",
   sunflower: "crayon-orange",
+  parrot: "crayon-yellow",
+  turtle: "crayon-green",
 }
