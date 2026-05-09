@@ -51,7 +51,7 @@ export default function ActionBar({
   const handleBack = useCallback(() => {
     if (isNavigating.current) return
     isNavigating.current = true
-    navigate("/")
+    navigate("/coloring")
     setTimeout(() => {
       isNavigating.current = false
     }, 500)
