@@ -428,3 +428,221 @@
     filter: drop-shadow(0 0 8px rgba(255, 220, 0, 1));
   }
 }
+
+/* ─── Rabbit Hunt (caça-coelho) ─── */
+
+@keyframes rabbit-pop-up {
+  0% {
+    transform: translateY(60%) scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-8%) scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes rabbit-pop-down {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(60%) scale(0.7);
+    opacity: 0;
+  }
+}
+
+@keyframes rabbit-caught {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1.4) rotate(-6deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.6) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+@keyframes burrow-shake {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-2px) rotate(-1deg);
+  }
+  75% {
+    transform: translateX(2px) rotate(1deg);
+  }
+}
+
+@keyframes burrow-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.04);
+    filter: brightness(1.08);
+  }
+}
+
+@keyframes ear-wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-8deg);
+  }
+}
+
+@keyframes blink {
+  0%, 90%, 100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes score-bounce {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.4);
+    color: var(--color-crayon-orange);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes plus-one-float {
+  0% {
+    transform: translate(-50%, 0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-50%, -6px) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkle-fly-out {
+  0% {
+    transform: rotate(var(--burst-angle, 0deg)) translateY(0) scale(0.4);
+    opacity: 0;
+  }
+  20% {
+    transform: rotate(var(--burst-angle, 0deg)) translateY(-12px) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(var(--burst-angle, 0deg)) translateY(-40px) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rabbit-state-up {
+    animation: rabbit-pop-up 320ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  .rabbit-state-down {
+    animation: rabbit-pop-down 200ms cubic-bezier(0.4, 0, 1, 0.4) both;
+  }
+  .rabbit-state-caught {
+    animation: rabbit-caught 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .rabbit-ear--left {
+    animation: ear-wiggle 1.4s ease-in-out infinite;
+  }
+  .rabbit-ear--right {
+    animation: ear-wiggle 1.4s ease-in-out infinite;
+    animation-delay: 0.2s;
+  }
+  .rabbit-eye {
+    animation: blink 4s linear infinite;
+  }
+
+  .burrow-shake {
+    animation: burrow-shake 180ms ease-in-out 2;
+  }
+  .burrow-pulse {
+    animation: burrow-pulse 2.4s ease-in-out infinite;
+    animation-delay: var(--pulse-delay, 0ms);
+  }
+
+  .score-bounce {
+    animation: score-bounce 350ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .plus-one-float {
+    animation: plus-one-float 700ms ease-out both;
+  }
+
+  .sparkle-fly-out {
+    animation: sparkle-fly-out 700ms ease-out both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rabbit-state-up {
+    opacity: 1;
+    transition: opacity 200ms ease-out;
+  }
+  .rabbit-state-down,
+  .rabbit-state-caught {
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+  }
+  .rabbit-ear--left,
+  .rabbit-ear--right,
+  .rabbit-eye,
+  .burrow-shake,
+  .burrow-pulse,
+  .score-bounce,
+  .plus-one-float,
+  .sparkle-fly-out {
+    animation: none;
+  }
+}
+
+/* ─── Hub home page card glow ─── */
+.hub-card {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--card-glow) 22%, white) 0%,
+    color-mix(in srgb, var(--card-glow) 8%, white) 100%
+  );
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -4px 0 color-mix(in srgb, var(--card-glow) 25%, transparent),
+    0 6px 0 color-mix(in srgb, var(--card-glow) 35%, black),
+    0 14px 24px -6px color-mix(in srgb, var(--card-glow) 35%, transparent);
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+
+.hub-card:hover {
+  transform: translateY(-4px);
+}
+
+.hub-card:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.12),
+    0 2px 0 color-mix(in srgb, var(--card-glow) 35%, black);
+}
