@@ -1,31 +1,12 @@
-import { Palette, Pencil, Drop, Star, Sparkle, House } from "@phosphor-icons/react"
-import { Link } from "react-router"
+import { GameController, Star, Heart, Sparkle, Pencil } from "@phosphor-icons/react"
 
 /**
- * GalleryHeader — playful intro to the gallery, designed for ages 2-5.
- *
- * Layered composition:
- *   1. Soft radial backdrop (peach → transparent) — gives the title a "stage"
- *   2. Big Palette icon with continuous wobble — visual anchor in lieu of emoji
- *   3. "Vamos Colorir!" in puffy 3D bicolor type
- *   4. Floating Phosphor decorations orbiting the title (desyncs via delay)
- *   5. Botão home no canto pra voltar ao hub
- *
- * On narrow screens (≤700px) we reduce floaters and tighten spacing.
+ * Header do hub inicial. Cópia adaptada do GalleryHeader, com título
+ * "Vamos Brincar!" e ícone âncora de game controller.
  */
-export default function GalleryHeader() {
+export default function HubHeader() {
   return (
     <header className="relative mb-8 flex w-full max-w-[640px] flex-col items-center gap-2 select-none sm:mb-12 max-[700px]:mb-4">
-      {/* Botão home (voltar ao hub) */}
-      <Link
-        to="/"
-        aria-label="Voltar ao início"
-        className="btn-puffy absolute top-0 left-0 z-20 flex h-12 w-12 items-center justify-center rounded-full border-[3px] border-white/60 outline-none focus-visible:ring-4 focus-visible:ring-white/70 focus-visible:ring-offset-2"
-        style={{ ["--btn-color" as string]: "var(--color-crayon-purple)" }}
-      >
-        <House size={26} weight="duotone" color="white" aria-hidden="true" />
-      </Link>
-
       {/* Soft stage backdrop */}
       <span
         aria-hidden="true"
@@ -43,52 +24,36 @@ export default function GalleryHeader() {
         className="header-floater pointer-events-none absolute -top-2 left-[8%] max-[700px]:hidden"
         style={{ animationDelay: "0ms" }}
       >
-        <Pencil
-          size={36}
-          weight="duotone"
-          color="var(--color-crayon-purple)"
-        />
+        <Pencil size={36} weight="duotone" color="var(--color-crayon-purple)" />
       </span>
       <span
         aria-hidden="true"
         className="header-floater pointer-events-none absolute top-6 right-[10%]"
         style={{ animationDelay: "800ms" }}
       >
-        <Drop
-          size={32}
-          weight="duotone"
-          color="var(--color-crayon-blue)"
-        />
+        <Sparkle size={32} weight="duotone" color="var(--color-crayon-blue)" />
       </span>
       <span
         aria-hidden="true"
         className="header-floater pointer-events-none absolute bottom-[10%] left-[14%]"
         style={{ animationDelay: "1600ms" }}
       >
-        <Star
-          size={28}
-          weight="duotone"
-          color="var(--color-crayon-yellow)"
-        />
+        <Heart size={28} weight="duotone" color="var(--color-crayon-pink)" />
       </span>
       <span
         aria-hidden="true"
         className="header-floater pointer-events-none absolute -top-1 right-[18%] max-[700px]:hidden"
         style={{ animationDelay: "2400ms" }}
       >
-        <Sparkle
-          size={26}
-          weight="duotone"
-          color="var(--color-crayon-pink)"
-        />
+        <Star size={26} weight="duotone" color="var(--color-crayon-yellow)" />
       </span>
 
-      {/* Palette anchor */}
+      {/* Game controller anchor */}
       <span
         aria-hidden="true"
         className="bounce-title relative z-10 inline-flex items-center justify-center"
       >
-        <Palette
+        <GameController
           size={84}
           weight="duotone"
           color="var(--color-crayon-purple)"
@@ -108,7 +73,7 @@ export default function GalleryHeader() {
           className="text-puffy"
           style={{ color: "var(--color-crayon-pink)" }}
         >
-          Colorir!
+          Brincar!
         </span>
       </h1>
 

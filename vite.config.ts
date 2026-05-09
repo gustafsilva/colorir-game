@@ -13,9 +13,9 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.svg", "icons.svg"],
       manifest: {
-        name: "Colorir Game",
-        short_name: "Colorir",
-        description: "Jogo de colorir para crianças de 2 a 5 anos",
+        name: "Vamos Brincar!",
+        short_name: "Brincar",
+        description: "Jogos de colorir e caça-coelho para crianças de 2 a 5 anos",
         theme_color: "#4a7dff",
         background_color: "#f5f0e8",
         display: "standalone",
