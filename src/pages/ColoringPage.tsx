@@ -16,12 +16,37 @@ import PaperBackground from "@/components/PaperBackground"
 import ColoringHint from "@/components/ColoringHint"
 import { useFirstTimeUser } from "@/hooks/useFirstTimeUser"
 
-/**
- * Count total colorable paths in an SVG string by looking for path elements with id attributes.
- */
+// Paths smaller than this many SVG units² are decorative details (e.g. tiny
+// mouth highlights) that toddlers can't reliably click — ignore them in the
+// total so they don't block 100% completion.
+const MIN_COLORABLE_AREA = 100
+
+function pathBoundingArea(d: string): number {
+  const nums = d.match(/-?\d+\.?\d*/g)?.map(Number) ?? []
+  if (nums.length < 4) return 0
+  let minX = Infinity,
+    minY = Infinity,
+    maxX = -Infinity,
+    maxY = -Infinity
+  for (let i = 0; i < nums.length - 1; i += 2) {
+    const x = nums[i]
+    const y = nums[i + 1]
+    if (x < minX) minX = x
+    if (x > maxX) maxX = x
+    if (y < minY) minY = y
+    if (y > maxY) maxY = y
+  }
+  return (maxX - minX) * (maxY - minY)
+}
+
 function countPaths(svgContent: string): number {
-  const matches = svgContent.match(/<path[^>]+id="/g)
-  return matches?.length ?? 0
+  const pathRegex = /<path\b[^>]*\bid="[^"]+"[^>]*\bd="([^"]+)"/g
+  let count = 0
+  let match: RegExpExecArray | null
+  while ((match = pathRegex.exec(svgContent)) !== null) {
+    if (pathBoundingArea(match[1]) >= MIN_COLORABLE_AREA) count++
+  }
+  return count
 }
 
 export default function ColoringPage() {

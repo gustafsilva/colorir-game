@@ -24,6 +24,25 @@
   --color-crayon-pink: oklch(0.7 0.2 350);
   --color-crayon-brown: oklch(0.5 0.1 50);
 
+  /* Neutros */
+  --color-crayon-white: oklch(0.99 0 0);
+  --color-crayon-gray: oklch(0.72 0.01 260);
+  --color-crayon-black: oklch(0.20 0.02 260);
+
+  /* Variações claro/escuro + turquesa */
+  --color-crayon-red-light: oklch(0.78 0.18 25);
+  --color-crayon-red-dark: oklch(0.45 0.20 25);
+  --color-crayon-orange-dark: oklch(0.55 0.18 55);
+  --color-crayon-yellow-light: oklch(0.95 0.12 90);
+  --color-crayon-green-light: oklch(0.85 0.15 145);
+  --color-crayon-green-dark: oklch(0.50 0.18 145);
+  --color-crayon-turquoise: oklch(0.72 0.13 200);
+  --color-crayon-blue-light: oklch(0.72 0.16 240);
+  --color-crayon-blue-dark: oklch(0.40 0.20 260);
+  --color-crayon-purple-light: oklch(0.72 0.18 300);
+  --color-crayon-purple-dark: oklch(0.40 0.20 300);
+  --color-crayon-pink-light: oklch(0.85 0.13 350);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -239,6 +258,25 @@
   100% {
     opacity: 0;
     transform: translateX(-50%) translateY(-16px) scale(0.8);
+  }
+}
+
+/* Chevron wiggles: hint horizontal scroll for toddlers (2-5) */
+@keyframes chevron-wiggle-left {
+  0%, 100% {
+    transform: translateY(-50%) translateX(0);
+  }
+  50% {
+    transform: translateY(-50%) translateX(-4px);
+  }
+}
+
+@keyframes chevron-wiggle-right {
+  0%, 100% {
+    transform: translateY(-50%) translateX(0);
+  }
+  50% {
+    transform: translateY(-50%) translateX(4px);
   }
 }
 

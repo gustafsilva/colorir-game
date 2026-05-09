@@ -21,16 +21,24 @@ export function useCelebration(fills: Record<string, string>, totalPaths: number
     }
   }
 
-  // Detect milestone crossings (setState during render pattern)
-  const computedMilestone = (() => {
-    if (progress >= 100 && !seenMilestones.includes("complete")) return "complete" as const
-    if (progress >= 75 && !seenMilestones.includes("three-quarters")) return "three-quarters" as const
-    if (progress >= 50 && !seenMilestones.includes("half")) return "half" as const
-    return "none" as const
-  })()
+  // Always pick the HIGHEST milestone the current progress satisfies, so a
+  // single click that jumps past multiple thresholds (e.g. 50%→100% on a
+  // 2-path drawing) lands on "complete" instead of degrading to a lower one.
+  const computedMilestone: Milestone =
+    progress >= 100 ? "complete" : progress >= 75 ? "three-quarters" : progress >= 50 ? "half" : "none"
 
-  if (computedMilestone !== "none" && activeMilestone !== computedMilestone) {
-    setSeenMilestones((prev) => [...prev, computedMilestone])
+  const alreadySeen = seenMilestones.includes(computedMilestone)
+
+  if (computedMilestone !== "none" && !alreadySeen && activeMilestone !== computedMilestone) {
+    // Mark every threshold up to and including the current one as seen so
+    // the next render doesn't "downgrade" the active milestone.
+    setSeenMilestones((prev) => {
+      const next = [...prev]
+      if (progress >= 50 && !next.includes("half")) next.push("half")
+      if (progress >= 75 && !next.includes("three-quarters")) next.push("three-quarters")
+      if (progress >= 100 && !next.includes("complete")) next.push("complete")
+      return next
+    })
     setActiveMilestone(computedMilestone)
   }
 

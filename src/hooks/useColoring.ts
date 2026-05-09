@@ -2,20 +2,36 @@ import { useState, useCallback } from "react"
 import type { ColorAction } from "@/types"
 
 export const PALETTE_COLORS = [
+  { value: "var(--color-crayon-white)", label: "Branco" },
+  { value: "var(--color-crayon-gray)", label: "Cinza" },
+  { value: "var(--color-crayon-black)", label: "Preto" },
+  { value: "var(--color-crayon-red-light)", label: "Vermelho Claro" },
   { value: "var(--color-crayon-red)", label: "Vermelho" },
+  { value: "var(--color-crayon-red-dark)", label: "Vermelho Escuro" },
   { value: "var(--color-crayon-orange)", label: "Laranja" },
+  { value: "var(--color-crayon-orange-dark)", label: "Laranja Escuro" },
+  { value: "var(--color-crayon-yellow-light)", label: "Amarelo Claro" },
   { value: "var(--color-crayon-yellow)", label: "Amarelo" },
+  { value: "var(--color-crayon-green-light)", label: "Verde Claro" },
   { value: "var(--color-crayon-green)", label: "Verde" },
+  { value: "var(--color-crayon-green-dark)", label: "Verde Escuro" },
+  { value: "var(--color-crayon-turquoise)", label: "Turquesa" },
+  { value: "var(--color-crayon-blue-light)", label: "Azul Claro" },
   { value: "var(--color-crayon-blue)", label: "Azul" },
+  { value: "var(--color-crayon-blue-dark)", label: "Azul Escuro" },
+  { value: "var(--color-crayon-purple-light)", label: "Roxo Claro" },
   { value: "var(--color-crayon-purple)", label: "Roxo" },
+  { value: "var(--color-crayon-purple-dark)", label: "Roxo Escuro" },
+  { value: "var(--color-crayon-pink-light)", label: "Rosa Claro" },
   { value: "var(--color-crayon-pink)", label: "Rosa" },
   { value: "var(--color-crayon-brown)", label: "Marrom" },
 ]
 
 const DEFAULT_FILL = "#FFFFFF"
+const DEFAULT_SELECTED_COLOR = "var(--color-crayon-red)"
 
 export function useColoring() {
-  const [selectedColor, setSelectedColor] = useState(PALETTE_COLORS[0].value)
+  const [selectedColor, setSelectedColor] = useState(DEFAULT_SELECTED_COLOR)
   const [fills, setFills] = useState<Record<string, string>>({})
   const [undoStack, setUndoStack] = useState<ColorAction[]>([])
 

@@ -11,8 +11,9 @@ import treeSvg from "@/assets/svg/tree.svg?raw"
 import number1Svg from "@/assets/svg/number-1.svg?raw"
 import bearSvg from "@/assets/svg/bear.svg?raw"
 import peppaPigSvg from "@/assets/svg/peppa-pig.svg?raw"
-import georgePigSvg from "@/assets/svg/george-pig.svg?raw"
 import rebeccaRabbitSvg from "@/assets/svg/rebecca-rabbit.svg?raw"
+import papaiPigSvg from "@/assets/svg/papai-pig.svg?raw"
+import georgePigSvg from "@/assets/svg/george-pig.svg?raw"
 
 export const drawingSvgContent: Record<string, string> = {
   cat: catSvg,
@@ -28,6 +29,7 @@ export const drawingSvgContent: Record<string, string> = {
   tree: treeSvg,
   bear: bearSvg,
   "peppa-pig": peppaPigSvg,
-  "george-pig": georgePigSvg,
   "rebecca-rabbit": rebeccaRabbitSvg,
+  "papai-pig": papaiPigSvg,
+  "george-pig": georgePigSvg,
 }

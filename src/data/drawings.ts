@@ -13,8 +13,9 @@ import treeSvg from "@/assets/svg/tree.svg?url"
 import number1Svg from "@/assets/svg/number-1.svg?url"
 import bearSvg from "@/assets/svg/bear.svg?url"
 import peppaPigSvg from "@/assets/svg/peppa-pig.svg?url"
-import georgePigSvg from "@/assets/svg/george-pig.svg?url"
 import rebeccaRabbitSvg from "@/assets/svg/rebecca-rabbit.svg?url"
+import papaiPigSvg from "@/assets/svg/papai-pig.svg?url"
+import georgePigSvg from "@/assets/svg/george-pig.svg?url"
 
 export const drawings: Drawing[] = [
   { id: "cat", name: "gato", svgPath: catSvg },
@@ -30,8 +31,9 @@ export const drawings: Drawing[] = [
   { id: "number-1", name: "número 1", svgPath: number1Svg },
   { id: "bear", name: "urso", svgPath: bearSvg },
   { id: "peppa-pig", name: "Peppa Pig", svgPath: peppaPigSvg },
-  { id: "george-pig", name: "George", svgPath: georgePigSvg },
   { id: "rebecca-rabbit", name: "Rebecca", svgPath: rebeccaRabbitSvg },
+  { id: "papai-pig", name: "Papai Pig", svgPath: papaiPigSvg },
+  { id: "george-pig", name: "George", svgPath: georgePigSvg },
 ]
 
 /**
@@ -52,6 +54,7 @@ export const drawingColors: Record<string, string> = {
   tree: "crayon-green",
   bear: "crayon-orange",
   "peppa-pig": "crayon-purple",
-  "george-pig": "crayon-blue",
   "rebecca-rabbit": "crayon-yellow",
+  "papai-pig": "crayon-orange",
+  "george-pig": "crayon-blue",
 }

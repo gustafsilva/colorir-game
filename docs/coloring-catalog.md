@@ -86,8 +86,9 @@ cv2.imwrite('/tmp/coloring-source/X-cropped.png', out)
 | `letter-a` | letra A  | letras     | `crayon-red`     | `letter A coloring page bubble printable`       | https://woojr.com/wp-content/uploads/2009/04/a-232x300.gif                                                           |
 | `tree`     | árvore   | natureza   | `crayon-green`   | `simple tree coloring page line art png`        | https://creativecolorlab.com/wp-content/uploads/2024/03/easy-tree-outline-to-color-preschool.jpg                     |
 | `peppa-pig`| Peppa Pig| personagens| `crayon-purple`  | imagem fornecida pelo usuário                   | (Peppa de inverno com gorro/cachecol — substituiu a versão sketchjoy)                                                |
-| `george-pig`| George  | personagens| `crayon-blue`    | imagem fornecida pelo usuário                   | (George e Mr. Dinosaur — resolução baixa, contornos um pouco tremidos)                                               |
+| `george-pig`| George  | personagens| `crayon-blue`    | imagem fornecida pelo usuário                   | (George com bola — fonte 1334x1252, line art simples e limpo)                                                        |
 | `rebecca-rabbit`| Rebecca| personagens| `crayon-yellow` | imagem fornecida pelo usuário                  | (Rebecca Rabbit — amiga da Peppa)                                                                                     |
+| `papai-pig`| Papai Pig| personagens| `crayon-orange` | imagem fornecida pelo usuário                   | (Papai Pig com gravata e maleta — fonte 189x267, upscaled 4x antes da conversão)                                    |
 
 > **Lição aprendida:** as primeiras versões de `bear` e `number-1` vieram do
 > sketchjoy.com com fundos decorativos (sol, nuvens, árvores, blocos) que
@@ -97,6 +98,12 @@ cv2.imwrite('/tmp/coloring-source/X-cropped.png', out)
 >
 > **Resolução importa:** o George Pig veio em 267x189 (muito baixo) e os
 > contornos do SVG ficaram tremidos. Buscar PNGs ≥ 600px sempre que possível.
+>
+> **Workaround para fontes pequenas:** quando não há fonte de alta resolução
+> disponível, fazer upscale 4x via `cv2.resize(..., INTER_CUBIC)` seguido de
+> `cv2.threshold(..., OTSU)` antes de rodar o script reduz drasticamente o
+> desalinhamento entre regiões coloríveis e line art (usado em `george-pig`
+> e `papai-pig`).
 
 > Os 2 papagaio (`parrot`) e tartaruga (`turtle`) anteriores foram adicionados
 > durante o desenvolvimento do próprio script — fontes em `image-cache` local.
