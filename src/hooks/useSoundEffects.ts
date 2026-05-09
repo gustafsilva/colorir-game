@@ -9,6 +9,7 @@ interface SoundEffects {
   playSparkle: () => void
   playTada: () => void
   playClick: () => void
+  playHop: () => void
 }
 
 function getReducedMotion(): boolean {
@@ -203,6 +204,30 @@ export function useSoundEffects(): SoundEffects {
     })
   }, [getContext, playTone])
 
+  const playHop = useCallback(async () => {
+    if (reducedMotionRef.current) return
+    const ctx = await getContext()
+    if (!ctx) return
+
+    const now = ctx.currentTime
+    const osc = ctx.createOscillator()
+    const gainNode = ctx.createGain()
+
+    // Ascending boing — coelho saindo da toca
+    osc.type = "triangle"
+    osc.frequency.setValueAtTime(220, now)
+    osc.frequency.exponentialRampToValueAtTime(480, now + 0.08)
+
+    gainNode.gain.setValueAtTime(0, now)
+    gainNode.gain.linearRampToValueAtTime(0.18, now + 0.005)
+    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.12)
+
+    osc.connect(gainNode)
+    gainNode.connect(ctx.destination)
+    osc.start(now)
+    osc.stop(now + 0.12)
+  }, [getContext])
+
   const playClick = useCallback(async () => {
     if (reducedMotionRef.current) return
     const ctx = await getContext()
@@ -234,7 +259,8 @@ export function useSoundEffects(): SoundEffects {
       playSparkle,
       playTada,
       playClick,
+      playHop,
     }),
-    [playPop, playSplash, playWhoosh, playSparkle, playTada, playClick],
+    [playPop, playSplash, playWhoosh, playSparkle, playTada, playClick, playHop],
   )
 }
