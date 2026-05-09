@@ -16,10 +16,11 @@ import PaperBackground from "@/components/PaperBackground"
 import ColoringHint from "@/components/ColoringHint"
 import { useFirstTimeUser } from "@/hooks/useFirstTimeUser"
 
-// Paths smaller than this many SVG units² are decorative details (e.g. tiny
-// mouth highlights) that toddlers can't reliably click — ignore them in the
-// total so they don't block 100% completion.
-const MIN_COLORABLE_AREA = 100
+// Paths smaller than this many SVG units² are decorative details (eyes,
+// noses, mouth highlights) that toddlers can't reliably tap — ignore them in
+// the total so they don't block 100% completion. They remain colorable for
+// anyone who manages to hit them, just not required.
+const MIN_COLORABLE_AREA = 500
 
 function pathBoundingArea(d: string): number {
   const nums = d.match(/-?\d+\.?\d*/g)?.map(Number) ?? []

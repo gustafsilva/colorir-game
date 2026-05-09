@@ -41,6 +41,13 @@ export default function ColoringSVG({ svgContent, fills, onPathClick }: Coloring
       ;(path as SVGPathElement).style.cursor = "pointer"
       path.classList.add("colorable-path")
     })
+
+    // Line art and decorative shapes (no id) sit on top of colorable paths and
+    // can swallow clicks meant for the path underneath. Disable their pointer
+    // events so taps fall through to the colorable region.
+    svg.querySelectorAll("path:not([id]), line, circle:not([id]), ellipse:not([id]), rect:not([id]), polygon:not([id]), polyline").forEach((el) => {
+      ;(el as SVGElement).style.pointerEvents = "none"
+    })
   }, [svgContent])
 
   // Apply fills separately — runs only when fills change, never resets the DOM
