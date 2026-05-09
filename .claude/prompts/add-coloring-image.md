@@ -35,7 +35,7 @@ Tente alternar — se já tem 3 imagens com `crayon-blue`, escolha outra.
 
 ```text
 Tarefa: adicionar uma nova imagem ao catálogo de imagens para colorir do app
-leonardo-da-vinci-app, seguindo o workflow documentado em docs/coloring-catalog.md.
+colorir-game, seguindo o workflow documentado em docs/coloring-catalog.md.
 
 Parâmetros:
 - ID: {{ID}}

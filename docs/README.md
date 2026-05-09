@@ -1,4 +1,4 @@
-# 🎨 Leonardo da Vinci App
+# 🎨 Colorir Game
 
 > Jogo de colorir virtual para crianças de 2 a 5 anos — inspirado no estilo Bobbie Goods.
 

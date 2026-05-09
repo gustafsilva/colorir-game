@@ -1,4 +1,4 @@
-# Tarefas — Leonardo da Vinci App
+# Tarefas — Colorir Game
 
 > Jogo de colorir para crianças de 2 a 5 anos • React + TypeScript + Vite
 
