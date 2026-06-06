@@ -5,6 +5,7 @@ import GalleryPage from "@/pages/GalleryPage"
 import ColoringPage from "@/pages/ColoringPage"
 import RabbitHuntPage from "@/pages/RabbitHuntPage"
 import NailSalonPage from "@/pages/NailSalonPage"
+import DuckNestPage from "@/pages/DuckNestPage"
 
 export const router = createBrowserRouter(
   [
@@ -16,6 +17,7 @@ export const router = createBrowserRouter(
         { path: "coloring/:id", element: <ColoringPage /> },
         { path: "rabbit-hunt", element: <RabbitHuntPage /> },
         { path: "nail-salon", element: <NailSalonPage /> },
+        { path: "duck-nest", element: <DuckNestPage /> },
       ],
     },
   ],

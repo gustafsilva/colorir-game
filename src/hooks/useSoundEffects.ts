@@ -10,6 +10,7 @@ interface SoundEffects {
   playTada: () => void
   playClick: () => void
   playHop: () => void
+  playQuack: () => void
 }
 
 function getReducedMotion(): boolean {
@@ -228,6 +229,35 @@ export function useSoundEffects(): SoundEffects {
     osc.stop(now + 0.12)
   }, [getContext])
 
+  const playQuack = useCallback(async () => {
+    if (reducedMotionRef.current) return
+    const ctx = await getContext()
+    if (!ctx) return
+
+    const now = ctx.currentTime
+
+    // "Quá-quá" — dois pulsos curtos nasais (sawtooth) com queda de pitch
+    const pulses = [0, 0.14]
+    pulses.forEach((offset) => {
+      const start = now + offset
+      const osc = ctx.createOscillator()
+      const gainNode = ctx.createGain()
+
+      osc.type = "sawtooth"
+      osc.frequency.setValueAtTime(320, start)
+      osc.frequency.exponentialRampToValueAtTime(200, start + 0.1)
+
+      gainNode.gain.setValueAtTime(0, start)
+      gainNode.gain.linearRampToValueAtTime(0.14, start + 0.01)
+      gainNode.gain.exponentialRampToValueAtTime(0.001, start + 0.12)
+
+      osc.connect(gainNode)
+      gainNode.connect(ctx.destination)
+      osc.start(start)
+      osc.stop(start + 0.12)
+    })
+  }, [getContext])
+
   const playClick = useCallback(async () => {
     if (reducedMotionRef.current) return
     const ctx = await getContext()
@@ -260,7 +290,8 @@ export function useSoundEffects(): SoundEffects {
       playTada,
       playClick,
       playHop,
+      playQuack,
     }),
-    [playPop, playSplash, playWhoosh, playSparkle, playTada, playClick, playHop],
+    [playPop, playSplash, playWhoosh, playSparkle, playTada, playClick, playHop, playQuack],
   )
 }

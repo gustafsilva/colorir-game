@@ -693,3 +693,118 @@
     animation: glitter-twinkle 1.6s ease-in-out infinite;
   }
 }
+
+/* ─── Patinhos no Ninho ─── */
+
+/* Pop quando o patinho assenta no ninho certo */
+@keyframes duck-settle {
+  0% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Balanço fofinho dos patinhos parados, convidando ao toque */
+@keyframes duck-waddle {
+  0%, 100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+/* Patinho chegando: nada da esquerda até o lugar dele no lago,
+   balançando como se remasse */
+@keyframes duck-arrive {
+  0% {
+    transform: translateX(-70vw) translateY(0) rotate(-4deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  30% {
+    transform: translateX(-46vw) translateY(-6px) rotate(4deg);
+  }
+  55% {
+    transform: translateX(-26vw) translateY(3px) rotate(-4deg);
+  }
+  80% {
+    transform: translateX(-9vw) translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+}
+
+/* Ondinhas do lago balançando devagar */
+@keyframes lake-wave {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(8px);
+  }
+}
+
+/* Balão subindo a tela inteira com drift lateral suave */
+@keyframes balloon-rise {
+  0% {
+    transform: translateY(0) translateX(0) rotate(-3deg);
+  }
+  25% {
+    transform: translateY(-32vh) translateX(16px) rotate(3deg);
+  }
+  50% {
+    transform: translateY(-64vh) translateX(-12px) rotate(-3deg);
+  }
+  75% {
+    transform: translateY(-96vh) translateX(14px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(-130vh) translateX(0) rotate(-2deg);
+  }
+}
+
+/* A subida do balão é mecânica do jogo (não decoração):
+   continua sob prefers-reduced-motion, apenas sem o drift ficar nervoso. */
+.balloon-rise {
+  animation: balloon-rise var(--rise-duration, 5s) linear both;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .duck-waddle {
+    animation: duck-waddle 1.8s ease-in-out infinite;
+    animation-delay: var(--waddle-delay, 0ms);
+  }
+  .duck-settle {
+    animation: duck-settle 350ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  .duck-arrive {
+    animation: duck-arrive 1100ms cubic-bezier(0.25, 0.6, 0.35, 1) both;
+    animation-delay: var(--arrive-delay, 0ms);
+  }
+  .lake-wave {
+    animation: lake-wave 3s ease-in-out infinite;
+    animation-delay: var(--wave-delay, 0ms);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .duck-waddle,
+  .duck-settle,
+  .duck-arrive,
+  .lake-wave {
+    animation: none;
+  }
+  .balloon-rise {
+    animation-duration: calc(var(--rise-duration, 5s) * 1.5);
+  }
+}

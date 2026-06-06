@@ -6,6 +6,7 @@ import HubHeader from "@/components/HubHeader"
 import HubCard from "@/components/HubCard"
 import RabbitSVG from "@/components/game/RabbitSVG"
 import HandSVG from "@/components/game/HandSVG"
+import DuckSVG from "@/components/game/DuckSVG"
 import { useCompletedDrawings } from "@/hooks/useCompletedDrawings"
 import { useHighScore } from "@/hooks/useHighScore"
 import type { NailDecor, NailId } from "@/hooks/useNailSalon"
@@ -76,6 +77,22 @@ export default function HomePage() {
                 <div className="h-[120px] w-[120px]">
                   <HandSVG
                     nails={PREVIEW_NAILS}
+                    className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
+                  />
+                </div>
+              }
+            />
+
+            <HubCard
+              to="/duck-nest"
+              title="Patinhos no Ninho"
+              accentColor="var(--color-crayon-yellow)"
+              badge="Vamos brincar!"
+              index={3}
+              icon={
+                <div className="h-[120px] w-[120px]">
+                  <DuckSVG
+                    color="var(--color-crayon-yellow)"
                     className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
                   />
                 </div>
