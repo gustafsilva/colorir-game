@@ -5,8 +5,19 @@ import PageTransition from "@/components/PageTransition"
 import HubHeader from "@/components/HubHeader"
 import HubCard from "@/components/HubCard"
 import RabbitSVG from "@/components/game/RabbitSVG"
+import HandSVG from "@/components/game/HandSVG"
 import { useCompletedDrawings } from "@/hooks/useCompletedDrawings"
 import { useHighScore } from "@/hooks/useHighScore"
+import type { NailDecor, NailId } from "@/hooks/useNailSalon"
+
+/** Miniatura da mão no card do hub, já decorada para dar vontade de brincar. */
+const PREVIEW_NAILS: Record<NailId, NailDecor> = {
+  thumb: { color: "var(--color-crayon-pink)", glitter: false },
+  index: { color: "var(--color-crayon-purple)", glitter: true },
+  middle: { color: "var(--color-crayon-red)", glitter: false, sticker: "star" },
+  ring: { color: "var(--color-crayon-turquoise)", glitter: false },
+  pinky: { color: "var(--color-crayon-yellow)", glitter: false, sticker: "heart" },
+}
 
 export default function HomePage() {
   const { completed } = useCompletedDrawings()
@@ -21,7 +32,7 @@ export default function HomePage() {
         <div className="mx-auto flex w-full max-w-[720px] flex-col items-center pb-10">
           <HubHeader />
 
-          <div className="flex w-full flex-col items-center justify-center gap-8 sm:flex-row sm:gap-10">
+          <div className="flex w-full flex-col items-center justify-center gap-8 sm:flex-row sm:flex-wrap sm:gap-10">
             <HubCard
               to="/coloring"
               title="Colorir"
@@ -51,6 +62,22 @@ export default function HomePage() {
               icon={
                 <div className="h-[120px] w-[120px]">
                   <RabbitSVG className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]" />
+                </div>
+              }
+            />
+
+            <HubCard
+              to="/nail-salon"
+              title="Salão de Unhas"
+              accentColor="var(--color-crayon-pink)"
+              badge="Vamos pintar!"
+              index={2}
+              icon={
+                <div className="h-[120px] w-[120px]">
+                  <HandSVG
+                    nails={PREVIEW_NAILS}
+                    className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
+                  />
                 </div>
               }
             />

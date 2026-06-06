@@ -646,3 +646,50 @@
     inset 0 2px 4px rgba(0, 0, 0, 0.12),
     0 2px 0 color-mix(in srgb, var(--card-glow) 35%, black);
 }
+
+/* ─── Salão de Unhas ─── */
+.nail-finger {
+  cursor: pointer;
+}
+
+.nail-finger:focus-visible {
+  outline: none;
+  filter: drop-shadow(0 0 6px var(--color-crayon-blue));
+}
+
+/* O grupo da unha remonta (key) a cada mudança de decoração, re-disparando o pop */
+.nail-pop {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes nail-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.22);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes glitter-twinkle {
+  0%,
+  100% {
+    opacity: 0.95;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nail-pop {
+    animation: nail-pop 350ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  .glitter-layer {
+    animation: glitter-twinkle 1.6s ease-in-out infinite;
+  }
+}
