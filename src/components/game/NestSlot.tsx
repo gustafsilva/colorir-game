@@ -50,10 +50,10 @@ export default function NestSlot({ color, occupied, register }: NestSlotProps) {
       aria-label={occupied ? `${NEST_LABELS[color]} com patinho` : NEST_LABELS[color]}
       className="relative flex w-full items-end justify-center"
     >
-      {/* Patinho assentado, espiando de dentro do ninho */}
+      {/* Patinho assentado na frente do ninho */}
       {occupied && (
-        <div className="duck-settle absolute bottom-[55%] left-1/2 w-[58%] -translate-x-1/2">
-          <DuckSVG color={DUCK_COLOR_VARS[color]} className="h-auto w-full" />
+        <div className="duck-settle absolute bottom-[24%] left-1/2 z-20 w-[62%] -translate-x-1/2">
+          <DuckSVG color={DUCK_COLOR_VARS[color]} className="h-auto w-full drop-shadow-[0_3px_6px_rgba(0,0,0,0.2)]" />
         </div>
       )}
       <NestSVG color={DUCK_COLOR_VARS[color]} className="relative z-10 h-auto w-full" />

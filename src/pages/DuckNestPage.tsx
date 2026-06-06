@@ -109,8 +109,8 @@ export default function DuckNestPage() {
       <AnimatedBackground density="low" />
 
       <PageTransition className="flex w-full flex-1 flex-col">
-        {/* Topo: voltar + indicador de fase ou timer dos balões */}
-        <div className="relative z-10 mb-4 flex w-full items-center justify-between gap-3 sm:mb-6">
+        {/* Topo flutuante sobre o lago: voltar + indicador de fase ou timer dos balões */}
+        <div className="absolute inset-x-0 top-0 z-20 flex w-full items-center justify-between gap-3">
           <button
             type="button"
             onClick={handleBack}
@@ -165,13 +165,9 @@ export default function DuckNestPage() {
 
         {/* Área de jogo */}
         {(mode === "playing" || mode === "phaseComplete") && (
-          <div className="relative z-10 flex w-full flex-1 flex-col items-center justify-between">
-            <p className="text-puffy-sm mb-2 text-center text-xl text-[var(--color-crayon-green-dark)]">
-              Leve cada patinho para o ninho da mesma cor!
-            </p>
-
-            {/* Lago — faixa horizontal de tela inteira */}
-            <div className="relative left-1/2 w-screen -translate-x-1/2 bg-gradient-to-b from-sky-200/90 via-blue-200/90 to-blue-300/90 py-7 shadow-[inset_0_6px_14px_rgba(30,100,200,0.22),inset_0_-6px_14px_rgba(30,100,200,0.22)]">
+          <div className="relative z-10 flex w-full flex-1 flex-col items-center">
+            {/* Lago — grudado no topo e desce até a grama; o cabeçalho flutua sobre a água */}
+            <div className="relative left-1/2 -mt-4 flex w-screen flex-1 -translate-x-1/2 flex-col justify-center bg-gradient-to-b from-sky-200/90 via-blue-200/90 to-blue-300/90 pb-7 pt-20 shadow-[inset_0_-6px_14px_rgba(30,100,200,0.22)] sm:-mt-6 sm:pt-24">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -229,7 +225,7 @@ export default function DuckNestPage() {
         {/* Bônus: estourar balões por 1 minuto */}
         {isBalloonMode && (
           <div className="relative z-10 w-full flex-1">
-            <p className="text-puffy-sm pointer-events-none text-center text-xl text-[var(--color-crayon-purple)]">
+            <p className="text-puffy-sm pointer-events-none pt-20 text-center text-xl text-[var(--color-crayon-purple)] sm:pt-24">
               Estoure os balões!
             </p>
             <BalloonField onPop={playPop} />
