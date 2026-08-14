@@ -13,6 +13,7 @@ interface SoundEffects {
   playQuack: () => void
   playSlice: () => void
   playBoom: () => void
+  playChomp: () => void
 }
 
 function getReducedMotion(): boolean {
@@ -337,6 +338,55 @@ export function useSoundEffects(): SoundEffects {
     playTone(320, 0.09, "triangle", 0.15, ctx, 0.5)
   }, [getContext, playTone])
 
+  const playChomp = useCallback(async () => {
+    if (reducedMotionRef.current) return
+    const ctx = await getContext()
+    if (!ctx) return
+
+    // "Nha-c": duas mordidas curtas com queda de pitch…
+    const bites: [number, number, number][] = [
+      // [freq inicial, freq final, offset]
+      [480, 240, 0],
+      [420, 210, 0.11],
+    ]
+    bites.forEach(([from, to, offset]) => {
+      const start = ctx.currentTime + offset
+      const osc = ctx.createOscillator()
+      const gainNode = ctx.createGain()
+
+      osc.type = "triangle"
+      osc.frequency.setValueAtTime(from, start)
+      osc.frequency.exponentialRampToValueAtTime(to, start + 0.07)
+
+      gainNode.gain.setValueAtTime(0, start)
+      gainNode.gain.linearRampToValueAtTime(0.16, start + 0.008)
+      gainNode.gain.exponentialRampToValueAtTime(0.001, start + 0.08)
+
+      osc.connect(gainNode)
+      gainNode.connect(ctx.destination)
+      osc.start(start)
+      osc.stop(start + 0.08)
+    })
+
+    // …e um "gulp" grave engolindo no final
+    const gulpStart = ctx.currentTime + 0.22
+    const gulp = ctx.createOscillator()
+    const gulpGain = ctx.createGain()
+
+    gulp.type = "sine"
+    gulp.frequency.setValueAtTime(200, gulpStart)
+    gulp.frequency.exponentialRampToValueAtTime(130, gulpStart + 0.1)
+
+    gulpGain.gain.setValueAtTime(0, gulpStart)
+    gulpGain.gain.linearRampToValueAtTime(0.12, gulpStart + 0.01)
+    gulpGain.gain.exponentialRampToValueAtTime(0.001, gulpStart + 0.12)
+
+    gulp.connect(gulpGain)
+    gulpGain.connect(ctx.destination)
+    gulp.start(gulpStart)
+    gulp.stop(gulpStart + 0.12)
+  }, [getContext])
+
   const playClick = useCallback(async () => {
     if (reducedMotionRef.current) return
     const ctx = await getContext()
@@ -372,7 +422,8 @@ export function useSoundEffects(): SoundEffects {
       playQuack,
       playSlice,
       playBoom,
+      playChomp,
     }),
-    [playPop, playSplash, playWhoosh, playSparkle, playTada, playClick, playHop, playQuack, playSlice, playBoom],
+    [playPop, playSplash, playWhoosh, playSparkle, playTada, playClick, playHop, playQuack, playSlice, playBoom, playChomp],
   )
 }
