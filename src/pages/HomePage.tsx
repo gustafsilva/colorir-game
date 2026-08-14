@@ -11,6 +11,8 @@ import ShapeSVG from "@/components/game/ShapeSVG"
 import FruitSVG from "@/components/game/FruitSVG"
 import { MEMORY_FACES } from "@/components/game/MemoryFaces"
 import { WormHeadSVG, WormSegmentSVG } from "@/components/game/WormSVG"
+import PuzzleArt from "@/components/game/PuzzleArt"
+import { PUZZLE_PHASES } from "@/data/puzzles"
 import { useCompletedDrawings } from "@/hooks/useCompletedDrawings"
 import { useHighScore } from "@/hooks/useHighScore"
 import type { NailDecor, NailId } from "@/hooks/useNailSalon"
@@ -216,6 +218,39 @@ export default function HomePage() {
                   <div className="absolute right-0 top-0 h-10 w-10">
                     <FruitSVG kind="apple" className="h-full w-full" />
                   </div>
+                </div>
+              }
+            />
+
+            <HubCard
+              to="/puzzle"
+              title="Quebra-Cabeça"
+              accentColor="var(--color-crayon-turquoise)"
+              badge="Vamos montar!"
+              index={8}
+              icon={
+                <div className="grid h-[120px] w-[120px] grid-cols-2 gap-1.5">
+                  {/* A maçã da fase 1 cortada em 4, como um tabuleiro em jogo */}
+                  {(
+                    [
+                      { x: 0, y: 0, w: 200, h: 200 },
+                      { x: 200, y: 0, w: 200, h: 200 },
+                      { x: 0, y: 200, w: 200, h: 200 },
+                      { x: 200, y: 200, w: 200, h: 200 },
+                    ] as const
+                  ).map((clipRect) => (
+                    <div
+                      key={`${clipRect.x}-${clipRect.y}`}
+                      className="overflow-hidden rounded-lg border-2 border-white bg-white shadow-sm"
+                    >
+                      <PuzzleArt
+                        drawingId={PUZZLE_PHASES[0].drawingId}
+                        fills={PUZZLE_PHASES[0].fills}
+                        clipRect={clipRect}
+                        className="h-full w-full"
+                      />
+                    </div>
+                  ))}
                 </div>
               }
             />

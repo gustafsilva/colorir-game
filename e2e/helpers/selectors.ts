@@ -80,6 +80,21 @@ export function wormSegments(label: string): number {
   return match ? Number(match[1]) : NaN
 }
 
+// --- Quebra-Cabeça ---------------------------------------------------------
+export const PUZZLE_PIECE = '[role="button"][aria-label^="Peça do quebra-cabeça "]'
+export const PUZZLE_SLOT = '[role="img"][aria-label^="Lugar da peça "]'
+export const PUZZLE_SLOT_EMPTY = `${PUZZLE_SLOT}:not([aria-label*="com peça"])`
+
+/** "Peça do quebra-cabeça 3" → "3" */
+export function puzzlePieceNumber(label: string): string {
+  return label.replace(/^Peça do quebra-cabeça\s+/, "").trim()
+}
+
+/** "Lugar da peça 3" / "Lugar da peça 3 com peça encaixada" → "3" */
+export function puzzleSlotNumber(label: string): string {
+  return label.replace(/^Lugar da peça\s+/, "").replace(/\s+com peça encaixada$/, "").trim()
+}
+
 // --- Colorir -------------------------------------------------------------
 export const PALETTE = '[role="radiogroup"][aria-label="Paleta de cores"]'
 export const PALETTE_COLOR = `${PALETTE} [role="radio"]`
@@ -110,6 +125,7 @@ export const ROUTES: Route[] = [
   { path: "fruit-slice", name: "Corta-Frutas", ready: BACK_BUTTON },
   { path: "memory", name: "Memória", ready: CARD_DOWN },
   { path: "worm", name: "Minhoca Comilona", ready: WORM_FRUIT },
+  { path: "puzzle", name: "Quebra-Cabeça", ready: PUZZLE_PIECE },
 ]
 
 // --- localStorage --------------------------------------------------------

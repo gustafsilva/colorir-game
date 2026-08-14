@@ -10,6 +10,7 @@ import ShapeFitPage from "@/pages/ShapeFitPage"
 import FruitSlicePage from "@/pages/FruitSlicePage"
 import MemoryGamePage from "@/pages/MemoryGamePage"
 import WormGamePage from "@/pages/WormGamePage"
+import PuzzlePage from "@/pages/PuzzlePage"
 
 export const router = createBrowserRouter(
   [
@@ -26,6 +27,7 @@ export const router = createBrowserRouter(
         { path: "fruit-slice", element: <FruitSlicePage /> },
         { path: "memory", element: <MemoryGamePage /> },
         { path: "worm", element: <WormGamePage /> },
+        { path: "puzzle", element: <PuzzlePage /> },
       ],
     },
   ],
