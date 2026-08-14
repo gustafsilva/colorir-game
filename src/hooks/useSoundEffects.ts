@@ -11,6 +11,8 @@ interface SoundEffects {
   playClick: () => void
   playHop: () => void
   playQuack: () => void
+  playSlice: () => void
+  playBoom: () => void
 }
 
 function getReducedMotion(): boolean {
@@ -258,6 +260,79 @@ export function useSoundEffects(): SoundEffects {
     })
   }, [getContext])
 
+  const playSlice = useCallback(async () => {
+    if (reducedMotionRef.current) return
+    const ctx = await getContext()
+    if (!ctx) return
+
+    const now = ctx.currentTime
+
+    // Swish ascendente rápido — a "lâmina" passando
+    const osc = ctx.createOscillator()
+    const gainNode = ctx.createGain()
+
+    osc.type = "sine"
+    osc.frequency.setValueAtTime(500, now)
+    osc.frequency.exponentialRampToValueAtTime(1600, now + 0.09)
+
+    gainNode.gain.setValueAtTime(0, now)
+    gainNode.gain.linearRampToValueAtTime(0.16, now + 0.01)
+    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.12)
+
+    osc.connect(gainNode)
+    gainNode.connect(ctx.destination)
+    osc.start(now)
+    osc.stop(now + 0.12)
+
+    // "Toc" suculento logo atrás — a fruta abrindo
+    playTone(900, 0.08, "triangle", 0.14, ctx, 0.05)
+  }, [getContext, playTone])
+
+  // Sem gate de reduced-motion: é o feedback essencial de ter cortado a bomba.
+  const playBoom = useCallback(async () => {
+    const ctx = await getContext()
+    if (!ctx) return
+
+    const now = ctx.currentTime
+
+    // Slide-whistle descendente — explosão cômica, não assustadora
+    const osc = ctx.createOscillator()
+    const gainNode = ctx.createGain()
+
+    osc.type = "triangle"
+    osc.frequency.setValueAtTime(900, now)
+    osc.frequency.exponentialRampToValueAtTime(160, now + 0.32)
+
+    gainNode.gain.setValueAtTime(0, now)
+    gainNode.gain.linearRampToValueAtTime(0.18, now + 0.02)
+    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.35)
+
+    osc.connect(gainNode)
+    gainNode.connect(ctx.destination)
+    osc.start(now)
+    osc.stop(now + 0.35)
+
+    // Thump grave abafado no chão…
+    const thump = ctx.createOscillator()
+    const thumpGain = ctx.createGain()
+
+    thump.type = "sine"
+    thump.frequency.setValueAtTime(100, now + 0.3)
+    thump.frequency.exponentialRampToValueAtTime(55, now + 0.48)
+
+    thumpGain.gain.setValueAtTime(0, now + 0.3)
+    thumpGain.gain.linearRampToValueAtTime(0.22, now + 0.32)
+    thumpGain.gain.exponentialRampToValueAtTime(0.001, now + 0.5)
+
+    thump.connect(thumpGain)
+    thumpGain.connect(ctx.destination)
+    thump.start(now + 0.3)
+    thump.stop(now + 0.5)
+
+    // …e um "plop" bobinho para fechar com graça
+    playTone(320, 0.09, "triangle", 0.15, ctx, 0.5)
+  }, [getContext, playTone])
+
   const playClick = useCallback(async () => {
     if (reducedMotionRef.current) return
     const ctx = await getContext()
@@ -291,7 +366,9 @@ export function useSoundEffects(): SoundEffects {
       playClick,
       playHop,
       playQuack,
+      playSlice,
+      playBoom,
     }),
-    [playPop, playSplash, playWhoosh, playSparkle, playTada, playClick, playHop, playQuack],
+    [playPop, playSplash, playWhoosh, playSparkle, playTada, playClick, playHop, playQuack, playSlice, playBoom],
   )
 }

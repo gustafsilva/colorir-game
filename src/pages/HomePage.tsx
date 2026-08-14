@@ -8,6 +8,7 @@ import RabbitSVG from "@/components/game/RabbitSVG"
 import HandSVG from "@/components/game/HandSVG"
 import DuckSVG from "@/components/game/DuckSVG"
 import ShapeSVG from "@/components/game/ShapeSVG"
+import FruitSVG from "@/components/game/FruitSVG"
 import { useCompletedDrawings } from "@/hooks/useCompletedDrawings"
 import { useHighScore } from "@/hooks/useHighScore"
 import type { NailDecor, NailId } from "@/hooks/useNailSalon"
@@ -126,6 +127,34 @@ export default function HomePage() {
                   <ShapeSVG
                     shape="star"
                     color="var(--color-crayon-yellow)"
+                    className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
+                  />
+                </div>
+              }
+            />
+
+            <HubCard
+              to="/fruit-slice"
+              title="Corta-Frutas"
+              accentColor="var(--color-crayon-red)"
+              badge="Vamos cortar!"
+              index={5}
+              icon={
+                <div className="grid h-[120px] w-[120px] grid-cols-2 gap-1.5">
+                  <FruitSVG
+                    kind="apple"
+                    className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
+                  />
+                  <FruitSVG
+                    kind="banana"
+                    className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
+                  />
+                  <FruitSVG
+                    kind="watermelon"
+                    className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
+                  />
+                  <FruitSVG
+                    kind="strawberry"
                     className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
                   />
                 </div>
