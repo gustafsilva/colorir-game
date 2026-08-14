@@ -132,6 +132,18 @@ def find_colorable_regions(binary: np.ndarray, min_area: int) -> list[np.ndarray
     return regions
 
 
+def region_center_is_outside(region: np.ndarray) -> bool:
+    """True quando o centro do bounding box do path cai fora do próprio
+    polígono — regiões côncavas (faixas curvas, contornos em "C") onde o
+    toque no centro visual da criança não acerta a região (BUG-05 em
+    docs/bugs.md). Não bloqueia nada: a região continua colorível por
+    outros pontos, é só um sinal para revisão manual na curadoria."""
+    x, y, w, h = cv2.boundingRect(region)
+    center = (x + w / 2, y + h / 2)
+    contour = region.reshape(-1, 1, 2).astype(np.float32)
+    return cv2.pointPolygonTest(contour, center, False) < 0
+
+
 def find_lineart_contours(binary: np.ndarray) -> list[np.ndarray]:
     """Pega todos os blobs pretos (linha) como contornos, incluindo buracos
     internos, para que `fill-rule="evenodd"` deixe o interior transparente
@@ -351,6 +363,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         print("  brancas internas claramente fechadas pelo line art preto.")
         print("  Tente diminuir --min-area ou usar uma imagem com line art mais limpo.")
         return 1
+
+    concave = [i for i, r in enumerate(regions, start=1) if region_center_is_outside(r)]
+    if concave:
+        ids = ", ".join(f"{args.id}-region-{i}" for i in concave)
+        print(f"⚠ {len(concave)} região(ões) côncava(s), revisar na curadoria: {ids}")
+        print("  O centro do bbox cai fora do path — toque no meio visual pode não")
+        print("  acertar (BUG-05 em docs/bugs.md). Continuam coloríveis por outros")
+        print("  pontos; não bloqueia a conclusão do desenho.")
 
     lineart = find_lineart_contours(binary)
     print(f"→ Detectados {len(lineart)} contornos de line art")

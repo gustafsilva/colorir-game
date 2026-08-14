@@ -122,6 +122,14 @@ cv2.imwrite('/tmp/coloring-source/X-cropped.png', out)
 > Os 2 papagaio (`parrot`) e tartaruga (`turtle`) anteriores foram adicionados
 > durante o desenvolvimento do próprio script — fontes em `image-cache` local.
 
+> **Regiões côncavas (BUG-05 em `docs/bugs.md`):** faixas curvas e contornos
+> em "C" têm o centro do bounding box fora do próprio path — uma criança que
+> toca no meio visual dessas regiões não acerta. O script agora imprime um
+> aviso (`⚠ N região(ões) côncava(s)...`) listando os IDs afetados; a região
+> continua colorível por outros pontos, então isso **não bloqueia** o
+> desenho. Ao ver o aviso, decida na curadoria: aceitar (padrão), ou engordar
+> a mira manualmente com `stroke` transparente largo no path afetado.
+
 ## Aviso sobre direitos autorais (IP)
 
 **Personagens com IP** (Peppa Pig, Bluey, Mickey Mouse, Numberblocks, etc) são
