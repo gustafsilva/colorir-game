@@ -17,12 +17,12 @@ Após pesquisa de mecânicas adequadas a crianças de 2–5 anos (sem fail state
 | Etapa | Minhoca | Quebra-cabeça | Bolhas |
 |---|---|---|---|
 | Design | ✅ | ✅ | ✅ |
-| Branch criada | ✅ | ✅ | ⬜ |
-| Implementação | ✅ | ✅ | ⬜ |
-| Lint + build | ✅ | ✅ | ⬜ |
-| Spec E2E escrito | ✅ | ✅ | ⬜ |
-| E2E rodando verde | ✅ | ✅ | ⬜ |
-| Commits + push | ✅ | ✅ | ⬜ |
+| Branch criada | ✅ | ✅ | ✅ |
+| Implementação | ✅ | ✅ | ✅ |
+| Lint + build | ✅ | ✅ | ✅ |
+| Spec E2E escrito | ✅ | ✅ | ✅ |
+| E2E rodando verde | ✅ | ✅ | ✅ |
+| Commits + push | ✅ | ✅ | ✅ |
 
 ## Onde parei / próximo passo
 
@@ -31,7 +31,8 @@ Após pesquisa de mecânicas adequadas a crianças de 2–5 anos (sem fail state
   - Pesquisa de mecânicas + design detalhado dos 3 jogos (decisões resumidas abaixo).
   - **Minhoca Comilona pronta** na branch `feat/worm-game` (pushed): 3 commits (`playChomp` no useSoundEffects → jogo completo → suíte E2E). `e2e/minhoca.spec.ts` com 5 testes verdes + smoke/navigation/console-health verdes em todos os projects (158 passed). Verificação visual ok (tabuleiro, hub card).
   - **Quebra-cabeça pronto** na branch `feat/puzzle-game` (pushed): 5 commits (dados+PuzzleArt → hook → página+drag → rota+hub → E2E). `e2e/puzzle.spec.ts` com 7 testes verdes + transversais (162 passed em todos os projects). Nota de teste: "mira generosa" precisa mirar a peça 1 (canto superior) — soltar acima de um lugar com vizinho em cima perde no desempate por distância, o que é o comportamento correto do jogo.
-- **Próximo passo:** implementar o **Estoura Bolhas** na branch `feat/bubble-pop-game` (último jogo da leva).
+  - **Estoura Bolhas pronto** na branch `feat/bubble-pop-game` (pushed): 5 commits (hook → componentes+css → fix do overlay → página+rota+hub → E2E). **A suíte E2E expôs um bug real no `CelebrationOverlay` compartilhado**: quando a ação que completa a fase acontece no pointerdown (última bolha), o overlay monta entre o down e o up e o click do mesmo toque o dispensava na hora — corrigido com carência de 350ms pós-montagem (commit `fix:` na branch do bubble-pop). Suíte E2E COMPLETA rodada na branch: **410 passed, 0 failed, 29 skipped** (7,4 min).
+- **Próximo passo:** merge das 4 branches na `main` (ordem: worm → puzzle → bubble-pop → docs), ajustando `index` dos HubCards (7/8/9) e os conflitos aditivos em router/HomePage/index.css/selectors.
 
 ## Decisões técnicas (resumo por jogo)
 
