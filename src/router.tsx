@@ -11,6 +11,7 @@ import FruitSlicePage from "@/pages/FruitSlicePage"
 import MemoryGamePage from "@/pages/MemoryGamePage"
 import WormGamePage from "@/pages/WormGamePage"
 import PuzzlePage from "@/pages/PuzzlePage"
+import BubblePopPage from "@/pages/BubblePopPage"
 
 export const router = createBrowserRouter(
   [
@@ -28,6 +29,7 @@ export const router = createBrowserRouter(
         { path: "memory", element: <MemoryGamePage /> },
         { path: "worm", element: <WormGamePage /> },
         { path: "puzzle", element: <PuzzlePage /> },
+        { path: "bubble-pop", element: <BubblePopPage /> },
       ],
     },
   ],

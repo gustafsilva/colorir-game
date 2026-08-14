@@ -1104,6 +1104,79 @@
   }
 }
 
+/* ─── Estoura Bolhas ─── */
+
+/* Bolha subindo a tela inteira com drift lateral suave (mais calmo que
+   o balão — bolha de sabão flutua, não é puxada) */
+@keyframes bubble-rise {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-32vh) translateX(10px);
+  }
+  50% {
+    transform: translateY(-64vh) translateX(-8px);
+  }
+  75% {
+    transform: translateY(-96vh) translateX(9px);
+  }
+  100% {
+    transform: translateY(-130vh) translateX(0);
+  }
+}
+
+/* Sob reduce a subida troca para esta versão sem drift */
+@keyframes bubble-rise-calm {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-130vh);
+  }
+}
+
+/* Wobble suave de "cor errada" — nunca no mesmo elemento da subida
+   (transforms concorrentes se sobrescrevem; o wobble fica no div interno) */
+@keyframes bubble-wobble-once {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-6deg) scale(1.05);
+  }
+  50% {
+    transform: rotate(5deg) scale(0.97);
+  }
+  75% {
+    transform: rotate(-4deg) scale(1.02);
+  }
+}
+
+/* A subida é mecânica do jogo (não decoração): continua sob
+   prefers-reduced-motion, sem drift e mais lenta — precedente do balloon-rise. */
+.bubble-rise {
+  animation: bubble-rise var(--rise-duration, 9s) linear both;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bubble-wobble-once {
+    animation: bubble-wobble-once 450ms ease-out both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble-rise {
+    animation-name: bubble-rise-calm;
+    animation-duration: calc(var(--rise-duration, 9s) * 1.6);
+  }
+  .bubble-wobble-once {
+    animation: none;
+  }
+}
+
 /* ─── Aviso de rotação ───
    Jogos são desenhados para retrato; em paisagem, o layout não cabe
    (ver BUG-02 em docs/bugs.md). O overlay cobre a tela inteira só

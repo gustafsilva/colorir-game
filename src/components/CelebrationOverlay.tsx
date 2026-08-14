@@ -80,7 +80,18 @@ export default function CelebrationOverlay({ milestone, onDismiss }: Celebration
     () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   )
 
+  const mountedAtRef = useRef(0)
+
+  // Carência pós-montagem: quando a ação que completa a fase acontece no
+  // pointerdown (ex.: estourar bolha), o overlay monta ENTRE o down e o up
+  // e o click do mesmo toque cairia aqui, engolindo a celebração no
+  // instante em que ela aparece.
+  useEffect(() => {
+    if (milestone !== "none") mountedAtRef.current = performance.now()
+  }, [milestone])
+
   const handleDismiss = useCallback(() => {
+    if (performance.now() - mountedAtRef.current < 350) return
     onDismiss()
   }, [onDismiss])
 

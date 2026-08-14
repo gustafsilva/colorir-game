@@ -95,6 +95,16 @@ export function puzzleSlotNumber(label: string): string {
   return label.replace(/^Lugar da peça\s+/, "").replace(/\s+com peça encaixada$/, "").trim()
 }
 
+// --- Estoura Bolhas --------------------------------------------------------
+export const BUBBLE = 'button[aria-label^="Bolha "]'
+export const BUBBLE_COUNTER = '[aria-label$="bolhas estouradas"]'
+export const BUBBLE_TARGET = 'button[aria-label^="Estoure as bolhas "]'
+
+/** "Bolha azul" → "azul" */
+export function bubbleColor(label: string): string {
+  return label.replace(/^Bolha\s+/, "").trim()
+}
+
 // --- Colorir -------------------------------------------------------------
 export const PALETTE = '[role="radiogroup"][aria-label="Paleta de cores"]'
 export const PALETTE_COLOR = `${PALETTE} [role="radio"]`
@@ -126,6 +136,8 @@ export const ROUTES: Route[] = [
   { path: "memory", name: "Memória", ready: CARD_DOWN },
   { path: "worm", name: "Minhoca Comilona", ready: WORM_FRUIT },
   { path: "puzzle", name: "Quebra-Cabeça", ready: PUZZLE_PIECE },
+  // A primeira bolha nasce imediatamente (spawn sem esperar o intervalo)
+  { path: "bubble-pop", name: "Estoura Bolhas", ready: BUBBLE },
 ]
 
 // --- localStorage --------------------------------------------------------
