@@ -68,6 +68,16 @@ export const NAIL_UNDO = 'button[aria-label="Desfazer"]'
 export const NAIL_CLEAR = 'button[aria-label="Limpar tudo"]'
 export const NAIL_TARGET = '[role="button"]'
 
+// --- Estoura Bolhas --------------------------------------------------------
+export const BUBBLE = 'button[aria-label^="Bolha "]'
+export const BUBBLE_COUNTER = '[aria-label$="bolhas estouradas"]'
+export const BUBBLE_TARGET = 'button[aria-label^="Estoure as bolhas "]'
+
+/** "Bolha azul" → "azul" */
+export function bubbleColor(label: string): string {
+  return label.replace(/^Bolha\s+/, "").trim()
+}
+
 // --- Colorir -------------------------------------------------------------
 export const PALETTE = '[role="radiogroup"][aria-label="Paleta de cores"]'
 export const PALETTE_COLOR = `${PALETTE} [role="radio"]`
@@ -97,6 +107,8 @@ export const ROUTES: Route[] = [
   { path: "shape-fit", name: "Encaixe de Formas", ready: PIECE },
   { path: "fruit-slice", name: "Corta-Frutas", ready: BACK_BUTTON },
   { path: "memory", name: "Memória", ready: CARD_DOWN },
+  // A primeira bolha nasce imediatamente (spawn sem esperar o intervalo)
+  { path: "bubble-pop", name: "Estoura Bolhas", ready: BUBBLE },
 ]
 
 // --- localStorage --------------------------------------------------------
