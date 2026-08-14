@@ -10,6 +10,7 @@ import DuckSVG from "@/components/game/DuckSVG"
 import ShapeSVG from "@/components/game/ShapeSVG"
 import FruitSVG from "@/components/game/FruitSVG"
 import { MEMORY_FACES } from "@/components/game/MemoryFaces"
+import BubbleSVG from "@/components/game/BubbleSVG"
 import { useCompletedDrawings } from "@/hooks/useCompletedDrawings"
 import { useHighScore } from "@/hooks/useHighScore"
 import type { NailDecor, NailId } from "@/hooks/useNailSalon"
@@ -190,6 +191,32 @@ export default function HomePage() {
                   <div className="flex items-center justify-center rounded-lg border-2 border-white bg-white p-1 shadow-sm">
                     {MEMORY_FACES.strawberry.render()}
                   </div>
+                </div>
+              }
+            />
+
+            <HubCard
+              to="/bubble-pop"
+              title="Estoura Bolhas"
+              accentColor="var(--color-crayon-blue)"
+              badge="Vamos estourar!"
+              index={7}
+              icon={
+                <div className="grid h-[120px] w-[120px] grid-cols-2 gap-1.5">
+                  {(
+                    [
+                      "var(--color-crayon-blue)",
+                      "var(--color-crayon-pink)",
+                      "var(--color-crayon-yellow)",
+                      "var(--color-crayon-green)",
+                    ] as const
+                  ).map((color) => (
+                    <BubbleSVG
+                      key={color}
+                      color={color}
+                      className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.15)]"
+                    />
+                  ))}
                 </div>
               }
             />
