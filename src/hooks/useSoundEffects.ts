@@ -42,7 +42,11 @@ export function useSoundEffects(): SoundEffects {
 
   const getContext = useCallback(async (): Promise<AudioContext | null> => {
     if (!ctxRef.current) {
-      ctxRef.current = new AudioContext()
+      try {
+        ctxRef.current = new AudioContext()
+      } catch {
+        return null
+      }
     }
     if (ctxRef.current.state === "suspended") {
       try {
