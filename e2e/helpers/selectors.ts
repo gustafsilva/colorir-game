@@ -8,15 +8,12 @@
  */
 
 /**
- * Botão de voltar das telas de JOGO.
- *
- * Atenção: a galeria de colorir usa um rótulo diferente — "Voltar ao
- * início" (GalleryHeader.tsx:22), num `<a>` em vez de `<button>`. Use
- * ANY_BACK quando o alvo puder ser qualquer uma das duas telas.
+ * Botão de voltar. Mesmo rótulo em toda tela (BUG-07 corrigido — ver
+ * docs/bugs.md); a galeria usa um `<a>`, os jogos usam `<button>`, então
+ * ANY_BACK casa os dois elementos pelo aria-label comum.
  */
 export const BACK_BUTTON = 'button[aria-label="Voltar para o início"]'
-export const GALLERY_BACK = 'a[aria-label="Voltar ao início"]'
-export const ANY_BACK = `${BACK_BUTTON}, ${GALLERY_BACK}`
+export const ANY_BACK = '[aria-label="Voltar para o início"]'
 
 // --- Patinhos no Ninho ---------------------------------------------------
 export const DUCK = '[role="button"][aria-label^="Patinho "]'

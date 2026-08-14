@@ -19,7 +19,7 @@ export default function GalleryHeader() {
       {/* Botão home (voltar ao hub) */}
       <Link
         to="/"
-        aria-label="Voltar ao início"
+        aria-label="Voltar para o início"
         className="btn-puffy absolute top-0 left-0 z-20 flex h-12 w-12 items-center justify-center rounded-full border-[3px] border-white/60 outline-none focus-visible:ring-4 focus-visible:ring-white/70 focus-visible:ring-offset-2"
         style={{ ["--btn-color" as string]: "var(--color-crayon-purple)" }}
       >
