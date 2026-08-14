@@ -129,11 +129,15 @@
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     user-select: none;
+    height: 100%;
     overflow: hidden;
     overscroll-behavior: none;
   }
   html {
     @apply font-sans;
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
     touch-action: manipulation;
   }
 }
