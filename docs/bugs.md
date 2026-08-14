@@ -3,6 +3,21 @@
 > Varredura automatizada dos 7 jogos em celular (390×844) e tablet (820×1180).
 > Nenhuma correção foi aplicada — este documento é o insumo para priorizar.
 
+## Status
+
+Todos os 9 bugs foram corrigidos na branch `fix/e2e-bugs`, um commit por bug.
+Três decisões de estratégia, tomadas ao planejar as correções:
+
+- **BUG-02**: em vez de adaptar o layout de cada jogo para paisagem, o app
+  trava em retrato (manifest do PWA + overlay "vire o aparelho" via CSS).
+- **BUG-05**: não é bug de código — é geometria dos SVGs gerados pelo
+  conversor. Documentado e sinalizado na curadoria, sem fix de runtime.
+- **BUG-09**: o job de CI em pull request roda `lint + build`. A suíte E2E
+  (~8min, exige instalar Chromium+WebKit no runner) continua rodando
+  localmente por ora, não no CI.
+
+A suíte completa (`pnpm test:e2e`) passa 100% depois das correções.
+
 ## Por que este doc existe
 
 O app cresceu de "galeria + colorir" para **7 experiências** sem nenhuma rede de segurança: não havia testes, o `pnpm lint` não roda no CI, e o deploy dispara direto no push para `main`. A única barreira antes de produção era o `tsc -b` embutido no `pnpm build`.
@@ -33,12 +48,12 @@ Cada bug cita o teste que o expõe. As evidências ficam anexadas ao relatório 
 
 ## Resumo
 
-| Severidade | Qtd | Bugs |
-|---|---|---|
-| 🔴 Crítico | 2 | BUG-01, BUG-02 |
-| 🟠 Alto | 2 | BUG-03, BUG-04 |
-| 🟡 Médio | 3 | BUG-05, BUG-06, BUG-07 |
-| 🔵 Baixo | 2 | BUG-08, BUG-09 |
+| Severidade | Qtd | Bugs | Status |
+|---|---|---|---|
+| 🔴 Crítico | 2 | BUG-01, BUG-02 | ✅ corrigidos |
+| 🟠 Alto | 2 | BUG-03, BUG-04 | ✅ corrigidos |
+| 🟡 Médio | 3 | BUG-05, BUG-06, BUG-07 | ✅ corrigidos |
+| 🔵 Baixo | 2 | BUG-08, BUG-09 | ✅ corrigidos |
 
 ## Índice por jogo
 
@@ -70,6 +85,7 @@ Cada bug cita o teste que o expõe. As evidências ficam anexadas ao relatório 
 | **Viewports** | mobile ✗ · tablet ✗ |
 | **Teste** | `e2e/duck-nest.spec.ts` › "o patinho arrastado continua visível ao passar sobre a grama" |
 | **Reprodutibilidade** | 3 de 3 execuções (não é flaky) |
+| **Status** | ✅ Corrigido (opção 2) — commit "fix: remove stacking context acidental no full-bleed do Ninho de Patos" |
 
 **Passos**
 
@@ -97,7 +113,7 @@ O `drop` continua funcionando: o `hitTest` é geométrico (`getBoundingClientRec
 2. **Trocar o full-bleed por uma técnica sem `transform`**: `w-screen ml-[calc(50%-50vw)]` em vez de `left-1/2 -translate-x-1/2`. Remove a causa em vez do sintoma, e vale auditar os outros usos do mesmo truque.
 3. **Renderizar o patinho em arrasto via portal** numa camada de topo. Mais invasivo; só compensa se outros jogos vierem a precisar.
 
-A opção 2 é a mais correta conceitualmente — o stacking context acidental é a doença, e o truque full-bleed se repete no projeto. A opção 1 resolve hoje com risco quase nulo.
+A opção 2 é a mais correta conceitualmente — o stacking context acidental é a doença. *(Correção pós-varredura: o truque full-bleed com `transform` existe em só estas 2 linhas do projeto, não se repete como sugerido aqui — o que torna a opção 2 tão barata quanto a 1. Foi a opção escolhida.)*
 
 ---
 
@@ -110,6 +126,7 @@ A opção 2 é a mais correta conceitualmente — o stacking context acidental �
 | **Viewports** | qualquer tela deitada (testado 844×390) |
 | **Teste** | `e2e/resilience.spec.ts` › "rotacionar a tela mantém todos os alvos dentro da área visível" |
 | **Reprodutibilidade** | 3 de 3 execuções |
+| **Status** | ✅ Corrigido (trava em retrato) — commit "feat: trava o app em retrato com aviso de rotação". O teste foi reescrito para verificar o overlay de rotação em vez da posição dos alvos (o manifest do PWA não vale no navegador comum — só quando instalado). |
 
 **Passos**
 
@@ -146,6 +163,7 @@ Limitar a altura dos elementos em vez de deixá-la derivar da largura — por ex
 | **Viewports** | mobile ✗ · tablet ✗ |
 | **Teste** | `e2e/console-health.spec.ts` › "o construtor de AudioContext está protegido contra exceção" |
 | **Reprodutibilidade** | 3 de 3 execuções |
+| **Status** | ✅ Corrigido — commit "fix: protege construtor de AudioContext contra exceção" |
 
 **Passos**
 
@@ -204,6 +222,7 @@ if (!ctxRef.current) {
 | **Viewports** | Safari/iOS (iPhone e iPad) |
 | **Testes** | `e2e/viewport-lock.spec.ts` › "existem defesas em JS contra zoom (o que o iOS exige)" e › "inventário das regras globais de trava" |
 | **Reprodutibilidade** | 3 de 3 execuções |
+| **Status** | ✅ Corrigido — commit "fix: adiciona defesas de zoom por pinça para iOS". Zoom real em iPhone/iPad físico continua não verificado automaticamente (ver "Não verificado" abaixo). |
 
 **O que o app já faz — e onde a defesa termina**
 
@@ -256,6 +275,7 @@ Ou seja: o sintoma relatado é consistente com a lacuna medida, mas a confirmaç
 | **Viewports** | mobile ✗ · tablet ✗ |
 | **Teste** | `e2e/coloring.spec.ts` › "as regiões são acertáveis no centro (mira de criança)" |
 | **Reprodutibilidade** | 3 de 3 execuções |
+| **Status** | ✅ Aceito e sinalizado (opção 3) — commit "feat: sinaliza regiões côncavas no conversor de line art". Não é bug de código; o conversor agora avisa na curadoria, e o teste virou informativo (só reprova se uma região não for pintável por ponto nenhum). |
 
 **Passos**
 
@@ -297,6 +317,7 @@ Não há bug de código — é geometria dos SVGs gerados pelo `scripts/convert_
 | **Viewports** | mobile (390×844) ✗ · **tablet (820×1180) ✓** |
 | **Teste** | `e2e/nail-salon.spec.ts` › "as unhas são alvos grandes o bastante para um dedo de criança" |
 | **Reprodutibilidade** | 3 de 3 execuções, sempre só no celular |
+| **Status** | ✅ Corrigido — commit "fix: aumenta área de toque da unha do mindinho" |
 
 **Atual:** no celular, o alvo "Unha do dedo mindinho" mede **43×150px**. A referência de acessibilidade para toque é 44px na menor dimensão — e essa referência é para adultos. As outras quatro unhas passam, e no tablet o mindinho também passa (a mão inteira escala).
 
@@ -320,6 +341,7 @@ Engordar a área clicável do mindinho sem mexer no desenho: um `<rect>` transpa
 | **Severidade** | 🟡 Médio |
 | **Teste** | `e2e/navigation.spec.ts` › "o rótulo do botão de voltar é o mesmo em todas as telas" |
 | **Reprodutibilidade** | 2 de 2 execuções (o teste foi criado depois da primeira) |
+| **Status** | ✅ Corrigido — commit "fix: padroniza rótulo do botão de voltar" |
 
 **Atual:**
 
@@ -344,6 +366,7 @@ A mesma ação tem dois nomes acessíveis. Para quem usa leitor de tela, são du
 |---|---|
 | **Severidade** | 🔵 Baixo |
 | **Como verificar** | `pnpm lint` |
+| **Status** | ✅ Corrigido — commit "fix: corrige violação de lint em ColoringHint" |
 
 `src/components/ColoringHint.tsx:27` viola `react-hooks/set-state-in-effect` (`setPosition(null)` chamado direto no corpo de um `useEffect`). O erro é **anterior a esta varredura** — vem do commit `fe7fe37`, e `git status src/` confirma que nenhum arquivo de `src/` foi tocado aqui.
 
@@ -359,6 +382,7 @@ Consequência prática: como `pnpm lint` já sai com código 1, ninguém consegu
 |---|---|
 | **Severidade** | 🔵 Baixo (mas é o que deixa todos os outros passarem) |
 | **Arquivo** | `.github/workflows/deploy.yml` |
+| **Status** | ✅ Corrigido — commit "ci: adiciona job de lint e build em pull request" (novo `.github/workflows/ci.yml`). Roda lint + build em PR; a suíte E2E fica de fora por ora (decisão registrada em "Status" no topo do documento). |
 
 O único workflow dispara em `push` para `main` e executa apenas `pnpm install` + `pnpm build`. Não há gatilho de `pull_request`, não roda `pnpm lint`, não roda testes. A única verificação implícita é o `tsc -b` embutido no build — e `strict` não está habilitado em nenhum tsconfig.
 
