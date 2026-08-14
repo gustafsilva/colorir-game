@@ -17,18 +17,20 @@ Após pesquisa de mecânicas adequadas a crianças de 2–5 anos (sem fail state
 | Etapa | Minhoca | Quebra-cabeça | Bolhas |
 |---|---|---|---|
 | Design | ✅ | ✅ | ✅ |
-| Branch criada | ⬜ | ⬜ | ⬜ |
-| Implementação | ⬜ | ⬜ | ⬜ |
-| Lint + build | ⬜ | ⬜ | ⬜ |
-| Spec E2E escrito | ⬜ | ⬜ | ⬜ |
-| E2E rodando verde | ⬜ | ⬜ | ⬜ |
-| Commits + push | ⬜ | ⬜ | ⬜ |
+| Branch criada | ✅ | ⬜ | ⬜ |
+| Implementação | ✅ | ⬜ | ⬜ |
+| Lint + build | ✅ | ⬜ | ⬜ |
+| Spec E2E escrito | ✅ | ⬜ | ⬜ |
+| E2E rodando verde | ✅ | ⬜ | ⬜ |
+| Commits + push | ✅ | ⬜ | ⬜ |
 
 ## Onde parei / próximo passo
 
 - **Última atualização:** 2026-08-14
-- **Feito:** pesquisa de mecânicas, design detalhado dos 3 jogos (plano completo em `~/.claude/plans/jaunty-hugging-ember.md` da sessão de planejamento; decisões resumidas abaixo), este doc criado na branch `docs/novos-jogos`.
-- **Próximo passo:** implementar a **Minhoca Comilona** na branch `feat/worm-game` (ordem: Minhoca → Quebra-cabeça → Bolhas).
+- **Feito:**
+  - Pesquisa de mecânicas + design detalhado dos 3 jogos (decisões resumidas abaixo).
+  - **Minhoca Comilona pronta** na branch `feat/worm-game` (pushed): 3 commits (`playChomp` no useSoundEffects → jogo completo → suíte E2E). `e2e/minhoca.spec.ts` com 5 testes verdes + smoke/navigation/console-health verdes em todos os projects (158 passed). Verificação visual ok (tabuleiro, hub card).
+- **Próximo passo:** implementar o **Quebra-cabeça** na branch `feat/puzzle-game` (depois: Estoura Bolhas).
 
 ## Decisões técnicas (resumo por jogo)
 
