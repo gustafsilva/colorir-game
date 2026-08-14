@@ -9,6 +9,7 @@ import HandSVG from "@/components/game/HandSVG"
 import DuckSVG from "@/components/game/DuckSVG"
 import ShapeSVG from "@/components/game/ShapeSVG"
 import FruitSVG from "@/components/game/FruitSVG"
+import { MEMORY_FACES } from "@/components/game/MemoryFaces"
 import { useCompletedDrawings } from "@/hooks/useCompletedDrawings"
 import { useHighScore } from "@/hooks/useHighScore"
 import type { NailDecor, NailId } from "@/hooks/useNailSalon"
@@ -157,6 +158,38 @@ export default function HomePage() {
                     kind="strawberry"
                     className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
                   />
+                </div>
+              }
+            />
+
+            <HubCard
+              to="/memory"
+              title="Memória"
+              accentColor="var(--color-crayon-turquoise)"
+              badge="Vamos lembrar!"
+              index={6}
+              icon={
+                <div className="grid h-[120px] w-[120px] grid-cols-2 gap-1.5">
+                  {/* Duas cartas de verso + duas faces, como um tabuleiro em jogo */}
+                  {[0, 1].map((i) => (
+                    <div
+                      key={i}
+                      className="flex items-center justify-center rounded-lg border-2 border-white/70 bg-gradient-to-b from-[var(--color-crayon-turquoise)] to-[color-mix(in_srgb,var(--color-crayon-turquoise)_70%,black)] shadow-sm"
+                    >
+                      <svg viewBox="0 0 100 100" aria-hidden="true" className="h-2/3 w-2/3">
+                        <path
+                          d="M50 8 L61 36 L91 39 L69 59 L75 89 L50 74 L25 89 L31 59 L9 39 L39 36 Z"
+                          fill="rgba(255,255,255,0.85)"
+                        />
+                      </svg>
+                    </div>
+                  ))}
+                  <div className="flex items-center justify-center rounded-lg border-2 border-white bg-white p-1 shadow-sm">
+                    {MEMORY_FACES.rabbit.render()}
+                  </div>
+                  <div className="flex items-center justify-center rounded-lg border-2 border-white bg-white p-1 shadow-sm">
+                    {MEMORY_FACES.strawberry.render()}
+                  </div>
                 </div>
               }
             />

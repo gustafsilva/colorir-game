@@ -8,6 +8,7 @@ import NailSalonPage from "@/pages/NailSalonPage"
 import DuckNestPage from "@/pages/DuckNestPage"
 import ShapeFitPage from "@/pages/ShapeFitPage"
 import FruitSlicePage from "@/pages/FruitSlicePage"
+import MemoryGamePage from "@/pages/MemoryGamePage"
 
 export const router = createBrowserRouter(
   [
@@ -22,6 +23,7 @@ export const router = createBrowserRouter(
         { path: "duck-nest", element: <DuckNestPage /> },
         { path: "shape-fit", element: <ShapeFitPage /> },
         { path: "fruit-slice", element: <FruitSlicePage /> },
+        { path: "memory", element: <MemoryGamePage /> },
       ],
     },
   ],
