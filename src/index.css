@@ -808,3 +808,69 @@
     animation-duration: calc(var(--rise-duration, 5s) * 1.5);
   }
 }
+
+/* ─── Encaixe de Formas ─── */
+
+/* Peça entra com pop giradinho */
+@keyframes shape-arrive {
+  0% {
+    transform: scale(0) rotate(-12deg);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.12) rotate(2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Balanço sutil das peças paradas, convidando ao toque */
+@keyframes shape-wobble {
+  0%, 100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+/* Peça assentando no buraco certo */
+@keyframes shape-settle {
+  0% {
+    transform: scale(1.25);
+    opacity: 0.6;
+  }
+  60% {
+    transform: scale(0.94);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .shape-arrive {
+    animation: shape-arrive 450ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation-delay: var(--arrive-delay, 0ms);
+  }
+  .shape-wobble {
+    animation: shape-wobble 2.2s ease-in-out infinite;
+    animation-delay: var(--wobble-delay, 0ms);
+  }
+  .shape-settle {
+    animation: shape-settle 350ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shape-arrive,
+  .shape-wobble,
+  .shape-settle {
+    animation: none;
+  }
+}

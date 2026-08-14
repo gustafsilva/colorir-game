@@ -6,6 +6,7 @@ import ColoringPage from "@/pages/ColoringPage"
 import RabbitHuntPage from "@/pages/RabbitHuntPage"
 import NailSalonPage from "@/pages/NailSalonPage"
 import DuckNestPage from "@/pages/DuckNestPage"
+import ShapeFitPage from "@/pages/ShapeFitPage"
 
 export const router = createBrowserRouter(
   [
@@ -18,6 +19,7 @@ export const router = createBrowserRouter(
         { path: "rabbit-hunt", element: <RabbitHuntPage /> },
         { path: "nail-salon", element: <NailSalonPage /> },
         { path: "duck-nest", element: <DuckNestPage /> },
+        { path: "shape-fit", element: <ShapeFitPage /> },
       ],
     },
   ],

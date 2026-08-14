@@ -7,6 +7,7 @@ import HubCard from "@/components/HubCard"
 import RabbitSVG from "@/components/game/RabbitSVG"
 import HandSVG from "@/components/game/HandSVG"
 import DuckSVG from "@/components/game/DuckSVG"
+import ShapeSVG from "@/components/game/ShapeSVG"
 import { useCompletedDrawings } from "@/hooks/useCompletedDrawings"
 import { useHighScore } from "@/hooks/useHighScore"
 import type { NailDecor, NailId } from "@/hooks/useNailSalon"
@@ -92,6 +93,38 @@ export default function HomePage() {
               icon={
                 <div className="h-[120px] w-[120px]">
                   <DuckSVG
+                    color="var(--color-crayon-yellow)"
+                    className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
+                  />
+                </div>
+              }
+            />
+
+            <HubCard
+              to="/shape-fit"
+              title="Encaixe de Formas"
+              accentColor="var(--color-crayon-orange)"
+              badge="Vamos encaixar!"
+              index={4}
+              icon={
+                <div className="grid h-[120px] w-[120px] grid-cols-2 gap-1.5">
+                  <ShapeSVG
+                    shape="circle"
+                    color="var(--color-crayon-red)"
+                    className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
+                  />
+                  <ShapeSVG
+                    shape="square"
+                    color="var(--color-crayon-blue)"
+                    className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
+                  />
+                  <ShapeSVG
+                    shape="triangle"
+                    color="var(--color-crayon-green)"
+                    className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
+                  />
+                  <ShapeSVG
+                    shape="star"
                     color="var(--color-crayon-yellow)"
                     className="h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
                   />
