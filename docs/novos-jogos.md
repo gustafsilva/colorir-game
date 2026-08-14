@@ -17,12 +17,12 @@ Após pesquisa de mecânicas adequadas a crianças de 2–5 anos (sem fail state
 | Etapa | Minhoca | Quebra-cabeça | Bolhas |
 |---|---|---|---|
 | Design | ✅ | ✅ | ✅ |
-| Branch criada | ✅ | ⬜ | ⬜ |
-| Implementação | ✅ | ⬜ | ⬜ |
-| Lint + build | ✅ | ⬜ | ⬜ |
-| Spec E2E escrito | ✅ | ⬜ | ⬜ |
-| E2E rodando verde | ✅ | ⬜ | ⬜ |
-| Commits + push | ✅ | ⬜ | ⬜ |
+| Branch criada | ✅ | ✅ | ⬜ |
+| Implementação | ✅ | ✅ | ⬜ |
+| Lint + build | ✅ | ✅ | ⬜ |
+| Spec E2E escrito | ✅ | ✅ | ⬜ |
+| E2E rodando verde | ✅ | ✅ | ⬜ |
+| Commits + push | ✅ | ✅ | ⬜ |
 
 ## Onde parei / próximo passo
 
@@ -30,7 +30,8 @@ Após pesquisa de mecânicas adequadas a crianças de 2–5 anos (sem fail state
 - **Feito:**
   - Pesquisa de mecânicas + design detalhado dos 3 jogos (decisões resumidas abaixo).
   - **Minhoca Comilona pronta** na branch `feat/worm-game` (pushed): 3 commits (`playChomp` no useSoundEffects → jogo completo → suíte E2E). `e2e/minhoca.spec.ts` com 5 testes verdes + smoke/navigation/console-health verdes em todos os projects (158 passed). Verificação visual ok (tabuleiro, hub card).
-- **Próximo passo:** implementar o **Quebra-cabeça** na branch `feat/puzzle-game` (depois: Estoura Bolhas).
+  - **Quebra-cabeça pronto** na branch `feat/puzzle-game` (pushed): 5 commits (dados+PuzzleArt → hook → página+drag → rota+hub → E2E). `e2e/puzzle.spec.ts` com 7 testes verdes + transversais (162 passed em todos os projects). Nota de teste: "mira generosa" precisa mirar a peça 1 (canto superior) — soltar acima de um lugar com vizinho em cima perde no desempate por distância, o que é o comportamento correto do jogo.
+- **Próximo passo:** implementar o **Estoura Bolhas** na branch `feat/bubble-pop-game` (último jogo da leva).
 
 ## Decisões técnicas (resumo por jogo)
 
