@@ -23,6 +23,13 @@ interface FingerSpec {
   /** Posição/escala da unha na ponta do dedo */
   nail: { x: number; y: number; scale: number; rotate?: number }
   rotate?: number
+  /**
+   * Retângulo invisível que engorda a área de toque sem alterar o visual do
+   * dedo. O mindinho sozinho fica abaixo do alvo mínimo de 44px no celular
+   * (BUG-06 em docs/bugs.md); expande para a direita/baixo porque à
+   * esquerda o anelar está a só 3 unidades de distância.
+   */
+  hitPad?: { x: number; y: number; width: number; height: number }
 }
 
 /** Dedos retos (indicador → mindinho); o polegar é desenhado à parte, por cima da palma. */
@@ -30,7 +37,15 @@ const FINGERS: FingerSpec[] = [
   { id: "index", cx: 70, cy: 112, rx: 14, ry: 52, nail: { x: 70, y: 80, scale: 1 } },
   { id: "middle", cx: 102, cy: 104, rx: 14.5, ry: 56, nail: { x: 102, y: 70, scale: 1.05 } },
   { id: "ring", cx: 134, cy: 112, rx: 14, ry: 52, nail: { x: 134, y: 80, scale: 1 } },
-  { id: "pinky", cx: 163, cy: 126, rx: 12, ry: 42, nail: { x: 163, y: 102, scale: 0.85 } },
+  {
+    id: "pinky",
+    cx: 163,
+    cy: 126,
+    rx: 12,
+    ry: 42,
+    nail: { x: 163, y: 102, scale: 0.85 },
+    hitPad: { x: 149, y: 84, width: 40, height: 84 },
+  },
 ]
 
 const THUMB: FingerSpec = {
@@ -84,6 +99,15 @@ export default function HandSVG({ className, nails, onNailTap }: HandSVGProps) {
 
     return (
       <g key={finger.id} className={interactive ? "nail-finger" : undefined} {...a11yProps}>
+        {interactive && finger.hitPad && (
+          <rect
+            x={finger.hitPad.x}
+            y={finger.hitPad.y}
+            width={finger.hitPad.width}
+            height={finger.hitPad.height}
+            fill="transparent"
+          />
+        )}
         <ellipse
           cx={finger.cx}
           cy={finger.cy}
