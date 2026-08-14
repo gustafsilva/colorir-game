@@ -23,10 +23,7 @@ export default function ColoringHint({ visible }: ColoringHintProps) {
   const [position, setPosition] = useState<HintPosition | null>(null)
 
   useEffect(() => {
-    if (!visible) {
-      setPosition(null)
-      return
-    }
+    if (!visible) return
 
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
     if (motionQuery.matches) return
