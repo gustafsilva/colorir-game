@@ -167,7 +167,7 @@ export default function DuckNestPage() {
         {(mode === "playing" || mode === "phaseComplete") && (
           <div className="relative z-10 flex w-full flex-1 flex-col items-center">
             {/* Lago — grudado no topo e desce até a grama; o cabeçalho flutua sobre a água */}
-            <div className="relative left-1/2 -mt-4 flex w-screen flex-1 -translate-x-1/2 flex-col justify-center bg-gradient-to-b from-sky-200/90 via-blue-200/90 to-blue-300/90 pb-7 pt-20 shadow-[inset_0_-6px_14px_rgba(30,100,200,0.22)] sm:-mt-6 sm:pt-24">
+            <div className="relative -mt-4 ml-[calc(50%-50vw)] flex w-screen flex-1 flex-col justify-center bg-gradient-to-b from-sky-200/90 via-blue-200/90 to-blue-300/90 pb-7 pt-20 shadow-[inset_0_-6px_14px_rgba(30,100,200,0.22)] sm:-mt-6 sm:pt-24">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -207,7 +207,7 @@ export default function DuckNestPage() {
             </div>
 
             {/* Terra — faixa de grama de tela inteira até o rodapé */}
-            <div className="relative left-1/2 -mb-4 w-screen -translate-x-1/2 border-t-[6px] border-emerald-400/60 bg-gradient-to-b from-emerald-300/90 via-emerald-200/85 to-amber-200/90 pb-6 pt-6 sm:-mb-6">
+            <div className="relative -mb-4 ml-[calc(50%-50vw)] w-screen border-t-[6px] border-emerald-400/60 bg-gradient-to-b from-emerald-300/90 via-emerald-200/85 to-amber-200/90 pb-6 pt-6 sm:-mb-6">
               <div className="mx-auto grid w-full max-w-[640px] grid-cols-3 items-end gap-4 px-6 sm:gap-8">
                 {nestOrder.map((color) => (
                   <NestSlot
