@@ -10,6 +10,7 @@ import DuckSVG from "@/components/game/DuckSVG"
 import ShapeSVG from "@/components/game/ShapeSVG"
 import FruitSVG from "@/components/game/FruitSVG"
 import { MEMORY_FACES } from "@/components/game/MemoryFaces"
+import { WormHeadSVG, WormSegmentSVG } from "@/components/game/WormSVG"
 import { useCompletedDrawings } from "@/hooks/useCompletedDrawings"
 import { useHighScore } from "@/hooks/useHighScore"
 import type { NailDecor, NailId } from "@/hooks/useNailSalon"
@@ -189,6 +190,31 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-center justify-center rounded-lg border-2 border-white bg-white p-1 shadow-sm">
                     {MEMORY_FACES.strawberry.render()}
+                  </div>
+                </div>
+              }
+            />
+
+            <HubCard
+              to="/worm"
+              title="Minhoca Comilona"
+              accentColor="var(--color-crayon-green)"
+              badge="Vamos comer!"
+              index={7}
+              icon={
+                <div className="relative h-[120px] w-[120px] drop-shadow-[0_4px_10px_rgba(0,0,0,0.18)]">
+                  {/* Minhoca em "S" com uma maçã na frente */}
+                  <div className="absolute left-0 top-[58px] h-11 w-11">
+                    <WormSegmentSVG tone={1} className="h-full w-full" />
+                  </div>
+                  <div className="absolute left-[26px] top-[44px] h-11 w-11">
+                    <WormSegmentSVG tone={0} className="h-full w-full" />
+                  </div>
+                  <div className="absolute left-[48px] top-[26px] h-12 w-12">
+                    <WormHeadSVG dir="right" className="h-full w-full" />
+                  </div>
+                  <div className="absolute right-0 top-0 h-10 w-10">
+                    <FruitSVG kind="apple" className="h-full w-full" />
                   </div>
                 </div>
               }
