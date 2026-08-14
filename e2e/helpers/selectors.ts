@@ -68,6 +68,18 @@ export const NAIL_UNDO = 'button[aria-label="Desfazer"]'
 export const NAIL_CLEAR = 'button[aria-label="Limpar tudo"]'
 export const NAIL_TARGET = '[role="button"]'
 
+// --- Minhoca Comilona ------------------------------------------------------
+export const WORM_BOARD = '[role="group"][aria-label="Jardim da Minhoca Comilona"]'
+export const WORM = '[role="img"][aria-label^="Minhoca com "]'
+export const WORM_FRUIT = 'button[aria-label^="Fruta "]'
+export const WORM_COUNTER = '[aria-label$="frutas comidas"]'
+
+/** "Minhoca com 5 segmentos" → 5 */
+export function wormSegments(label: string): number {
+  const match = label.match(/Minhoca com (\d+) segmentos/)
+  return match ? Number(match[1]) : NaN
+}
+
 // --- Colorir -------------------------------------------------------------
 export const PALETTE = '[role="radiogroup"][aria-label="Paleta de cores"]'
 export const PALETTE_COLOR = `${PALETTE} [role="radio"]`
@@ -97,6 +109,7 @@ export const ROUTES: Route[] = [
   { path: "shape-fit", name: "Encaixe de Formas", ready: PIECE },
   { path: "fruit-slice", name: "Corta-Frutas", ready: BACK_BUTTON },
   { path: "memory", name: "Memória", ready: CARD_DOWN },
+  { path: "worm", name: "Minhoca Comilona", ready: WORM_FRUIT },
 ]
 
 // --- localStorage --------------------------------------------------------
