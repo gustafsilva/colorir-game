@@ -1,6 +1,6 @@
 import { test, expect } from "./helpers/fixtures"
 import { centerOf, touchDrag } from "./helpers/drag"
-import { DUCK, DUCK_ACTIVE, NEST, ROUTES, duckColor } from "./helpers/selectors"
+import { DUCK, DUCK_ACTIVE, NEST, ROTATE_DEVICE_OVERLAY, ROUTES, duckColor } from "./helpers/selectors"
 
 test.describe("resiliência — localStorage", () => {
   test("storage totalmente bloqueado não derruba nenhuma tela", async ({
@@ -144,14 +144,51 @@ test.describe("resiliência — recarregar e redimensionar", () => {
     ).toBeGreaterThan(0)
   })
 
-  test("rotacionar a tela mantém todos os alvos dentro da área visível", async ({ page }) => {
+  test("rotacionar a tela cobre o jogo com o aviso de rotação, e voltar ao retrato desfaz isso", async ({
+    page,
+  }) => {
     await page.goto("duck-nest")
     await expect(page.locator(DUCK).first()).toBeVisible()
     await page.waitForTimeout(1000)
 
-    // Paisagem — o caso que mais quebra layouts de h-svh.
+    const overlay = page.locator(ROTATE_DEVICE_OVERLAY)
+    await expect(overlay, "o aviso de rotação não deveria aparecer em retrato").toBeHidden()
+
+    // Paisagem — o caso que mais quebra layouts de h-svh (BUG-02). Em vez de
+    // adaptar o layout do jogo, o app trava em retrato e cobre a tela com um
+    // aviso — mais simples e sem risco de esconder alvos parcialmente.
     await page.setViewportSize({ width: 844, height: 390 })
     await page.waitForTimeout(900)
+
+    await expect(overlay, "o aviso de rotação deveria cobrir a tela em paisagem").toBeVisible()
+
+    const overlayBox = await overlay.evaluate((el) => {
+      const r = el.getBoundingClientRect()
+      return {
+        left: Math.round(r.left),
+        top: Math.round(r.top),
+        right: Math.round(r.right),
+        bottom: Math.round(r.bottom),
+        innerWidth: window.innerWidth,
+        innerHeight: window.innerHeight,
+      }
+    })
+    expect(overlayBox.left, "o aviso deveria cobrir a borda esquerda da tela").toBeLessThanOrEqual(0)
+    expect(overlayBox.top, "o aviso deveria cobrir a borda superior da tela").toBeLessThanOrEqual(0)
+    expect(
+      overlayBox.right,
+      "o aviso deveria cobrir a borda direita da tela",
+    ).toBeGreaterThanOrEqual(overlayBox.innerWidth)
+    expect(
+      overlayBox.bottom,
+      "o aviso deveria cobrir a borda inferior da tela",
+    ).toBeGreaterThanOrEqual(overlayBox.innerHeight)
+
+    // Voltar ao retrato esconde o aviso e os alvos voltam a ficar acessíveis.
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.waitForTimeout(900)
+
+    await expect(overlay, "o aviso não deveria persistir depois de voltar ao retrato").toBeHidden()
 
     const offscreen = await page.locator(`${DUCK}, ${NEST}`).evaluateAll((els) =>
       els
@@ -165,14 +202,9 @@ test.describe("resiliência — recarregar e redimensionar", () => {
         })
         .filter((b) => b.bottom > window.innerHeight + 2 || b.top < -2),
     )
-
-    await test.info().attach("elementos-fora-da-tela-paisagem.json", {
-      body: JSON.stringify(offscreen, null, 2),
-      contentType: "application/json",
-    })
     expect(
       offscreen,
-      `em paisagem, estes alvos ficam fora da tela: ${JSON.stringify(offscreen)}`,
+      `de volta ao retrato, estes alvos continuam fora da tela: ${JSON.stringify(offscreen)}`,
     ).toEqual([])
   })
 })

@@ -79,6 +79,7 @@ export const COLORABLE_PATH = ".colorable-path"
 // --- Overlays ------------------------------------------------------------
 export const CELEBRATION = '[role="button"][aria-label$=" — toque para continuar"]'
 export const PHASE_INDICATOR = '[aria-label^="Fase "]'
+export const ROTATE_DEVICE_OVERLAY = '.rotate-device-overlay'
 
 // --- Rotas ---------------------------------------------------------------
 // Declarado por último de propósito: as constantes acima são usadas aqui.

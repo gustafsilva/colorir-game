@@ -19,7 +19,7 @@ export default defineConfig({
         theme_color: "#4a7dff",
         background_color: "#f5f0e8",
         display: "standalone",
-        orientation: "any",
+        orientation: "portrait",
         categories: ["kids", "games", "education"],
         icons: [
           {

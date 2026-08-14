@@ -1027,3 +1027,34 @@
     animation: none;
   }
 }
+
+/* ─── Aviso de rotação ───
+   Jogos são desenhados para retrato; em paisagem, o layout não cabe
+   (ver BUG-02 em docs/bugs.md). O overlay cobre a tela inteira só
+   quando a orientação é paisagem e a altura é pequena o bastante para
+   ser um celular deitado — desktop/tablet paisagem tem altura de sobra
+   e não deve disparar o aviso. */
+.rotate-device-overlay {
+  display: none;
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .rotate-device-overlay {
+    display: flex;
+  }
+}
+
+@keyframes rotate-device-wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-90deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rotate-device-icon {
+    animation: rotate-device-wiggle 1.8s ease-in-out infinite;
+  }
+}
